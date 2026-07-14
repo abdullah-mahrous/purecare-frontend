@@ -1,0 +1,28 @@
+import Logo from "../Logo";
+import MobileMenuBtn from "./MobileMenuBtn";
+
+const NavBar = () => {
+    return (
+        <nav className="py-3 px-4 navbar block">
+            <ul className="flex justify-between items-center list-none w-full">
+                <li>
+                    <Logo />
+                </li>
+
+                <li className="flex items-center sm:hidden">
+                    <div className="flex justify-center items-center bg-[#dfeeff] border border-base-border rounded-full size-10 mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="size-6 text-primary" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path fill="currentColor" d="M19.95 21q-3.125 0-6.175-1.362t-5.55-3.863t-3.862-5.55T3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.238t.325.562l.65 3.5q.05.4-.025.675T9.4 8.45L6.975 10.9q.5.925 1.187 1.787t1.513 1.663q.775.775 1.625 1.438T13.1 17l2.35-2.35q.225-.225.588-.337t.712-.063l3.45.7q.35.1.575.363T21 15.9v4.05q0 .45-.3.75t-.75.3" />
+                        </svg>
+
+                    </div>
+                    
+                    <MobileMenuBtn />
+                </li>
+            </ul>
+        </nav>
+    )
+}
+
+export default NavBar;
