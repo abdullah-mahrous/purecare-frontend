@@ -17,9 +17,6 @@
 
 body {
     font-family: 'Manrope', system-ui, sans-serif;
-    background-color: var(--color-lightBg);
-    color: var(--color-lightText);
-    padding: 0;
 }
 
 .shadow {
