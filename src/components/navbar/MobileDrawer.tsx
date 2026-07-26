@@ -82,19 +82,21 @@ const MobileDrawer = () => {
         let timeoutId: number | undefined;
 
         if (isDrawerOpen) {
-            setShouldRender(true);
-            setIsVisible(false);
-
             mountFrameId = requestAnimationFrame(() => {
+                setShouldRender(true);
+                setIsVisible(false);
+
                 visibleFrameId = requestAnimationFrame(() => {
                     setIsVisible(true);
                 });
             });
         } else {
-            setIsVisible(false);
-            timeoutId = setTimeout(() => {
-                setShouldRender(false);
-            }, 350);
+            mountFrameId = requestAnimationFrame(() => {
+                setIsVisible(false);
+                timeoutId = setTimeout(() => {
+                    setShouldRender(false);
+                }, 350);
+            });
         }
 
         return () => {
@@ -129,15 +131,17 @@ const MobileDrawer = () => {
 
     return shouldRender ? (
         <div
-            className={`fixed inset-0 z-[60] block h-screen w-full bg-slate-900/35 transition-opacity duration-[350ms] ease-out sm:hidden ${
+            className={`fixed inset-0 z-60 block h-screen w-full bg-slate-900/35 transition-opacity duration-[350ms] ease-out sm:hidden ${
                 isVisible ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
             onClick={closeSidebar}
         >
             <div
-                className={`ml-auto flex h-full w-3/4 max-w-sm transform-gpu flex-col overflow-y-auto rounded-tl-[1.75rem] bg-white shadow-[-18px_0_50px_rgba(15,23,42,0.18)] transition-[translate,opacity] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[translate,opacity] ${
+                className={`ml-auto flex h-screen w-3/4 max-w-sm transform-gpu flex-col overflow-y-auto rounded-tl-[1.75rem] bg-white shadow-[-18px_0_50px_rgba(15,23,42,0.18)] transition-[translate,opacity] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[translate,opacity] ${
                     isVisible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`} 
                     onClick={(e) => e.stopPropagation()}>
+
+                {/* top section */}
                 <div className="bg-primary p-6">
                     <div className="flex items-center justify-between">
                         <Logo color="text-white" />
@@ -159,6 +163,7 @@ const MobileDrawer = () => {
                     </div>
                 </div>
 
+                {/* Navigation links */}
                 <div className="flex-1 overflow-y-auto p-6" dir="rtl">
                     <nav className="space-y-1" aria-label="Mobile navigation">
                         <Link
@@ -196,18 +201,18 @@ const MobileDrawer = () => {
                                 <ul className="list-disc space-y-4 py-4 pr-10 text-primary marker:text-primary marker:text-lg">
                                     {services.map((service, index) => (
                                         <li
-                                            key={service.to}
+                                            key={service.path}
                                             className={`transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                                                 isServicesOpen ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
                                             }`}
                                             style={{ transitionDelay: isServicesOpen ? `${index * 45}ms` : "0ms" }}
                                         >
                                             <Link
-                                                to={service.to}
+                                                to={service.path}
                                                 className="inline-flex text-base font-medium transition-colors duration-200 hover:text-secondary"
                                                 onClick={closeSidebar}
                                             >
-                                                {service.label}
+                                                {service.title}
                                             </Link>
                                         </li>
                                     ))}
@@ -228,6 +233,7 @@ const MobileDrawer = () => {
                         ))}
                     </nav>
 
+                    {/* emergency section */}
                     <div className="mt-8 rounded-xl bg-stale-red p-4">
                         <div className="flex items-center gap-3 text-emergancy">
                             <EmergencyIcon />

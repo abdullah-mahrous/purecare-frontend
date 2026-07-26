@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@import "@fontsource/cairo/400.css";
+@import "@fontsource/cairo/500.css";
+@import "@fontsource/cairo/600.css";
+@import "@fontsource/cairo/700.css";
+
 @theme static {
     --color-primary: #0B4A85;
     --color-secondary: #2DBE73;
@@ -16,13 +21,32 @@
 }
 
 body {
-    font-family: 'Manrope', system-ui, sans-serif;
+    font-family: 'Cairo', system-ui, sans-serif;
 }
 
 .shadow {
-    box-shadow: 0 8px 25px rgba(11, 74, 133, .08);
+    box-shadow: 0 8px 25px rgba(64, 62, 62, 0.25);
+}
+
+.trust-card::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-secondary);
+    clip-path: polygon(130% 0, 0 140%, 100% 100%);
 }
 
 .navbar {
     @apply sticky top-0 z-50 backdrop-blur-sm;
+}
+
+.swiper {
+    @apply mt-8 size-full;
+}
+
+.swiper-slide {
+    @apply rounded-lg p-1 mb-8;
 }
