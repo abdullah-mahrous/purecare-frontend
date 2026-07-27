@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { Autoplay, Pagination } from "swiper/modules";
 
+import { Autoplay, Pagination } from "swiper/modules";
 import { services } from "../services/navService";
 import { contacts, inquiryMessage } from "../services/contactsService";
 
@@ -9,6 +8,7 @@ import BaseBtn from "../components/BaseBtn";
 import EmergancyCTA from "../components/home/EmergancyCTA";
 import ServiceCard from "../components/home/ServiceCard";
 import TrustCard from "../components/home/TrustCard";
+import VideoContainer from "../components/home/VideoContainer";
 import heroImg from "../assets/hero-img.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -53,7 +53,7 @@ function HomePage() {
         </section>
 
         {/* qualities */}
-        <section className="px-5 py-8 text-center sm:px-8 sm:py-12 lg:px-12 lg:py-16">
+        <section className="px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-12 lg:py-24">
             <div className="mx-auto grid w-full max-w-4xl grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-4">
                 <TrustCard>
                     <svg
@@ -114,7 +114,7 @@ function HomePage() {
         <EmergancyCTA />
 
         {/* services section */}
-        <section className="px-5 pb-12 text-primary sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+        <section className="px-5 py-16 text-primary sm:px-8 sm:py-20 lg:px-12 lg:py-24">
             <div className="mx-auto w-full max-w-5xl">
                 <div className="text-center sm:text-left">
                     <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
@@ -145,7 +145,7 @@ function HomePage() {
                                 key={service.path}
                                 title={service.title}
                                 description={service.description}
-                                to={service.path}
+                                path={service.path}
                                 icon={service.icon}
                             />
                         </SwiperSlide>
@@ -153,6 +153,76 @@ function HomePage() {
                 </Swiper>
             </div>
         </section>
+
+        {/* about section */}
+        <section className="px-5 sm:px-8 lg:px-12">
+            <h3 className="text-2xl font-bold uppercase text-center mb-8 tracking-normal text-primary">
+                من نحن
+            </h3>
+
+            <div className="mx-auto w-full max-w-5xl">
+                <VideoContainer source="/src/assets/introduction.mp4" bubbles={true} />
+            </div>
+
+            <div className="pt-8 sm:pt-12 lg:pt-20 text-right">
+                <h3 className="text-xl font-bold uppercase tracking-normal text-primary">
+                    عن بيوركير
+                </h3>
+
+                <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary/75 sm:text-base">
+                    نحن فريق من المتخصصين في الرعاية الصحية المنزلية، ملتزمون بتقديم خدمات طبية عالية الجودة في راحة منزلك. هدفنا هو تحسين جودة حياتك من خلال توفير رعاية شخصية وموثوقة.
+                </p>
+            </div>
+        </section>
+
+        <hr className="border-primary/20 mx-5 mt-8" />
+
+        {/* why choose us section */}
+        <section className="px-5 py-8 text-primary sm:px-8 sm:py-12 lg:px-12 lg:py-16">
+
+            <div className="mx-auto w-full max-w-5xl">
+                <div className="text-center sm:text-left">
+                    <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
+                        لماذا تختارنا؟
+                    </h2>
+
+                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary sm:text-base">
+                        نقدم لك أفضل خدمات الرعاية الصحية المنزلية مع ضمان الجودة والموثوقية.
+                    </p>
+                </div>
+
+                <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <TrustCard>
+                        <span className="font-semibold leading-tight">
+                            فريق طبي متخصص
+                        </span>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-primary/75">
+                            لدينا فريق من الأطباء والممرضين المؤهلين لتقديم أفضل رعاية صحية في منزلك.
+                        </p>
+                    </TrustCard>
+
+                    <TrustCard>
+                        <span className="font-semibold leading-tight">
+                            خدمات متكاملة
+                        </span>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-primary/75">
+                            نقدم مجموعة واسعة من الخدمات الطبية لتلبية جميع احتياجاتك الصحية.
+                        </p>
+                    </TrustCard>
+
+                    <TrustCard>
+                        <span className="font-semibold leading-tight">
+                            استجابة سريعة
+                        </span>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-primary/75">
+                            نحن متواجدون على مدار الساعة لضمان حصولك على الرعاية عند الحاجة.
+                        </p>
+                    </TrustCard>
+                </div>
+            </div>
+
+        </section>
+
     </main>
   );
 }

@@ -3,14 +3,14 @@ import { Link } from "react-router";
 type ServiceCardProps = {
     title: string;
     description: string;
-    to: string;
+    path: string;
     icon: string;
 };
 
-const ServiceCard = ({ title, description, to, icon }: ServiceCardProps) => {
+const ServiceCard = ({ title, description, path, icon }: ServiceCardProps) => {
     return (
         <Link
-            to={to}
+            to={path}
             className="group flex h-full min-h-43 snap-start flex-col items-center rounded-lg bg-white px-3 py-4 text-center text-primary shadow-[0_12px_26px_rgba(11,74,133,0.12)] ring-1 ring-base-border/70 transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(11,74,133,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:px-4"
         >
             <img src={icon} alt="service icon" className="size-40"/>

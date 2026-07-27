@@ -5,7 +5,7 @@ import ambulanceImg from "../../assets/ambulance-vector.png";
 
 const EmergancyCTA = () => {
     return (
-        <section className="px-5 pb-10 sm:px-8 sm:pb-14 lg:px-12 lg:pb-16">
+        <section className="px-5 sm:px-8 lg:px-12">
             <div className="mx-auto max-w-4xl rounded-3xl bg-stale-red p-4 shadow sm:gap-8 sm:px-8">
                 <div className="flex items-center gap-2">
                     <img
