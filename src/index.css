@@ -48,5 +48,17 @@ body {
 }
 
 .swiper-slide {
-    @apply rounded-lg p-1 mb-8;
+    @apply rounded-lg p-1 mb-10;
+}
+
+@keyframes buble-float {
+
+    0%,
+    100% {
+        transform: translateY(0px)
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
 }
