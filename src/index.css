@@ -25,18 +25,7 @@ body {
 }
 
 .shadow {
-    box-shadow: 0 8px 25px rgba(64, 62, 62, 0.25);
-}
-
-.trust-card::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: var(--color-secondary);
-    clip-path: polygon(130% 0, 0 140%, 100% 100%);
+    box-shadow: 0 4px 8px rgba(64, 62, 62, 0.2);
 }
 
 .navbar {

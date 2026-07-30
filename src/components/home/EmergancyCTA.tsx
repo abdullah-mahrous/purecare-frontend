@@ -15,16 +15,16 @@ const EmergancyCTA = () => {
                     />
 
                     <div className="min-w-0 flex-col items-end text-right sm:items-start">
-                        <h2 className="text-lg font-extrabold leading-tight text-emergancy sm:text-3xl">
-                            بحاجة إلى مساعدة طبية فورية
+                        <h2 className="text-2xl font-extrabold leading-8     text-emergancy sm:text-3xl">
+                            محتاج مساعدة طبية فورية؟
                         </h2>
 
                         <p className="mt-3 text-sm font-bold text-primary sm:text-base">
-                            نحن جاهزون في كل وقت
+                            إحنا جاهزين في أي وقت
                         </p>
 
                         <p className="mt-3 text-xs font-extrabold text-primary sm:text-sm">
-                            نصل إلى أي مكان في غضون 30 دقيقة
+                            نوصل إلى أي مكان في 30 دقيقة
                         </p>
 
                         <div className="mt-5 flex flex-wrap gap-3 flex-col">
@@ -48,7 +48,7 @@ const EmergancyCTA = () => {
                 </div>
 
                 <p className="mt-5 text-xs text-center font-bold text-primary sm:text-sm">
-                    *وقت الوصول يعتمد على المكان*
+                    *وقت الوصول بيعتمد على المكان*
                 </p>
             </div>
         </section>

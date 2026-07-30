@@ -1,22 +1,30 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Autoplay, Pagination } from "swiper/modules";
-import { services } from "../services/navService";
+import { services } from "../services/homeService";
+import { testimonials } from "../services/homeService";
+import { faqs } from "../services/homeService";
 import { contacts, inquiryMessage } from "../services/contactsService";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import heroImg from "../assets/hero-img.png";
 import BaseBtn from "../components/BaseBtn";
 import EmergancyCTA from "../components/home/EmergancyCTA";
 import ServiceCard from "../components/home/ServiceCard";
 import TrustCard from "../components/home/TrustCard";
 import VideoContainer from "../components/home/VideoContainer";
-import heroImg from "../assets/hero-img.png";
-import { Swiper, SwiperSlide } from "swiper/react";
+import WhyUsPoint from "../components/home/WhyUsPoint";
+import Testemonial from "../components/home/Testemonial";
+import Faq from "../components/home/Faq";
 
 import "swiper/css";
 import 'swiper/css/pagination';
 
 function HomePage() {
     const navigate = useNavigate();
+
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     return (
     <main>
@@ -33,7 +41,7 @@ function HomePage() {
                 </h1>
 
                 <p className="mt-3 max-w-xl text-sm font-medium leading-relaxed text-white/90 sm:text-base">
-                    خدمات طبية و رعاية منزلية لأهلك و أحبابك على بعد ضغطة زر
+                    خدمات طبية و رعاية منزلية لأهلك و حبايبك بضغطة زرار
                 </p>
 
                 <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-3">
@@ -56,54 +64,33 @@ function HomePage() {
         <section className="px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-12 lg:py-24">
             <div className="mx-auto grid w-full max-w-4xl grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-4">
                 <TrustCard>
-                    <svg
-                        aria-hidden="true"
-                        className="size-10 shrink-0 text-primary"
-                        viewBox="0 0 64 64"
-                    >
-                        <path fill="currentColor" d="M40.067 20.573c0 4.557-3.699 8.25-8.26 8.25c-4.556 0-8.249-3.694-8.249-8.25s3.693-8.25 8.249-8.25c4.561 0 8.26 3.694 8.26 8.25" />
-                        <path fill="currentColor" d="M31.82.524c-3.818 0-9.151 1.522-13.014 5.385l4.588 8.359a10.7 10.7 0 0 1 8.426-4.09c3.459 0 6.537 1.634 8.498 4.175l4.5-8.636C41.475 2.064 35.48.525 31.82.525zm3.4 6.138h-2.136v2.134h-2.566V6.662h-2.136V4.097h2.136V1.954h2.566v2.143h2.136zM20.966 43.651h2.113l-3.018 10.344h23.581l-3.004-10.344h2.115l3.023 10.344h6.939l-4.736-15.672c-.74-2.587-3.984-7.142-9.582-7.28l-12.87-.011c-5.725.028-9.037 4.672-9.786 7.29l-4.828 15.672h7.037zM.947 57.293h61.73v5.873H.947z" />
-                    </svg>
-                    <span className="font-semibold leading-tight">
-                        ممرضون على أعلى مستوى
+                    <img src="/src/assets/icons/nurse.svg" alt="medical team icon" className="size-10 shrink-0" />
+                    <span className="font-bold leading-tight">
+                        ممرضين على أعلى مستوى
                     </span>
                 </TrustCard>
 
                 <TrustCard>
-                    <svg
-                        aria-hidden="true"
-                        className="size-10 shrink-0 text-primary"
-                        viewBox="0 0 24 24"
-                    >
-                        <path fill="currentColor" d="M7.5 8.744C7.847 8.362 8.415 8 9.25 8c1.152 0 1.894.792 2.155 1.661c.253.847.1 1.895-.62 2.618a8 8 0 0 1-.793.67l-.04.031c-.28.216-.53.412-.75.63c-.255.256-.464.535-.585.89h2.133a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75c0-1.247.524-2.083 1.144-2.701c.296-.296.618-.545.89-.756l.003-.002c.286-.221.508-.393.685-.57c.272-.274.367-.725.246-1.13c-.115-.381-.37-.591-.718-.591c-.353 0-.535.137-.64.253a.8.8 0 0 0-.148.229v.003a.75.75 0 0 1-1.428-.462l.035-.096a2.3 2.3 0 0 1 .43-.683M13.25 8a.75.75 0 0 1 .75.75v2.75h1.5V8.75a.75.75 0 0 1 1.5 0v6.47a.75.75 0 0 1-1.5 0V13h-2.25a.75.75 0 0 1-.75-.75v-3.5a.75.75 0 0 1 .75-.75M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10s10-4.477 10-10M3.5 12a8.5 8.5 0 1 1 17 0a8.5 8.5 0 0 1-17 0" />
-                    </svg>
-                    <span className="font-semibold leading-tight">
+                    <img src="/src/assets/icons/clock.svg" alt="clock icon" className="size-10"/>
+                    <span className="font-bold leading-tight">
                         خدمة 24 ساعة
                     </span>
                 </TrustCard>
 
                 <TrustCard>
-                    <svg
-                        aria-hidden="true"
-                        className="size-10 shrink-0 text-primary"
-                        viewBox="0 0 24 24"
-                    >
-                        <path fill="currentColor" d="M12 20a7 7 0 0 1-7-7a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7m7.03-12.61l1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0-9 9a9 9 0 0 0 9 9c5 0 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61M11 14h2V8h-2m4-7H9v2h6z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-10 text-[#2F88FF]" viewBox="0 0 16 16">
+                        <path d="M0 0h16v16H0z" fill="none" />
+                        <path fill="currentColor" d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641z" />
                     </svg>
-                    <span className="font-semibold leading-tight">
+
+                    <span className="font-bold leading-tight">
                         استجابة فورية
                     </span>
                 </TrustCard>
 
                 <TrustCard>
-                    <svg
-                        aria-hidden="true"
-                        className="size-10 shrink-0 text-primary"
-                        viewBox="0 0 24 24"
-                    >
-                        <path fill="currentColor" d="M12 5a3.5 3.5 0 0 0-3.5 3.5A3.5 3.5 0 0 0 12 12a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 5m0 2a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 10a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 7M5.5 8A2.5 2.5 0 0 0 3 10.5c0 .94.53 1.75 1.29 2.18c.36.2.77.32 1.21.32s.85-.12 1.21-.32c.37-.21.68-.51.91-.87A5.42 5.42 0 0 1 6.5 8.5v-.28c-.3-.14-.64-.22-1-.22m13 0c-.36 0-.7.08-1 .22v.28c0 1.2-.39 2.36-1.12 3.31c.12.19.25.34.4.49a2.48 2.48 0 0 0 1.72.7c.44 0 .85-.12 1.21-.32c.76-.43 1.29-1.24 1.29-2.18A2.5 2.5 0 0 0 18.5 8M12 14c-2.34 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.66-3.5-7-3.5m-7.29.55C2.78 14.78 0 15.76 0 17.5V19h3v-1.93c0-1.01.69-1.85 1.71-2.52m14.58 0c1.02.67 1.71 1.51 1.71 2.52V19h3v-1.5c0-1.74-2.78-2.72-4.71-2.95M12 16c1.53 0 3.24.5 4.23 1H7.77c.99-.5 2.7-1 4.23-1" />
-                    </svg>
-                    <span className="font-semibold leading-tight">
+                    <img src="/src/assets/icons/shield.svg" alt="shield icon" className="size-10"/>
+                    <span className="font-bold leading-tight">
                         جودة خدمة موثوقة 
                     </span>
                 </TrustCard>
@@ -122,7 +109,7 @@ function HomePage() {
                     </h2>
 
                     <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary sm:text-base">
-                        خدمات طبية متكاملة في منزلك مصممة خصيصا لراحتك 
+                        خدمات طبية متكاملة في بيتك مصممة خصيصا لراحتك 
                     </p>
                 </div>
                 <Swiper
@@ -157,7 +144,7 @@ function HomePage() {
         {/* about section */}
         <section className="px-5 sm:px-8 lg:px-12">
             <h3 className="text-2xl font-bold uppercase text-center mb-8 tracking-normal text-primary">
-                من نحن
+                مين إحنا؟
             </h3>
 
             <div className="mx-auto w-full max-w-5xl">
@@ -166,11 +153,11 @@ function HomePage() {
 
             <div className="pt-8 sm:pt-12 lg:pt-20 text-right">
                 <h3 className="text-xl font-bold uppercase tracking-normal text-primary">
-                    عن بيوركير
+                    مين هم بيوركير؟
                 </h3>
 
                 <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary/75 sm:text-base">
-                    نحن فريق من المتخصصين في الرعاية الصحية المنزلية، ملتزمون بتقديم خدمات طبية عالية الجودة في راحة منزلك. هدفنا هو تحسين جودة حياتك من خلال توفير رعاية شخصية وموثوقة.
+                    إحنا فريق من المختصين في الرعاية الصحية المنزلية، ملتزمين بتقديم خدمات طبية عالية الجودة في بيتك. هدفنا هو تحسين جودة حياتك عن طريق توفير رعاية شخصية وموثوقة.
                 </p>
             </div>
         </section>
@@ -183,44 +170,224 @@ function HomePage() {
             <div className="mx-auto w-full max-w-5xl">
                 <div className="text-center sm:text-left">
                     <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
-                        لماذا تختارنا؟
+                        ليه تختارنا؟
                     </h2>
 
-                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary sm:text-base">
-                        نقدم لك أفضل خدمات الرعاية الصحية المنزلية مع ضمان الجودة والموثوقية.
+                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary/75 sm:text-base">
+                        بنقدملك أفضل خدمات الرعاية الصحية المنزلية مع ضمان الجودة والموثوقية.
                     </p>
                 </div>
 
-                <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <TrustCard>
-                        <span className="font-semibold leading-tight">
-                            فريق طبي متخصص
-                        </span>
-                        <p className="mt-2 text-sm font-medium leading-relaxed text-primary/75">
-                            لدينا فريق من الأطباء والممرضين المؤهلين لتقديم أفضل رعاية صحية في منزلك.
-                        </p>
-                    </TrustCard>
+                <div className="grid gap-4 p-4 text-primary sm:grid-cols-6 grid-cols-3">
 
-                    <TrustCard>
-                        <span className="font-semibold leading-tight">
-                            خدمات متكاملة
-                        </span>
-                        <p className="mt-2 text-sm font-medium leading-relaxed text-primary/75">
-                            نقدم مجموعة واسعة من الخدمات الطبية لتلبية جميع احتياجاتك الصحية.
-                        </p>
-                    </TrustCard>
+                    <WhyUsPoint label="فريق طبي على أعلى تجهيز" >
+                        <img src="/src/assets/icons/about.svg" alt="medical team icon" className="size-10 shrink-0" />
+                    </WhyUsPoint>
 
-                    <TrustCard>
-                        <span className="font-semibold leading-tight">
-                            استجابة سريعة
-                        </span>
-                        <p className="mt-2 text-sm font-medium leading-relaxed text-primary/75">
-                            نحن متواجدون على مدار الساعة لضمان حصولك على الرعاية عند الحاجة.
-                        </p>
-                    </TrustCard>
+                    <WhyUsPoint label="متاحين في أي وقت" >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="size-10" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path fill="currentColor" d="M12 20a8 8 0 0 0 8-8a8 8 0 0 0-8-8a8 8 0 0 0-8 8a8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10a10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67l-.75 1.23L11 13V7z" />
+                        </svg>
+
+                    </WhyUsPoint>
+
+                    <WhyUsPoint label="خصوصية وسلامة تامة" >
+                        <img src="/src/assets/icons/shield-check.svg" alt="shield icon" className="size-10 shrink-0" />
+                    </WhyUsPoint>
+
+                    <WhyUsPoint label="مستعدين لأي طرف طارئ" >
+                        <img src="/src/assets/icons/chat.svg" alt="chat icon" className="size-10 shrink-0" />
+                    </WhyUsPoint>
+
+                    <WhyUsPoint label="حجز و تواصل سهل وسريع" >
+                        <img src="/src/assets/icons/calender.svg" alt="calendar icon" className="size-10 shrink-0" />
+                    </WhyUsPoint>
+
+                    <WhyUsPoint label="استجابة فورية" >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="size-10 shrink-0" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path fill="#0b4a85" d="M19.5 22a1.5 1.5 0 0 0 1.5-1.5V17a1.5 1.5 0 0 0-1.5-1.5c-1.17 0-2.32-.18-3.42-.55a1.51 1.51 0 0 0-1.52.37l-1.44 1.44a14.77 14.77 0 0 1-5.89-5.89l1.43-1.43c.41-.39.56-.97.38-1.53c-.36-1.09-.54-2.24-.54-3.41A1.5 1.5 0 0 0 7 3H3.5A1.5 1.5 0 0 0 2 4.5C2 14.15 9.85 22 19.5 22M3.5 4H7a.5.5 0 0 1 .5.5c0 1.28.2 2.53.59 3.72c.05.14.04.34-.12.5L6 10.68c1.65 3.23 4.07 5.65 7.31 7.32l1.95-1.97c.14-.14.33-.18.51-.13c1.2.4 2.45.6 3.73.6a.5.5 0 0 1 .5.5v3.5a.5.5 0 0 1-.5.5C10.4 21 3 13.6 3 4.5a.5.5 0 0 1 .5-.5" />
+                        </svg>
+                    </WhyUsPoint>
+
                 </div>
+
             </div>
 
+        </section>
+
+        {/* how it works section */}
+        <section className="px-5 py-8 text-primary sm:px-8 sm:py-12 lg:px-12 lg:py-16">
+            <div className="mx-auto w-full max-w-5xl">
+                <div className="text-center sm:text-left">
+                    <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
+                        إزاي بيوركير بيشتغل؟
+                    </h2>
+
+                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary/75 sm:text-base">
+                        خطوات بسيطة وسهلة للحصول على الرعاية الصحية المنزلية.
+                    </p>
+                </div>
+                
+                <div className="flex justify-between items-start mt-4">
+                    <div className="flex flex-col items-center justify-center w-1/3">
+
+                        <div className="relative rounded-full shadow p-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="size-10 shrink-0" viewBox="0 0 48 48">
+                                <path d="M0 0h48v48H0z" fill="none" />
+                                <path fill="#37474F" d="M12 40V8c0-2.2 1.8-4 4-4h16c2.2 0 4 1.8 4 4v32c0 2.2-1.8 4-4 4H16c-2.2 0-4-1.8-4-4" />
+                                <path fill="#BBDEFB" d="M32 7H16c-.6 0-1 .4-1 1v29c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V8c0-.6-.4-1-1-1" />
+                                <path fill="#78909C" d="M21 40h6v2h-6z" />
+                            </svg>
+
+                            <span className="size-5 flex items-center justify-center absolute -bottom-3.5 left-7.5 rounded-full bg-primary p-2 text-center text-white text-sm">
+                                1
+                            </span>
+                        </div>
+
+                        <p className="text-sm font-bold leading-relaxed text-primary sm:text-base mt-3 mb-1">
+                            تواصل معانا 
+                        </p>
+                        
+                        <p className="text-xs text-center text-primary/75 font-semibold">
+                            اتصل بنا أو ابعتلنا على الواتساب
+                        </p>
+                    </div>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-8 text-primary mt-8" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <path stroke-dasharray="20" d="M3 12h17.5">
+                                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="20;0" />
+                            </path>
+                            <path stroke-dasharray="12" stroke-dashoffset="12" d="M21 12l-7 7M21 12l-7 -7">
+                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.2s" to="0" />
+                            </path>
+                        </g>
+                    </svg>
+
+
+                    <div className="flex flex-col items-center justify-center w-1/3">
+                        <div className="relative rounded-full shadow p-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="size-10" viewBox="0 0 80 80">
+                                <path d="M0 0h80v80H0z" fill="none" />
+                                <g fill="none">
+                                    <path fill="#56ccf2" stroke="#56ccf2" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M50 25a2 2 0 0 1 2-2h8.385a4 4 0 0 1 3.241 1.656L74 39H50z" />
+                                    <path fill="#f2f2f2" fill-rule="evenodd" d="M74 39H50v16h4.885q.117-.42.287-.828A7.39 7.39 0 0 1 69.115 55H74z" clip-rule="evenodd" />
+                                    <path fill="#e0e0e0" d="M50 39v-2a2 2 0 0 0-2 2zm24 0h2a2 2 0 0 0-2-2zM50 55h-2a2 2 0 0 0 2 2zm4.885 0v2a2 2 0 0 0 1.925-1.459zm.287-.828l-1.848-.766zm4-4l.765 1.847zm5.656 0l.766-1.848zm4 4l-1.847.765zm.287.828l-1.925.541A2 2 0 0 0 69.115 57zM74 55v2a2 2 0 0 0 2-2zM50 41h24v-4H50zm2 14V39h-4v16zm2.885-2H50v4h4.885zm1.925 2.541q.085-.306.21-.604l-3.696-1.53a9 9 0 0 0-.365 1.052zm.21-.604a5.4 5.4 0 0 1 2.917-2.918l-1.53-3.695a9.4 9.4 0 0 0-5.083 5.082zm2.917-2.918a5.4 5.4 0 0 1 4.126 0l1.53-3.695a9.4 9.4 0 0 0-7.187 0zm4.126 0a5.4 5.4 0 0 1 2.918 2.918l3.695-1.53a9.4 9.4 0 0 0-5.082-5.083zm2.918 2.918q.122.297.209.604l3.85-1.082a9 9 0 0 0-.364-1.053zM74 53h-4.885v4H74zm-2-14v16h4V39z" />
+                                    <path fill="#828282" stroke="#828282" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M59.172 50.172a7.39 7.39 0 1 1 5.656 13.655a7.39 7.39 0 0 1-5.656-13.655" />
+                                    <path fill="#f2f2f2" fill-rule="evenodd" d="M10 15a4 4 0 0 0-4 4v36h5.885q.117-.42.287-.828A7.39 7.39 0 0 1 26.115 55H50V19a4 4 0 0 0-4-4z" clip-rule="evenodd" />
+                                    <path fill="#e0e0e0" d="M6 55H4a2 2 0 0 0 2 2zm5.885 0v2a2 2 0 0 0 1.925-1.459zm.287-.828l1.847.765zm9.656-4l.766-1.848zm4 4l-1.847.765zm.287.828l-1.925.541A2 2 0 0 0 26.115 57zM50 55v2a2 2 0 0 0 2-2zM8 19a2 2 0 0 1 2-2v-4a6 6 0 0 0-6 6zm0 36V19H4v36zm3.885-2H6v4h5.885zm1.925 2.541q.085-.306.21-.604l-3.696-1.53a9 9 0 0 0-.365 1.052zm.21-.604a5.4 5.4 0 0 1 2.917-2.918l-1.53-3.695a9.4 9.4 0 0 0-5.083 5.082zm2.917-2.918a5.4 5.4 0 0 1 4.126 0l1.53-3.695a9.4 9.4 0 0 0-7.187 0zm4.126 0a5.4 5.4 0 0 1 2.918 2.918l3.695-1.53a9.4 9.4 0 0 0-5.082-5.083zm2.918 2.918q.122.297.209.604l3.85-1.082a9 9 0 0 0-.364-1.053zM50 53H26.115v4H50zm-2-34v36h4V19zm-2-2a2 2 0 0 1 2 2h4a6 6 0 0 0-6-6zm-36 0h36v-4H10z" />
+                                    <path fill="#828282" stroke="#828282" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M16.172 50.172a7.39 7.39 0 1 1 5.656 13.655a7.39 7.39 0 0 1-5.656-13.655" />
+                                    <path fill="#eb5757" fill-rule="evenodd" d="M24.923 40.595v1.923c0 .637.517 1.154 1.154 1.154h3.846c.637 0 1.154-.517 1.154-1.154v-5.673c0-.053.043-.096.096-.096h5.673c.637 0 1.154-.517 1.154-1.154v-3.846c0-.637-.517-1.154-1.154-1.154h-5.673a.096.096 0 0 1-.096-.096v-5.673c0-.637-.517-1.154-1.154-1.154h-3.846c-.637 0-1.154.517-1.154 1.154v5.769h-5.769c-.637 0-1.154.517-1.154 1.154v3.846c0 .637.517 1.154 1.154 1.154h5.769z" clip-rule="evenodd" />
+                                </g>
+                            </svg>
+
+                            <span className="size-5 flex items-center justify-center absolute -bottom-3.5 left-7.5 rounded-full bg-primary p-2 text-center text-white text-sm">
+                                2
+                            </span>
+                        </div>
+
+                        <p className="text-sm font-bold leading-relaxed text-primary sm:text-base mt-3 mb-1">
+                            بنوصلك
+                        </p>
+
+                        <p className="text-xs text-center text-primary/75 font-semibold">
+                            بنبعتلك الممرضين و الأطباء لحد عندك
+                        </p>
+                    </div>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-8 text-[#cac9c9] mt-8" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <path stroke-dasharray="20" d="M3 12h17.5">
+                                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="20;0" />
+                            </path>
+                            <path stroke-dasharray="12" stroke-dashoffset="12" d="M21 12l-7 7M21 12l-7 -7">
+                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.2s" to="0" />
+                            </path>
+                        </g>
+                    </svg>
+
+
+                    <div className="flex flex-col items-center justify-center w-1/3">
+                        <div className="relative rounded-full shadow p-5">
+                            <img src="/src/assets/icons/nurse.svg" alt="healthcare icon" className="size-10 shrink-0" />
+
+                            <span className="size-5 flex items-center justify-center absolute -bottom-3.5 left-7.5 rounded-full bg-primary p-2 text-center text-white text-sm">
+                                3
+                            </span>
+                        </div>
+
+                        <p className="text-sm font-bold leading-relaxed text-primary sm:text-base mt-3 mb-1">
+                            الرعاية بتبدأ
+                        </p>
+
+                        <p className="text-center text-xs font-semibold text-primary/75">
+                            الممرضين و الأطباء بيقدمولك الرعاية الصحية اللي محتاجها
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* testimonials section */}
+        <section className="px-5 py-8 text-primary sm:px-8 sm:py-12 lg:px-12 lg:py-16">
+            <div className="mx-auto w-full max-w-5xl">
+                <div className="text-center sm:text-left">
+                    <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
+                        آراء العملاء
+                    </h2>
+
+                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary/75 sm:text-base">
+                        شوف رأي عملائنا في خدماتنا و تجربتهم معانا.
+                    </p>
+                </div>
+
+                <Swiper
+                    slidesPerView={1}
+                    centeredSlides={false}
+                    spaceBetween={10}
+                    grabCursor={true}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    autoplay={{
+                        delay: 5000
+                    }}
+                    modules={[Pagination, Autoplay]}
+
+                >
+                    {testimonials.map((testimonial, index) => (
+                        <SwiperSlide key={index}>
+                            <Testemonial name={testimonial.name} image={testimonial.image} text={testimonial.text} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+
+            </div>
+        </section>
+
+        {/* faq section */}
+        <section className="px-5 py-8 text-primary sm:px-8 sm:py-12 lg:px-12 lg:py-16">
+            <div className="mx-auto w-full max-w-5xl">
+                <div className="text-center sm:text-left">
+                    <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
+                        أسئلة شائعة
+                    </h2>
+
+                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-primary/75 sm:text-base">
+                        إجابات لأكثر الأسئلة شيوعًا حول خدماتنا.
+                    </p>
+                </div>
+
+                <div className="mt-4">
+                    {faqs.map((faq, index) => (
+                        <Faq key={index} question={faq.question} answer={faq.answer} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
+                    ))}
+                </div>
+            </div>
         </section>
 
     </main>

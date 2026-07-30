@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 import { closeDrawer } from "../../features/navSlice";
-import { navLinks, services } from "../../services/navService";
+import { navLinks, services } from "../../services/homeService";
 import { contacts } from "../../services/contactsService";
 
 import Logo from "../Logo";
@@ -186,7 +186,7 @@ const MobileDrawer = () => {
                             <Link
                                 key={link.label}
                                 to={link.to}
-                                className="flex items-center gap-4 border-b border-gray-200 py-4 text-primary transition-colors duration-200 hover:text-secondary"
+                                className="flex items-center gap-4 border-b  border-gray-200 py-4 text-primary transition-colors duration-200 hover:text-secondary"
                                 onClick={closeSidebar}
                             >
                                 <img src={link.icon} alt={link.label} className="size-6" />

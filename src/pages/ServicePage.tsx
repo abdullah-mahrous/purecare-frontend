@@ -1,7 +1,7 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router";
 import BaseBtn from "../components/BaseBtn";
 import { contacts, inquiryMessage } from "../services/contactsService";
-import { services } from "../services/navService";
+import { services } from "../services/homeService";
 
 function ServicePage() {
     const navigate = useNavigate();
