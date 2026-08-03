@@ -133,7 +133,7 @@ const MobileDrawer = () => {
                             className="flex items-center gap-4 border-b border-gray-200 py-4 text-primary transition-colors duration-200 hover:text-secondary"
                             onClick={closeSidebar}
                         >
-                            <img src="src/assets/icons/home.svg" alt="Home" className="size-6" />
+                            <img src="/src/assets/icons/home.svg" alt="Home" className="size-6" />
                             <span className="font-semibold">الرئيسية</span>
                         </Link>
 
@@ -146,7 +146,7 @@ const MobileDrawer = () => {
                             onClick={() => setIsServicesOpen((isOpen) => !isOpen)}
                         >
                             <span className="flex items-center gap-4">
-                                <img src="src/assets/icons/services.svg" alt="Services" className="size-6" />
+                                <img src="/src/assets/icons/services.svg" alt="Services" className="size-6" />
                                 <span className="font-semibold">الخدمات</span>
                             </span>
 

@@ -47,10 +47,10 @@ export const services: ServiceInfo[] = [
 ];
 
 export const navLinks = [
-    { label: "عن الشركة", to: "/about", icon: 'src/assets/icons/about.svg' },
-    { label: "احجز الآن", to: "/reservation", icon: 'src/assets/icons/calender.svg' },
-    { label: "تأجير معدات طبية", to: "/equipments", icon: 'src/assets/icons/shopping.svg' },
-    { label: "انضم لفريق العمل", to: "/careers", icon: 'src/assets/icons/briefcase.svg' },
+    { label: "عن الشركة", to: "/about", icon: '/src/assets/icons/people.svg' },
+    { label: "احجز الآن", to: "/reservation", icon: '/src/assets/icons/calender.svg' },
+    { label: "تأجير معدات طبية", to: "/equipments", icon: '/src/assets/icons/shopping.svg' },
+    { label: "انضم لفريق العمل", to: "/careers", icon: '/src/assets/icons/briefcase.svg' },
 ];
 
 export const testimonials = [

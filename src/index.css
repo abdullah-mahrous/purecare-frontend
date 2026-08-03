@@ -40,6 +40,10 @@ body {
     @apply rounded-lg p-1 mb-10;
 }
 
+.service-perk {
+    @apply flex items-center gap-4 sm:justify-center sm:px-4 bg-white ring-1 ring-base-border/70 rounded-2xl px-4 py-5;
+}
+
 @keyframes buble-float {
 
     0%,

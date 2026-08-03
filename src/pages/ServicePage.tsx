@@ -1,57 +1,111 @@
-import { Link, Navigate, useNavigate, useParams } from "react-router";
 import BaseBtn from "../components/BaseBtn";
-import { contacts, inquiryMessage } from "../services/contactsService";
-import { services } from "../services/homeService";
+import PhoneIcon from "../assets/icons/PhoneIcon";
+import WhatsappIcon from "../assets/icons/WhatsappIcon";
+import peopleCommunityIcon from "../assets/icons/people-community.svg";
+import starIcon from "../assets/icons/star.svg";
 
 function ServicePage() {
-    const navigate = useNavigate();
-    const { serviceSlug } = useParams();
-    const service = services.find((item) => item.slug === serviceSlug);
-
-    if (!service) {
-        return <Navigate to="/" replace />;
-    }
-
     return (
-        <main className="px-5 py-12 sm:px-8 lg:px-12">
-            <section className="mx-auto max-w-3xl rounded-lg bg-white px-5 py-10 text-center shadow-[0_12px_34px_rgba(11,74,133,0.14)] ring-1 ring-base-border/70 sm:px-8">
-                <span className="mx-auto flex size-20 items-center justify-center rounded-full bg-[#eef6ff] text-primary">
-                    <span
-                        aria-hidden="true"
-                        className="block size-11 bg-current"
-                        style={{
-                            WebkitMask: `url(${service.icon}) center / contain no-repeat`,
-                            mask: `url(${service.icon}) center / contain no-repeat`,
-                        }}
-                    />
-                </span>
+        <main className="px-4 py-2 text-primary sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+            {/* Service Hero Section */}
+            <section aria-labelledby="service-page-title">
 
-                <h1 className="mt-6 text-3xl font-extrabold leading-tight text-primary sm:text-4xl">
-                    {service.title}
-                </h1>
+                <div>
+                    <div className="mx-auto grid max-w-5xl items-center gap-2 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-8 text-right">
+                        <div className="relative z-10 py-2 md:py-8">
+                            <h2 className="max-w-md text-3xl font-extrabold leading-tight text-primary sm:text-4xl lg:text-5xl">
+                                زيارة دكتور
+                            </h2>
 
-                <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-relaxed text-primary/80">
-                    {service.description} PureCare can arrange trained healthcare support at home across Alexandria.
-                </p>
+                            <p className="mt-2 max-w-md text-base font-semibold leading-relaxed text-heading-text/85 sm:text-lg lg:text-xl">
+                                زيارة دكتور هي خدمة طبية متخصصة تهدف إلى توفير الرعاية الصحية للمرضى في منازلهم. يتميز هذا النوع من الخدمات بالمرونة والراحة، حيث يمكن للمرضى تلقي الرعاية الطبية دون الحاجة إلى الانتقال إلى المستشفى أو العيادة. تشمل زيارة دكتور مجموعة متنوعة من الخدمات مثل الفحوصات الطبية، التشخيص، وصف الأدوية، والمتابعة المستمرة للحالة الصحية للمريض.
+                            </p>
+                        </div>
 
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                    <BaseBtn className="bg-secondary text-white" clickAction={() => window.location.href = `tel:${contacts.phoneNumber}`}>
-                        Call Now
-                    </BaseBtn>
-                    <BaseBtn className="bg-primary text-white" clickAction={() => navigate("/reservation")}>
-                        Request Service
-                    </BaseBtn>
-                    <BaseBtn className="bg-secondary text-white" clickAction={() => window.open(contacts.whatsappUrl(contacts.whatsappNumber, inquiryMessage), "_blank")}>
-                        WhatsApp
-                    </BaseBtn>
+                        <img
+                            src="/src/assets/services/medical-care-amico.png"
+                            alt="Illustration of a home nurse"
+                            className="mx-auto w-full max-w-120 mix-blend-multiply md:translate-y-4"
+                        />
+                    </div>
                 </div>
 
-                <Link
-                    to="/"
-                    className="mt-8 inline-flex text-sm font-bold text-primary transition-colors duration-200 hover:text-secondary"
-                >
-                    Back to Home
-                </Link>
+                <div>
+                    <div className="grid gap-3 grid-cols-2">
+                        <BaseBtn className="rounded-lg! bg-primary px-6 text-base text-white sm:text-lg">
+                            <PhoneIcon className="size-5 mr-1" />
+                            إتصل بينا
+                        </BaseBtn>
+
+                        <BaseBtn className="rounded-lg! bg-secondary px-6 text-base text-white sm:text-lg">
+                            <WhatsappIcon className="size-6  mr-1" />
+                            واتساب
+                        </BaseBtn>
+                    </div>
+
+                    <BaseBtn
+                        className="rounded-lg! mt-3 w-full gap-2 border-2 border-primary bg-white px-6 text-base text-primary sm:text-lg hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary active:text-white"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="size-6" viewBox="0 0 1024 1024">
+                            <path d="M0 0h1024v1024H0z" fill="none" />
+                            <path fill="currentColor" d="m960 95.888l-256.224.001V32.113c0-17.68-14.32-32-32-32s-32 14.32-32 32v63.76h-256v-63.76c0-17.68-14.32-32-32-32s-32 14.32-32 32v63.76H64c-35.344 0-64 28.656-64 64v800c0 35.343 28.656 64 64 64h896c35.344 0 64-28.657 64-64v-800c0-35.329-28.656-63.985-64-63.985m0 863.985H64v-800h255.776v32.24c0 17.679 14.32 32 32 32s32-14.321 32-32v-32.224h256v32.24c0 17.68 14.32 32 32 32s32-14.32 32-32v-32.24H960zM736 511.888h64c17.664 0 32-14.336 32-32v-64c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32m0 255.984h64c17.664 0 32-14.32 32-32v-64c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32v64c0 17.696 14.336 32 32 32m-192-128h-64c-17.664 0-32 14.336-32 32v64c0 17.68 14.336 32 32 32h64c17.664 0 32-14.32 32-32v-64c0-17.648-14.336-32-32-32m0-255.984h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32h64c17.664 0 32-14.336 32-32v-64c0-17.68-14.336-32-32-32m-256 0h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32h64c17.664 0 32-14.336 32-32v-64c0-17.68-14.336-32-32-32m0 255.984h-64c-17.664 0-32 14.336-32 32v64c0 17.68 14.336 32 32 32h64c17.664 0 32-14.32 32-32v-64c0-17.648-14.336-32-32-32" />
+                        </svg>
+
+                        إحجز معاد
+                    </BaseBtn>
+                </div>
+            </section>
+
+            {/* Service Perks */}
+            <section aria-labelledby="service-perks" className="my-6 sm:my-8 lg:my-10">
+
+                <div className="grid gap-4 w-full text-primary sm:grid-cols-3 sm:px-6">
+
+                    <article className="service-perk shadow-[0_10px_28px_rgba(11, 74, 133, 0.10)]">
+                        <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
+                            <img src={starIcon} alt="rating icon" aria-hidden="true" className="size-10" />
+                        </span>
+
+                        <div className="min-w-0">
+                            <p className="text-xl font-extrabold leading-tight">4.9 / 5</p>
+                            <p className="mt-1 text-sm font-semibold text-heading-text/75">Customer Rating</p>
+                        </div>
+                    </article>
+
+                    <article className="service-perk shadow-[0_10px_28px_rgba(11, 74, 133, 0.10)]">
+                        <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
+                            <img src={peopleCommunityIcon} alt="customers icon" aria-hidden="true" className="size-10" />
+                        </span>
+
+                        <div className="min-w-0">
+                            <p className="text-xl font-extrabold leading-tight">500+</p>
+                            <p className="mt-1 text-sm font-semibold text-heading-text/75">Satisfied Customers</p>
+                        </div>
+                    </article>
+
+                    <article className="service-perk shadow-[0_10px_28px_rgba(11, 74, 133, 0.10)]">
+                        <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="size-10 text-[#2F88FF]" viewBox="0 0 16 16">
+                                <path d="M0 0h16v16H0z" fill="none" />
+                                <path fill="currentColor" d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641z" />
+                            </svg>
+                        </span>
+
+                        <div className="min-w-0">
+                            <p className="text-xl font-extrabold leading-tight">30-60 mins</p>
+                            <p className="mt-1 text-sm font-semibold text-heading-text/75">Average Response</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            {/* who is it for section */}
+            <section aria-labelledby="service-perks">
+
+            </section>
+            {/* what is included section */}
+            <section aria-labelledby="service-perks" className="my-6 sm:my-8 lg:my-10">
+                
             </section>
         </main>
     );

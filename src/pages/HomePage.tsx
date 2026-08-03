@@ -181,7 +181,7 @@ function HomePage() {
                 <div className="grid gap-4 p-4 text-primary sm:grid-cols-6 grid-cols-3">
 
                     <WhyUsPoint label="فريق طبي على أعلى تجهيز" >
-                        <img src="/src/assets/icons/about.svg" alt="medical team icon" className="size-10 shrink-0" />
+                        <img src="/src/assets/icons/people.svg" alt="medical team icon" className="size-10 shrink-0" />
                     </WhyUsPoint>
 
                     <WhyUsPoint label="متاحين في أي وقت" >

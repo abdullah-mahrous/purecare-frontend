@@ -8,7 +8,7 @@ import PhoneIcon from "../../assets/icons/PhoneIcon";
 const NavBar = () => {
     return (
         <>
-        <nav className="py-3 px-4 navbar block">
+        <nav className="py-3 px-4 navbar block bg-white">
             <ul className="flex justify-between items-center list-none w-full">
                 <li>
                     <Logo />
