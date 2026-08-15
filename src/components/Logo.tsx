@@ -1,8 +1,10 @@
 import { Link } from "react-router"
 
+import { routes } from "../router/routes"    
+
 const Logo = ({color = "text-primary"}) => {
     return (
-        <Link to="/">
+        <Link to={routes.home} className="flex items-center gap-2">
             <div className="flex items-center">
 
                 <div className="flex justify-center items-center mr-1">

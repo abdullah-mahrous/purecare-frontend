@@ -1,4 +1,4 @@
-import ChevronIcon from "../../assets/icons/ChevronIcon";
+import ChevronIcon from "../assets/icons/ChevronIcon";
 
 const Faq = ({ question, answer, isOpen, onToggle }: { question: string; answer: string; isOpen: boolean; onToggle: () => void }) => {
 

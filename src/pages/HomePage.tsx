@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Autoplay, Pagination } from "swiper/modules";
-import { services } from "../services/homeService";
+import { services } from "../services/services.service";
 import { testimonials } from "../services/homeService";
 import { faqs } from "../services/homeService";
 import { contacts, inquiryMessage } from "../services/contactsService";
@@ -16,10 +16,11 @@ import TrustCard from "../components/home/TrustCard";
 import VideoContainer from "../components/home/VideoContainer";
 import WhyUsPoint from "../components/home/WhyUsPoint";
 import Testemonial from "../components/home/Testemonial";
-import Faq from "../components/home/Faq";
+import Faq from "../components/Faq";
 
 import "swiper/css";
 import 'swiper/css/pagination';
+import { routes } from "../router/routes";
 
 function HomePage() {
     const navigate = useNavigate();
@@ -127,13 +128,13 @@ function HomePage() {
 
                 >
                     {services.map(service => (
-                        <SwiperSlide key={service.path}>
+                        <SwiperSlide key={service.id}>
                             <ServiceCard
-                                key={service.path}
-                                title={service.title}
+                                key={service.id}
+                                title={service.name}
                                 description={service.description}
-                                path={service.path}
-                                icon={service.icon}
+                                path={routes.services(service.id)}
+                                icon={service.img}
                             />
                         </SwiperSlide>
                     ))}

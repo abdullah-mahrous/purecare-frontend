@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
-import { services } from "../services/homeService";
+import { routes } from "../router/routes";
+import { services } from "../services/services.service";
 import { contacts } from "../services/contactsService";
 
 import Logo from "./Logo";
@@ -51,7 +52,9 @@ const Footer = () => {
                         <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                             {
                                 services.map(service => (
-                                    <li key={service.path}><Link to={service.path} className="hover:underline">{service.title}</Link></li>
+                                    <li key={routes.services(service.id)}>
+                                        <Link to={routes.services(service.id)} className="hover:underline">{service.name}</Link>
+                                    </li>
                                 ))
                             }
                         </ul>
@@ -60,12 +63,12 @@ const Footer = () => {
                     <div>
                         <h4 className="font-semibold mb-3">بيوركير</h4>
                         <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                            <li><Link to="/about" className="hover:underline">عن بيوركير</Link></li>
-                            <li><Link to="/testimonials" className="hover:underline">آراء العملاء</Link></li>
-                            <li><Link to="/faq" className="hover:underline">الأسئلة الشائعة</Link></li>
-                            <li><Link to="/contact" className="hover:underline">احجز معاد</Link></li>
-                            <li><Link to="/contact" className="hover:underline">انضم لفريقنا</Link></li>
-                            <li><Link to="/contact" className="hover:underline">تأجير اجهزة طبية</Link></li>
+                            <li><Link to={`${routes.home}#about`} className="hover:underline">عن بيوركير</Link></li>
+                            <li><Link to={`${routes.home}#testimonials`} className="hover:underline">آراء العملاء</Link></li>
+                            <li><Link to={`${routes.home}#faq`} className="hover:underline">الأسئلة الشائعة</Link></li>
+                            <li><Link to={routes.reservation} className="hover:underline">احجز معاد</Link></li>
+                            <li><Link to={routes.careers} className="hover:underline">انضم لفريقنا</Link></li>
+                            <li><Link to={routes.medicalEquipment} className="hover:underline">تأجير اجهزة طبية</Link></li>
                         </ul>
                     </div>
 

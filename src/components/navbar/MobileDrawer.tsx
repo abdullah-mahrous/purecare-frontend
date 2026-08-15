@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
+import { routes } from "../../router/routes";
 import { closeDrawer } from "../../features/navSlice";
-import { navLinks, services } from "../../services/homeService";
+import { navLinks } from "../../services/homeService";
+import { services } from "../../services/services.service";
 import { contacts } from "../../services/contactsService";
 
 import Logo from "../Logo";
@@ -129,7 +131,7 @@ const MobileDrawer = () => {
                 <div className="flex-1 overflow-y-auto p-6" dir="rtl">
                     <nav className="space-y-1" aria-label="Mobile navigation">
                         <Link
-                            to="/"
+                            to={routes.home}
                             className="flex items-center gap-4 border-b border-gray-200 py-4 text-primary transition-colors duration-200 hover:text-secondary"
                             onClick={closeSidebar}
                         >
@@ -163,18 +165,18 @@ const MobileDrawer = () => {
                                 <ul className="list-disc space-y-4 py-4 pr-10 text-primary marker:text-primary marker:text-lg">
                                     {services.map((service, index) => (
                                         <li
-                                            key={service.path}
+                                            key={routes.services(service.id)}
                                             className={`transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                                                 isServicesOpen ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
                                             }`}
                                             style={{ transitionDelay: isServicesOpen ? `${index * 45}ms` : "0ms" }}
                                         >
                                             <Link
-                                                to={service.path}
+                                                to={routes.services(service.id)}
                                                 className="inline-flex text-base font-medium transition-colors duration-200 hover:text-secondary"
                                                 onClick={closeSidebar}
                                             >
-                                                {service.title}
+                                                {service.name}
                                             </Link>
                                         </li>
                                     ))}
@@ -219,7 +221,7 @@ const MobileDrawer = () => {
                         <p className="font-bold text-primary">تابعنا على</p>
 
                         <div className="mt-5 flex flex-wrap gap-3">
-                            {contactLinks.map((contact) => (
+                            {contactLinks.map(contact => (
                                 <a
                                     key={contact.label}
                                     href={contact.href}

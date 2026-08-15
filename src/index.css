@@ -44,6 +44,22 @@ body {
     @apply flex items-center gap-4 sm:justify-center sm:px-4 bg-white ring-1 ring-base-border/70 rounded-2xl px-4 py-5;
 }
 
+.icon-buble {
+    @apply flex p-2 items-center justify-center rounded-xl bg-[#eef6ff];
+}
+
+.form-field-container {
+    @apply flex items-end gap-3 sm:gap-4;
+}
+
+.PhoneInputInput {
+    @apply h-14 w-full rounded-xl border border-[#DCE5F0] bg-white px-4 text-sm font-bold text-primary placeholder:text-[#8391AA] sm:text-base focus-visible:outline-none;
+}
+
+.PhoneInputCountry {
+    @apply h-14 rounded-xl border border-[#DCE5F0] bg-white px-4 text-sm font-bold text-primary placeholder:text-[#8391AA] sm:text-base focus-visible:outline-none;
+}
+
 @keyframes buble-float {
 
     0%,
