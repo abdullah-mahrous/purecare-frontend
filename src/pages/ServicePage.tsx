@@ -55,7 +55,7 @@ function ServicePage() {
                         </BaseBtn>
                     </div>
 
-                    <BaseBtn clickAction={() => navigate(`/${routes.reservation}`)}
+                    <BaseBtn onClick={() => navigate(`/${routes.reservation}`)}
                         className="rounded-lg! mt-3 w-full gap-2 border-2 border-primary bg-white px-6 text-base text-primary sm:text-lg hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary active:text-white"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="size-6" viewBox="0 0 1024 1024">

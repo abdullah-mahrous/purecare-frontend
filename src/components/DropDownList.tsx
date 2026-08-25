@@ -34,9 +34,8 @@ const DropDownList = <T extends DropDownValue>({
         if (!isOpen) return;
 
         const closeOnOutsidePress = (event: PointerEvent) => {
-            if (!rootRef.current?.contains(event.target as Node)) {
+            if (!rootRef.current?.contains(event.target as Node))
                 setIsOpen(false);
-            }
         };
 
         document.addEventListener("pointerdown", closeOnOutsidePress);
@@ -54,6 +53,7 @@ const DropDownList = <T extends DropDownValue>({
                     ? selectedValues.filter((selectedValue) => selectedValue !== value)
                     : [...selectedValues, value],
             );
+
             return;
         }
 
@@ -74,19 +74,22 @@ const DropDownList = <T extends DropDownValue>({
     };
 
     return (
-        <div ref={rootRef} className={className} onKeyDown={handleKeyDown}>
-            <div className="flex min-w-0 items-center gap-2">
+        <div ref={rootRef} className={className} onKeyDown={handleKeyDown} onClick={toggleMenu}>
+            <div className="flex w-full items-center gap-2 justify-between">
                 {selectedItems.length > 0 ? (
-                    <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1">
+                    <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
                         {selectedItems.map((item) => (
                             <span
                                 key={`${typeof item.value}:${String(item.value)}`}
-                                className="inline-flex max-w-full items-center gap-1 rounded-full bg-black/10 px-2 py-1"
+                                className="inline-flex max-w-full items-center gap-1 rounded-full bg-gray-400/20 px-2 py-1"
                             >
                                 <button
                                     type="button"
                                     className="min-w-0 truncate text-start"
-                                    onClick={toggleMenu}
+                                    onClick={e => {
+                                        e.stopPropagation();
+                                        toggleMenu();
+                                    }}
                                     aria-expanded={isOpen}
                                     aria-controls={menuId}
                                 >
@@ -95,7 +98,10 @@ const DropDownList = <T extends DropDownValue>({
                                 <button
                                     type="button"
                                     className="shrink-0 leading-none"
-                                    onClick={() => removeItem(item.value)}
+                                    onClick={e => {
+                                        e.stopPropagation()
+                                        removeItem(item.value)
+                                    }}
                                     aria-label={`Remove ${item.text}`}
                                 >
                                     ×
@@ -107,7 +113,10 @@ const DropDownList = <T extends DropDownValue>({
                     <button
                         type="button"
                         className="min-w-0 flex-1 text-start"
-                        onClick={toggleMenu}
+                        onClick={e => {
+                            e.stopPropagation();
+                            toggleMenu();
+                        }}
                         aria-expanded={isOpen}
                         aria-controls={menuId}
                     >
@@ -119,7 +128,10 @@ const DropDownList = <T extends DropDownValue>({
                     ref={triggerRef}
                     type="button"
                     className="shrink-0 p-1"
-                    onClick={toggleMenu}
+                    onClick={e => {
+                        e.stopPropagation();
+                        toggleMenu();
+                    }}
                     aria-label={isOpen ? "Close options" : "Open options"}
                     aria-expanded={isOpen}
                     aria-controls={menuId}
@@ -131,19 +143,19 @@ const DropDownList = <T extends DropDownValue>({
             <div
                 id={menuId}
                 aria-hidden={!isOpen}
-                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                className={`grid z-10 transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isOpen
                         ? "grid-rows-[1fr] opacity-100"
                         : "pointer-events-none grid-rows-[0fr] opacity-0"
                 }`}
             >
-                <div className="overflow-hidden">
+                <div className="overflow-auto bg-white absolute left-0 top-full p-3 shadow border-[#DCE5F0] border min-w-[stretch]">
                     <ul className="max-h-60 overflow-y-auto" aria-label={placeholder}>
                         {items.map((item) => {
                             const isSelected = selectedValues.includes(item.value);
 
                             return (
-                                <li key={`${typeof item.value}:${String(item.value)}`}>
+                                <li className="border-[#DCE5F0] border-b last:border-b-0" key={`${typeof item.value}:${String(item.value)}`}>
                                     {multiple ? (
                                         <label className="flex cursor-pointer items-center gap-2 py-2">
                                             <input

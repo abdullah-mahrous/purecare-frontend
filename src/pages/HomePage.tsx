@@ -46,13 +46,13 @@ function HomePage() {
                 </p>
 
                 <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-3">
-                <BaseBtn className="bg-secondary text-white" clickAction={() => window.location.href = `tel:${contacts.phoneNumber}`}>
+                <BaseBtn className="bg-secondary text-white" onClick={() => window.location.href = `tel:${contacts.phoneNumber}`}>
                     اتصل الآن
                 </BaseBtn>
-                <BaseBtn className="bg-secondary text-white" clickAction={() => window.open(contacts.whatsappUrl(contacts.whatsappNumber, inquiryMessage), "_blank")}>
+                <BaseBtn className="bg-secondary text-white" onClick={() => window.open(contacts.whatsappUrl(contacts.whatsappNumber, inquiryMessage), "_blank")}>
                     واتساب
                 </BaseBtn>
-                <BaseBtn className="bg-white text-primary" clickAction={() => navigate("/reservation")}>
+                <BaseBtn className="bg-white text-primary" onClick={() => navigate("/reservation")}>
                     احجز معاد
                 </BaseBtn>
                 </div>
