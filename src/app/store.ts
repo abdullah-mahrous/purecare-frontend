@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import navReducer from '../features/navSlice'
+import equipmentReducer from '../features/equipmentSlice'
 
 export const store = configureStore({
   reducer: {
     nav: navReducer,
+    equipment: equipmentReducer,
   },
 })
 

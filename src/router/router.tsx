@@ -5,11 +5,12 @@ import { routes } from './routes.ts'
 import RootLayout from '../layouts/RootLayout.tsx'
 import HomePage from '../pages/HomePage.tsx'
 import ServicePage from '../pages/ServicePage.tsx'
-import MedicalEquipmentPage from '../pages/MidicalEquipmentPage.tsx'
+import MedicalEquipmentPage from '../pages/MidicalEquipmentsPage.tsx'
 import MedicalEquipmentDetailsPage from '../pages/MedicalEquipmentDetailsPage.tsx'
 import Careers from '../pages/CareersPage.tsx'
 import ReservationPage from '../pages/ReservationPage.tsx'
 import SentSuccessfully from '../pages/SentSuccessfully.tsx'
+import NotFound from '../pages/NotFound.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: routes.services('serviceId'),
+        path: routes.servicesPattern,
         element: <ServicePage />,
       },
       {
@@ -37,12 +38,16 @@ export const router = createBrowserRouter([
         element: <Careers />,
       },
       {
-        path: routes.medicalEquipment,
+        path: routes.medicalEquipments,
         element: <MedicalEquipmentPage />,
       },
       {
         path: routes.medicalEquipmentDetailsPattern,
         element: <MedicalEquipmentDetailsPage />,
+      },
+      {
+        path: routes.notFound,
+        element: <NotFound />,
       },
     ],
   },

@@ -8,7 +8,7 @@ export type faq = {
 export const navLinks = [
     { label: "عن الشركة", to: `${routes.home}#about`, icon: '/src/assets/icons/people.svg' },
     { label: "احجز الآن", to: routes.reservation, icon: '/src/assets/icons/calender.svg' },
-    { label: "تأجير معدات طبية", to: routes.medicalEquipment, icon: '/src/assets/icons/shopping.svg' },
+    { label: "تأجير معدات طبية", to: routes.medicalEquipments, icon: '/src/assets/icons/shopping.svg' },
     { label: "انضم لفريق العمل", to: routes.careers, icon: '/src/assets/icons/briefcase.svg' },
 ];
 

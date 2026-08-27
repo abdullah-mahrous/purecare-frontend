@@ -68,7 +68,7 @@ const Footer = () => {
                             <li><Link to={`${routes.home}#faq`} className="hover:underline">الأسئلة الشائعة</Link></li>
                             <li><Link to={routes.reservation} className="hover:underline">احجز معاد</Link></li>
                             <li><Link to={routes.careers} className="hover:underline">انضم لفريقنا</Link></li>
-                            <li><Link to={routes.medicalEquipment} className="hover:underline">تأجير اجهزة طبية</Link></li>
+                            <li><Link to={routes.medicalEquipments} className="hover:underline">تأجير اجهزة طبية</Link></li>
                         </ul>
                     </div>
 

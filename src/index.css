@@ -4,6 +4,11 @@
 @import "@fontsource/cairo/500.css";
 @import "@fontsource/cairo/600.css";
 @import "@fontsource/cairo/700.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme static {
     --color-primary: #0B4A85;
@@ -90,4 +95,8 @@ body {
     50% {
         transform: translateY(-12px);
     }
+}
+
+.pagination-btns {
+    @apply flex items-center justify-center border-2 cursor-pointer border-[#DCE5F0] rounded-xl size-12;
 }

@@ -82,6 +82,8 @@ function EquipmentIcon({ name, className = "", title }: EquipmentIconProps) {
                 return <path d="M11 4v7L8.8 7.5C8 6.3 6.4 6 5.3 6.9C3.8 8.1 3 10.1 3 12.2V18h6v-5l2 2v5h2v-5l2-2v5h6v-5.8c0-2.1-.8-4.1-2.3-5.3c-1.1-.9-2.7-.6-3.5.6L13 11V4z" />;
             case "heart":
                 return <path d="M12 20.5 4.8 14A5 5 0 0 1 12 7.1A5 5 0 0 1 19.2 14zM4 12h3l1.5-3 2.5 6 1.5-3H20" />;
+            case "stethoscope":
+                return <><path d="M6 4v5a6 6 0 0 0 12 0V4M6 4h3v5a3 3 0 0 0 6 0V4h3" /><path d="M18 10v3a3 3 0 1 0 3 3" /><circle cx="21" cy="16" r="1.5" /></>;
             case "more":
                 return <path d="M5 12a1.8 1.8 0 1 0 0 .01M12 12a1.8 1.8 0 1 0 0 .01M19 12a1.8 1.8 0 1 0 0 .01" />;
         }

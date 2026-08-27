@@ -8,6 +8,9 @@ type Props = {
 }
 
 function PageHero({ children, header, slogan, heroImg }: Props) {
+    const words = header.trim().split(/\s+/);
+    const lastWord = words.pop();
+
     return (
         <section className="my-4 overflow-hidden rounded-3xl border border-[#E4EEF9] bg-[#F4F9FF]" aria-labelledby="booking-title">
 
@@ -16,7 +19,8 @@ function PageHero({ children, header, slogan, heroImg }: Props) {
 
                     <div className="text-center md:text-left">
                         <h2 id="booking-title" className="text-[30px] font-bold leading-tight sm:text-[38px]">
-                            { header }
+                            {words.join(" ")}{" "}
+                            <span className="text-secondary">{lastWord}</span>
                         </h2>
 
                         <p className="mx-auto mt-3 text-base font-medium leading-relaxed text-heading-text/85 sm:text-lg md:mx-0">
