@@ -1,3 +1,4 @@
+import { apiRequest } from "./api.ts";
 import { type faq } from "./homeService.ts";
 
 export type ServiceDetails = {
@@ -12,7 +13,7 @@ type ServicePerks = {
     responseTime: string;
 };
 
-type Service = {
+export type Service = {
     id: string;
     name: string;
     description: string;
@@ -22,6 +23,13 @@ type Service = {
     includedServices: ServiceDetails[];
     faq: faq[];
 };
+
+export async function fetchServices() {
+    // const data = await apiRequest('services');
+
+    // return data.data;
+    return services;
+}
 
 export const services: Service[] = [
     {

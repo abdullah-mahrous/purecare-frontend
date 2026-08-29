@@ -1,10 +1,10 @@
 import { type ServiceDetails } from "../services/services.service.ts";
 
-const ServiceInfo = ({ details }: { details: ServiceDetails[] }) => {
+const ServiceInfo = ({ details }: { details: ServiceDetails[] | undefined }) => {
 
     return (
         <div className="mt-4 shadow p-4 rounded-2xl">
-            {details.map(detail => (
+            {details?.map(detail => (
                 <div className="flex items-center gap-4 sm:justify-center sm:px-4 bg-white px-4 py-5 border-b border-gray-200 last:border-b-0" key={detail.title}>
                     <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
                         <img src={detail.icon} alt={detail.title} aria-hidden="true" className="size-10" />

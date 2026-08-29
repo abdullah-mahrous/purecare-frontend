@@ -149,7 +149,7 @@ export const buildEquipmentQuery = ({
 };
 
 /** Retrieves a filtered, paginated equipment listing from GET /api/equipment. */
-export async function getEquipment(filters: EquipmentFilters): Promise<EquipmentListResponse> {
+export async function fetchEquipments(filters: EquipmentFilters): Promise<EquipmentListResponse> {
     const query = buildEquipmentQuery(filters);
     // const response = await apiRequest<EquipmentApiResponse>(`/equipment?${query}`);
     const response = equipmentItems;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchEquipment, setPage, setSearch } from "@/features/equipmentSlice";
+import { getEquipments, setPage, setSearch } from "@/features/equipmentSlice";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 
 import Pagination from "@/components/Pagination";
@@ -20,7 +20,7 @@ function EquipmentState() {
         return (
             <div className="rounded-2xl border border-primary/20 bg-primary/10 p-6 text-center text-primary">
                 <p className="font-bold">تعذر تحميل المعدات.</p>
-                <button type="button" onClick={() => dispatch(fetchEquipment())} className="mt-3 rounded-xl bg-secondary px-4 py-2 text-sm font-bold text-white">
+                <button type="button" onClick={() => dispatch(getEquipments())} className="mt-3 rounded-xl bg-secondary px-4 py-2 text-sm font-bold text-white">
                     إعادة المحاولة
                 </button>
             </div>
@@ -55,7 +55,7 @@ function MedicalEquipmentPage() {
     }, [debouncedSearch, dispatch, filters.search]);
 
     useEffect(() => {
-        dispatch(fetchEquipment());
+        dispatch(getEquipments());
     }, [dispatch, filters.category, filters.limit, filters.maxPrice, filters.minPrice, filters.page, filters.search]);
 
     return (
