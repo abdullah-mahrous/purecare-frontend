@@ -100,3 +100,7 @@ body {
 .pagination-btns {
     @apply flex items-center justify-center border-2 cursor-pointer border-[#DCE5F0] rounded-xl size-12;
 }
+
+.renting-btns {
+    @apply flex w-full items-center gap-4 rounded-2xl px-5 py-4;
+}
