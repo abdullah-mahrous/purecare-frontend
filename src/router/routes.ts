@@ -10,5 +10,6 @@ export const routes = {
     medicalEquipmentDetails: (equipmentId: string) => `/medical-equipments/${equipmentId}`,
     adminLogin: '/admin/login',
     admin: '/admin',
+    adminPanel: '/admin-panel',
     notFound: '*'
 }

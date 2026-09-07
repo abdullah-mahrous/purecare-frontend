@@ -37,6 +37,11 @@ export type EquipmentCategory = {
     icon: EquipmentIconName;
 };
 
+export type ArabicEquipmentCategory = Omit<EquipmentCategory, "id"> & {
+    id: EquipmentCategoryId;
+    label: string;
+};
+
 export type Equipment = {
     id: string;
     name: string;
@@ -132,6 +137,24 @@ export const equipmentCategories: readonly EquipmentCategory[] = [
         icon: categoryIcons[category],
     })),
 ];
+
+const arabicCategoryLabels: Record<EquipmentCategoryId, string> = {
+    "Mobility & Rehabilitation": "التنقل وإعادة التأهيل",
+    "Respiratory Equipment": "معدات الجهاز التنفسي",
+    "Patient Beds & Supplies": "أسرة ومستلزمات المرضى",
+    "Monitoring Devices": "أجهزة المراقبة",
+    "Home ICU & Critical Care": "العناية المركزة المنزلية والرعاية الحرجة",
+    "Daily Care Supplies": "مستلزمات الرعاية اليومية",
+    "Post-Surgery Recovery": "التعافي بعد الجراحة",
+    "Diagnostic Equipment": "أجهزة التشخيص",
+};
+
+/** Arabic labels retain the English category value so requests use the API identifiers. */
+export const arabicEquipmentCategories: readonly ArabicEquipmentCategory[] = categories.map((category) => ({
+    id: category,
+    label: arabicCategoryLabels[category],
+    icon: categoryIcons[category],
+}));
 
 const numberValue = (value: number | string | null | undefined) => {
     const number = Number(value);

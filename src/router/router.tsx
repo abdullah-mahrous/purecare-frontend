@@ -25,6 +25,10 @@ export const router = createBrowserRouter([
     element: <AdminPanelPage />,
   },
   {
+    path: routes.adminPanel,
+    element: <AdminPanelPage />,
+  },
+  {
     path: routes.home,
     element: <RootLayout />,
     loader: loadWebsiteEssentials,

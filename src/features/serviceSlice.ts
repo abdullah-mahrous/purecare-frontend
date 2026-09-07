@@ -5,6 +5,7 @@ type initialStatype = {
     services: Service[],
     service: Service | undefined,
     isLoading: boolean,
+    hasLoaded: boolean,
     error: string | null
 }
 
@@ -12,6 +13,7 @@ const initialState: initialStatype = {
     services: [],
     service: undefined,
     isLoading: false,
+    hasLoaded: false,
     error: null
 }
 
@@ -55,6 +57,7 @@ const serviceSlice = createSlice({
             .addCase(getServices.fulfilled, (state, action) => {
                 state.services = action.payload;
                 state.isLoading = false;
+                state.hasLoaded = true;
             })
             .addCase(getServices.rejected, (state, action) => {
                 state.isLoading = false;

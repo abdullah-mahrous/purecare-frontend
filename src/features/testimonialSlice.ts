@@ -9,11 +9,12 @@ import {
 } from '@/services/testimonial.service';
 
 type TestimonialInput = Omit<Testimonial, 'id' | 'createdAt' | 'updatedAt'>;
-type TestimonialState = { data: Testimonial[]; isLoading: boolean; error: string | null };
+type TestimonialState = { data: Testimonial[]; isLoading: boolean; hasLoaded: boolean; error: string | null };
 
 const initialState: TestimonialState = { 
     data: [], 
-    isLoading: false, 
+    isLoading: false,
+    hasLoaded: false,
     error: null 
 };
 
@@ -56,7 +57,7 @@ const testimonialSlice = createSlice({
                 state.isLoading = true; state.error = null; 
             })
             .addCase(getTestimonials.fulfilled, (state, action) => { 
-                state.data = action.payload.data; state.isLoading = false; 
+                state.data = action.payload.data; state.isLoading = false; state.hasLoaded = true;
             })
             .addCase(getTestimonials.rejected, (state, action) => { 
                 state.isLoading = false; state.error = getError(action.error, 'Unable to load testimonials.'); 

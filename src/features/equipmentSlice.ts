@@ -21,6 +21,7 @@ type EquipmentState = {
     filters: EquipmentFilters;
     pagination: EquipmentPagination;
     isLoading: boolean;
+    hasLoaded: boolean;
     error: string | null;
     currentRequestId?: string;
 };
@@ -31,6 +32,7 @@ const initialState: EquipmentState = {
     filters: { page: 1, limit: 12, category: null, search: "", minPrice: 0, maxPrice: 1000 },
     pagination: { page: 1, limit: 12, total: 0, pages: 0, hasNextPage: false, hasPreviousPage: false },
     isLoading: false,
+    hasLoaded: false,
     error: null,
 };
 
@@ -131,6 +133,7 @@ const equipmentSlice = createSlice({
                 state.data = action.payload.data.items;
                 state.pagination = action.payload.data.pagination;
                 state.isLoading = false;
+                state.hasLoaded = true;
                 state.currentRequestId = undefined;
             })
             .addCase(getEquipments.rejected, (state, action) => {

@@ -2,11 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { createFaq, deleteFaq, fetchFaqs, updateFaq, type Faq, type FaqInput } from '@/services/faq.service';
 
-type FaqState = { data: Faq[]; isLoading: boolean; error: string | null };
+type FaqState = { data: Faq[]; isLoading: boolean; hasLoaded: boolean; error: string | null };
 
 const initialState: FaqState = { 
     data: [], 
-    isLoading: false, 
+    isLoading: false,
+    hasLoaded: false,
     error: null 
 };
 
@@ -49,7 +50,7 @@ const faqSlice = createSlice({
                 state.isLoading = true; state.error = null; 
             })
             .addCase(getFaqs.fulfilled, (state, action) => { 
-                state.data = action.payload.data; state.isLoading = false; 
+                state.data = action.payload.data; state.isLoading = false; state.hasLoaded = true;
             })
             .addCase(getFaqs.rejected, (state, action) => {
                 state.isLoading = false;

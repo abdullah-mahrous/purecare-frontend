@@ -6,7 +6,7 @@ import {
     type WebsiteGeneralData,
 } from '@/services/websiteGeneralData.service';
 
-type WebsiteGeneralDataState = WebsiteGeneralData & { isLoading: boolean; error: string | null };
+type WebsiteGeneralDataState = WebsiteGeneralData & { isLoading: boolean; hasLoaded: boolean; error: string | null };
 
 const initialState: WebsiteGeneralDataState = {
     emergencyNumber: '+201212900739',
@@ -17,6 +17,7 @@ const initialState: WebsiteGeneralDataState = {
     tiktook: 'https://www.tiktok.com/@pure.care1?_t=8kB7etXVrEL&_r=1',
     introVideoUrl: 'https://res.cloudinary.com/qewabr3c/video/upload/v1788440079/purecare/trdctr63qpwygas4lrzb.mp4',
     isLoading: false,
+    hasLoaded: false,
     error: null,
     currentRequestId: undefined,
 };
@@ -46,6 +47,7 @@ const websiteGeneralDataSlice = createSlice({
             .addCase(getWebsiteGeneralData.fulfilled, (state, action) => {
                 Object.assign(state, action.payload.data);
                 state.isLoading = false;
+                state.hasLoaded = true;
             })
             .addCase(getWebsiteGeneralData.rejected, (state, action) => {
                 state.isLoading = false;
