@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { getEquipments, setPage, setSearch } from "@/features/equipmentSlice";
@@ -15,6 +15,8 @@ const getPageDirection = () => document.documentElement.dir === "ltr" ? "ltr" : 
 function EquipmentState() {
     const { data, error, isLoading } = useAppSelector((state) => state.equipment);
     const dispatch = useAppDispatch();
+
+    console.log("EquipmentState render");
 
     if (error) {
         return (
@@ -49,12 +51,19 @@ function MedicalEquipmentPage() {
     const [searchValue, setSearchValue] = useState(filters.search);
     const debouncedSearch = useDebouncedValue(searchValue);
     const direction = getPageDirection();
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
-        if (debouncedSearch !== filters.search) dispatch(setSearch(debouncedSearch));
+        if (debouncedSearch !== filters.search) 
+            dispatch(setSearch(debouncedSearch));
     }, [debouncedSearch, dispatch, filters.search]);
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         dispatch(getEquipments());
     }, [dispatch, filters.category, filters.limit, filters.maxPrice, filters.minPrice, filters.page, filters.search]);
 
@@ -100,11 +109,11 @@ function MedicalEquipmentPage() {
                             </h2>
 
                             <p className="mt-1 text-sm font-medium text-body-text">
-                                عرض <bdi>{data.length}</bdi> معدات من أصل <bdi>{pagination.totalItems}</bdi>
+                                عرض <bdi>{data.length + (pagination.page - 1) * pagination.limit}</bdi> معدات من أصل <bdi>{pagination.total}</bdi>
                             </p>
                         </div>
 
-                        {isLoading && data.length === 0 ? (
+                        {isLoading ? (
                             <div className="rounded-2xl bg-primary/10 p-8 text-center font-bold text-primary border border-primary/20 flex justify-center items-center gap-2">
                                 جارِ تحميل المعدات
                                 <svg className="animate-spin size-4 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -118,7 +127,7 @@ function MedicalEquipmentPage() {
 
                 <Pagination
                     currentPage={pagination.page}
-                    totalPages={pagination.totalPages}
+                    totalPages={pagination.pages}
                     hasNextPage={pagination.hasNextPage}
                     hasPreviousPage={pagination.hasPreviousPage}
                     onPageChange={(page) => dispatch(setPage(page))}

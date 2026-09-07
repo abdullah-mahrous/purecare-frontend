@@ -1,6 +1,6 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
-type RequestOptions = Omit<RequestInit, 'body'> & { body?: unknown };
+export type RequestOptions = Omit<RequestInit, 'body'> & { body?: unknown };
 
 export async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
     if (!apiUrl)
@@ -20,5 +20,6 @@ export async function apiRequest<T>(endpoint: string, options: RequestOptions = 
         throw new Error(`API request failed with status ${response.status}`);
 
     const contentType = response.headers.get('content-type');
+    
     return contentType?.includes('application/json') ? response.json() as Promise<T> : undefined as T;
 }

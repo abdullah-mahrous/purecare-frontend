@@ -31,7 +31,6 @@ function CareersPage() {
 
     const careerSubmitHandler: SubmitHandler<formFields> = async (data) => {
         setSubmitError(false);
-        console.log(data);
         
         try {
             await submitCareerForm(data);
@@ -63,8 +62,8 @@ function CareersPage() {
                         id="full-name"
                         label="الاسم الكامل"
                         required={true}
-                        error={errors.name?.message}
-                        input={<BaseInput id="full-name" type="text" placeholder="اكتب اسمك الكامل" {...register("name")} required/>}
+                        error={errors.fullName?.message}
+                        input={<BaseInput id="full-name" type="text" placeholder="اكتب اسمك الكامل" {...register("fullName")} required/>}
                         icon={<img src="/src/assets/icons/person.svg" alt="person icon" className="size-8" />}
                     />
 
@@ -122,7 +121,7 @@ function CareersPage() {
                         error={errors.position?.message}
                         input={
                             <Controller name="position" control={control} render={({ field }) => (
-                                <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder="اختار الوظيفة" items={positions} selectedValues={field.value ?? []} onChange={field.onChange}/>
+                                <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder="اختار الوظيفة" items={positions} selectedValues={field.value ? [field.value] : []} onChange={(values) => field.onChange(values[0] ?? '')}/>
                             )} />
                         }
                         icon={<img src="/src/assets/icons/services.svg" alt="Services icon" className="size-8" />}
@@ -132,24 +131,24 @@ function CareersPage() {
                         id="id-files"
                         label="صورة البطاقة"
                         required={true}
-                        error={errors.ID?.message}
-                        input={<BaseInput id="id-files" type="file" className="py-4" placeholder="" accept="image/*,.pdf,.doc,.docx" multiple {...register("ID")} />}
+                        error={errors.nationalId?.message}
+                        input={<BaseInput id="id-files" type="file" className="py-4" placeholder="" accept="image/*,.pdf,.doc,.docx" multiple {...register("nationalId")} />}
                         icon={<img src="/src/assets/icons/id-card.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
                         id="work-id"
                         label="صورة كارنيه مزاولة المهنة"
-                        error={errors.workId?.message}
-                        input={<BaseInput id="work-id" type="file" className="py-4" placeholder="" accept="image/*,.pdf,.doc,.docx" {...register("workId")} />}
+                        error={errors.professionalLicenseCard?.message}
+                        input={<BaseInput id="work-id" type="file" className="py-4" placeholder="" accept="image/*,.pdf,.doc,.docx" {...register("professionalLicenseCard")} />}
                         icon={<img src="/src/assets/icons/auth-card.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
                         id="graduation-certificate"
                         label="صورة شهادة التخرج"
-                        error={errors.graduationCerteficate?.message}
-                        input={<BaseInput id="graduation-certificate" type="file" className="py-4" placeholder="chose" accept="image/*,.pdf,.doc,.docx" {...register("graduationCerteficate")} />}
+                        error={errors.graduationCertificate?.message}
+                        input={<BaseInput id="graduation-certificate" type="file" className="py-4" placeholder="chose" accept="image/*,.pdf,.doc,.docx" {...register("graduationCertificate")} />}
                         icon={<img src="/src/assets/icons/certificate-outline.svg" alt="Services icon" className="size-8" />}
                     />
 

@@ -12,12 +12,11 @@ function EquipmentFilters({ compact = false }: { compact?: boolean }) {
     const dispatch = useAppDispatch();
     const { category, minPrice, maxPrice } = useAppSelector((state) => state.equipment.filters);
     const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
-    const debouncedPrice = useDebouncedValue(price);
+    const debouncedPrice = useDebouncedValue(price, 500);
 
     useEffect(() => {
-        if (debouncedPrice[0] !== minPrice || debouncedPrice[1] !== maxPrice) {
+        if (debouncedPrice[0] !== minPrice || debouncedPrice[1] !== maxPrice)
             dispatch(setPriceRange(debouncedPrice));
-        }
     }, [debouncedPrice, dispatch, maxPrice, minPrice]);
 
     return (
@@ -51,7 +50,7 @@ function EquipmentFilters({ compact = false }: { compact?: boolean }) {
                     onValueChange={(values) => setPrice([values[0], values[1]])}
                     min={0}
                     max={1000}
-                    step={10}
+                    step={5}
                     aria-label="نطاق سعر الإيجار اليومي"
                 />
                 <div className="mt-2 flex justify-between">

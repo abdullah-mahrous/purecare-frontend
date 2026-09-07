@@ -8,8 +8,6 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 import { routes } from '../router/routes';
-import { contacts } from "../services/contactsService";
-import { services } from "../services/services.service";
 import { submitReservationForm } from "../services/forms.service";
 import reservationSchema from "../utils/validation/reservationSchema";
 
@@ -19,30 +17,42 @@ import BaseBtn from "../components/BaseBtn";
 import DropDownList from "../components/DropDownList";
 import HeroPerk from '../components/forms/HeroPerk';
 import FormField from '../components/forms/FormField';
+import { useAppSelector } from '../app/hooks';
 
 type formFields = z.output<typeof reservationSchema>
 type formInput = z.input<typeof reservationSchema>
 
 function ReservationPage() {
     const navigate = useNavigate();
+    const phoneNumber = useAppSelector((state) => state.websiteGeneralData.phoneNumber);
+    const services = useAppSelector((state) => state.services.services);
     const [submitError, setSubmitError] = useState(false);
     const listedServices = services.map(service => {
         return {
-            text: service.name,
-            value: service.name
+            text: service.nameAr,
+            value: service.id
         }
     });
 
-    const { register, handleSubmit, control, formState: { errors, isSubmitting} } = useForm<formInput, unknown, formFields>({ resolver: zodResolver(reservationSchema) });
+    const { register, handleSubmit, control, formState: { errors, isSubmitting} } = useForm<formInput, unknown, formFields>({ resolver: zodResolver(reservationSchema), defaultValues: {
+        fullName: '',
+        phoneNumber: '',
+        age: undefined,
+        desiredDate: '',
+        address: '',
+        serviceIds: [],
+        healthIssue: undefined,
+        notes: undefined
+    }});
 
     const reservationSubmitHandler: SubmitHandler<formFields> = async (data) => {
         setSubmitError(false);
-console.log(data);
 
         try {
             await submitReservationForm(data);
             navigate(routes.sentSuccessfully, {state: { header: 'تم إرسال طلبك بنجاح', slogan: 'شكرًا لك، هنتواصل معاك قريبًا لتأكيد تفاصيل الحجز' }});
-        } catch {
+        } catch (error) {
+            console.error('Failed to submit reservation:', error);
             setSubmitError(true);
         }
     }
@@ -74,8 +84,8 @@ console.log(data);
                     id="full-name"
                     label='الاسم الكامل' 
                     required={true} 
-                    error={errors.name?.message} 
-                    input={<BaseInput id="full-name" type="text" placeholder="اكتب اسمك الكامل" {...register("name")} required/>} 
+                    error={errors.fullName?.message} 
+                    input={<BaseInput id="full-name" type="text" placeholder="اكتب اسمك الكامل" {...register("fullName")} required/>} 
                     icon={<img src="/src/assets/icons/person.svg" alt="person icon" className="size-8" />}
                     />
 
@@ -114,8 +124,8 @@ console.log(data);
                             id="desired-date"
                             label='معاد الزيارة المطلوبة'
                             required={true}
-                            error={errors.reservationDate?.message}
-                            input={<BaseInput id="desired-date" min={new Date().toISOString().slice(0, 16)} type="datetime-local" placeholder="Select date" {...register("reservationDate")} required/>}
+                            error={errors.desiredDate?.message}
+                            input={<BaseInput id="desired-date" min={new Date().toISOString().slice(0, 16)} type="datetime-local" placeholder="Select date" {...register("desiredDate")} required/>}
                             icon={<img src="/src/assets/icons/calendar-check-outline.svg" alt="calender icon" className="size-8" />}
                         />
                     </div>
@@ -132,9 +142,9 @@ console.log(data);
                     <FormField
                         id="service"
                         label="الخدمة المطلوبة"
-                        error={errors.services?.message}
+                        error={errors.serviceIds?.message}
                         input={
-                            <Controller name="services" control={control} render={({ field }) => (
+                            <Controller name="serviceIds" control={control} render={({ field }) => (
                                 <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder="اختار الخدمة" items={listedServices} selectedValues={field.value ?? []} onChange={field.onChange} multiple={true}/>
                             )} />
                         }
@@ -193,8 +203,8 @@ console.log(data);
                                 محتاج مساعدة؟
                             </span>
                                 اتصل في اي وقت:  
-                            <a href={`tel:${contacts.phoneNumber}`} className="font-bold text-secondary">
-                                {contacts.phoneNumber}
+                            <a href={`tel:${phoneNumber}`} className="font-bold text-secondary">
+                                {phoneNumber}
                             </a>
                         </p>
                     </div>

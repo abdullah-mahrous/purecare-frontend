@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 
 import { routes } from "../../router/routes";
 import { closeDrawer } from "../../features/navSlice";
-import { navLinks } from "../../services/homeService";
-import { services } from "../../services/services.service";
-import { contacts } from "../../services/contactsService";
+import { whatsappUrl } from "../../services/contactsService";
 
 import Logo from "../Logo";
 import LangToggler from "./LangToggler";
@@ -18,21 +17,30 @@ import TiktookIcon from "../../assets/icons/TiktookIcon";
 import WhatsappIcon from "../../assets/icons/WhatsappIcon";
 import InstagramIcon from "../../assets/icons/InstagramIcon";
 
-const contactLinks = [
-    { label: "Facebook", href: contacts.facebook, icon: <FacebookIcon className="size-6"/> },
-    { label: "Instagram", href: contacts.instagram, icon: <InstagramIcon className="size-6"/> },
-    { label: "TikTok", href: contacts.tiktook, icon: <TiktookIcon className="size-6"/> },
-    { label: "WhatsApp", href: `https://wa.me/${contacts.whatsappNumber}`, icon: <WhatsappIcon className="size-6"/> },
-    { label: "Phone", href: `tel:${contacts.phoneNumber}`, icon: <PhoneIcon className="size-6"/> },
-];
-
-
 const MobileDrawer = () => {
     const dispatch = useDispatch();
     const isDrawerOpen = useSelector((state: { nav: { isDrawerOpen: boolean } }) => state.nav.isDrawerOpen);
     const [shouldRender, setShouldRender] = useState<boolean>(isDrawerOpen);
     const [isVisible, setIsVisible] = useState<boolean>(isDrawerOpen);
     const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
+
+    const contacts = useAppSelector((state) => state.websiteGeneralData);
+    const services = useAppSelector((state) => state.services.services);
+
+    const contactLinks = [
+        { label: "Facebook", href: contacts.facebook, icon: <FacebookIcon className="size-6"/> },
+        { label: "Instagram", href: contacts.instagram, icon: <InstagramIcon className="size-6"/> },
+        { label: "TikTok", href: contacts.tiktook, icon: <TiktookIcon className="size-6"/> },
+        { label: "WhatsApp", href: whatsappUrl(contacts.whatsappNumber, ''), icon: <WhatsappIcon className="size-6"/> },
+        { label: "Phone", href: `tel:${contacts.phoneNumber}`, icon: <PhoneIcon className="size-6"/> },
+    ];
+
+    const navLinks = [
+        { label: "عن الشركة", to: `${routes.home}#about`, icon: '/src/assets/icons/people.svg' },
+        { label: "احجز الآن", to: routes.reservation, icon: '/src/assets/icons/calender.svg' },
+        { label: "تأجير معدات طبية", to: routes.medicalEquipments, icon: '/src/assets/icons/shopping.svg' },
+        { label: "انضم لفريق العمل", to: routes.careers, icon: '/src/assets/icons/briefcase.svg' },
+    ];
 
     const closeSidebar = () => {
         if (isDrawerOpen) {
@@ -176,7 +184,7 @@ const MobileDrawer = () => {
                                                 className="inline-flex text-base font-medium transition-colors duration-200 hover:text-secondary"
                                                 onClick={closeSidebar}
                                             >
-                                                {service.name}
+                                                {service.nameAr}
                                             </Link>
                                         </li>
                                     ))}

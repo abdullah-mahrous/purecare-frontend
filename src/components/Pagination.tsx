@@ -7,7 +7,8 @@ type PaginationProps = {
 };
 
 function Pagination({ currentPage, totalPages, hasNextPage, hasPreviousPage, onPageChange }: PaginationProps) {
-    if (totalPages <= 1) return null;
+    if (totalPages <= 0) 
+        return null;
 
     return (
         <nav className="mt-4 flex w-full items-center justify-center sm:mt-6 lg:mt-8" aria-label="صفحات المعدات">

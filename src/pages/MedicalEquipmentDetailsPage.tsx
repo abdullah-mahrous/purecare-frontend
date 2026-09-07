@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import { routes } from "@/router/routes";
-import { useAppSelector, useAppDispatch } from "@/app/hooks";
-import { getEquipments, getEquipmentById } from "@/features/equipmentSlice";
-import { contacts } from "@/services/contactsService";
+import { useAppSelector } from "@/app/hooks";
+import { whatsappUrl } from "@/services/contactsService";
 
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import PhoneIcon from "@/assets/icons/PhoneIcon";
@@ -12,23 +11,22 @@ import PhoneIcon from "@/assets/icons/PhoneIcon";
 const getPageDirection = () => document.documentElement.dir === "ltr" ? "ltr" : "rtl";
 
 function MedicalEquipmentDetailsPage() {
-    const { equipmentId } = useParams<{ equipmentId: string }>();
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-    const { equipment, data, isLoading } = useAppSelector(state => state.equipment);
+    const contacts = useAppSelector((state) => state.websiteGeneralData);
+    const { equipment, isLoading, error } = useAppSelector(state => state.equipment);
 
     const direction = getPageDirection();
 
     useEffect(() => {
-        if(data.length == 0)
-            dispatch(getEquipments());
-
-        dispatch(getEquipmentById(equipmentId as string));
-
-        // to redirect to not found page if the service is no longer
-        if(!equipment)
+        if (!isLoading && (error || !equipment))
             navigate(routes.notFound);
-    }, [dispatch, equipmentId, data]);
+    }, [equipment, error, isLoading, navigate]);
+
+    if (isLoading)
+        return <main dir={direction} className="px-4 py-12 text-center font-bold text-primary">جارِ تحميل بيانات الجهاز</main>;
+
+    if (error || !equipment)
+        return null;
 
 
     return (
@@ -36,16 +34,16 @@ function MedicalEquipmentDetailsPage() {
             <div className="mx-auto w-full max-w-2xl">
 
                 <section className="mt-2 sm:mt-4">
-                    <img src={equipment?.imageUrl} alt={equipment?.name} className="aspect-[1.25] w-full object-contain" />
+                    <img src={equipment.imageUrl} alt={equipment.name} className="aspect-[1.25] w-full object-contain" />
                 </section>
 
                 <h1 className="mt-8 text-center text-3xl font-extrabold leading-tight text-primary sm:mt-9 sm:text-4xl">
-                    {equipment?.name}
+                    {equipment.name}
                 </h1>
 
                 {/* Availability and daily rental price */}
                 <section className="mt-8 grid grid-cols-2 divide-x divide-[#BFE5DE] rounded-[1.7rem] bg-[#F3F9F8] px-4 py-6 sm:mt-9 sm:px-8" aria-label="حالة وسعر الجهاز">
-                    {equipment?.inStock ? (
+                    {equipment.inStock ? (
                         <div className="flex items-center justify-center gap-3 px-2 text-start">
                             <span className="size-10 rounded-full bg-secondary text-white flex shrink-0 items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-8">
@@ -74,7 +72,7 @@ function MedicalEquipmentDetailsPage() {
                     <div className="px-2 text-center">
                         <p className="text-sm font-semibold text-primary sm:text-lg">سعر الإيجار اليومي</p>
                         <p className="mt-1 text-4xl font-extrabold leading-none text-secondary sm:text-5xl">
-                            <bdi>{equipment?.pricePerDay}</bdi> <span className="text-xl sm:text-2xl">جنيه</span>
+                            <bdi>{equipment.pricePerDay}</bdi> <span className="text-xl sm:text-2xl">جنيه</span>
                         </p>
                     </div>
                 </section>
@@ -91,13 +89,13 @@ function MedicalEquipmentDetailsPage() {
                     </div>
 
                     <p className="mt-4 text-base font-medium leading-8 text-body-text sm:text-lg sm:leading-9">
-                        {equipment?.description}
+                        {equipment.description}
                     </p>
                 </section>
 
-                {equipment?.inStock && (
+                {equipment.inStock && (
                 <section className="mt-8 space-y-3 sm:mt-10" aria-label="طرق التواصل">
-                    <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href=contacts.whatsappUrl(contacts.whatsappNumber, `عايز أحجز جهاز ${equipment.name}`)}>
+                    <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href=whatsappUrl(contacts.whatsappNumber, `عايز أحجز جهاز ${equipment.name}`)}>
                         <WhatsappIcon className="size-7"/>
 
                         <span className="text-start">

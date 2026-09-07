@@ -1,8 +1,7 @@
 import { Link } from "react-router";
 
 import { routes } from "../router/routes";
-import { services } from "../services/services.service";
-import { contacts } from "../services/contactsService";
+import { useAppSelector } from "../app/hooks";
 
 import Logo from "./Logo";
 
@@ -13,6 +12,9 @@ import WhatsappIcon from "../assets/icons/WhatsappIcon";
 import PhoneIcon from "../assets/icons/PhoneIcon";
 
 const Footer = () => {
+    const contacts = useAppSelector((state) => state.websiteGeneralData);
+    const services = useAppSelector((state) => state.services.services);
+    
     const contactLinks = [
         { label: "Facebook", href: contacts.facebook, icon: <FacebookIcon className="size-6"/> },
         { label: "Instagram", href: contacts.instagram, icon: <InstagramIcon className="size-6"/> },
@@ -53,7 +55,7 @@ const Footer = () => {
                             {
                                 services.map(service => (
                                     <li key={routes.services(service.id)}>
-                                        <Link to={routes.services(service.id)} className="hover:underline">{service.name}</Link>
+                                        <Link to={routes.services(service.id)} className="hover:underline">{service.nameAr}</Link>
                                     </li>
                                 ))
                             }

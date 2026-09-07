@@ -1,4 +1,4 @@
-import { contacts } from "../../services/contactsService";
+import { useAppSelector } from "../../app/hooks";
 
 import Logo from "../Logo";
 import MobileMenuBtn from "./MobileMenuBtn";
@@ -6,6 +6,8 @@ import MobileDrawer from "./MobileDrawer";
 import PhoneIcon from "../../assets/icons/PhoneIcon";
 
 const NavBar = () => {
+    const phoneNumber = useAppSelector((state) => state.websiteGeneralData.phoneNumber);
+    
     return (
         <>
         <nav className="py-3 px-4 navbar block bg-white">
@@ -16,7 +18,7 @@ const NavBar = () => {
 
                 {/* Mobile nav Button */}
                 <li className="flex items-center sm:hidden">
-                    <div className="flex justify-center items-center bg-[#dfeeff] border border-base-border rounded-full size-10 mr-3" onClick={() => window.location.href=`tel:${contacts.phoneNumber}`}>
+                    <div className="flex justify-center items-center bg-[#dfeeff] border border-base-border rounded-full size-10 mr-3" onClick={() => window.location.href=`tel:${phoneNumber}`}>
                         <PhoneIcon className="size-6 text-primary"/>
                     </div>
                     

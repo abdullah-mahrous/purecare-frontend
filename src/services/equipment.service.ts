@@ -1,6 +1,7 @@
 import { apiRequest } from "./api";
+import { authenticatedRequest } from "./auth.service";
 
-/** Category values are shared by the UI and the equipment API. */
+/** Category values are accepted by the API's case-insensitive category filter. */
 export const categories = [
     "Mobility & Rehabilitation",
     "Respiratory Equipment",
@@ -39,8 +40,14 @@ export type EquipmentCategory = {
 export type Equipment = {
     id: string;
     name: string;
+    nameAr: string;
+    nameEn: string;
     description: string;
-    category: EquipmentCategoryId | null;
+    descriptionAr: string;
+    descriptionEn: string;
+    category: string | null;
+    categoryAr: string;
+    categoryEn: string;
     pricePerDay: number;
     imageUrl?: string;
     inStock?: boolean;
@@ -58,8 +65,8 @@ export type EquipmentFilters = {
 export type EquipmentPagination = {
     page: number;
     limit: number;
-    totalItems: number;
-    totalPages: number;
+    total: number;
+    pages: number;
     hasNextPage: boolean;
     hasPreviousPage: boolean;
 };
@@ -69,24 +76,41 @@ export type EquipmentListResponse = {
     pagination: EquipmentPagination;
 };
 
-type EquipmentApiItem = {
-    id: string | number;
-    name: string;
-    description?: string | null;
-    category?: EquipmentCategoryId | null;
-    price?: number | string | null;
-    pricePerDay?: number | string | null;
-    price_per_day?: number | string | null;
-    imageUrl?: string | null;
-    image_url?: string | null;
-    image?: string | null;
-    inStock?: boolean;
-    in_stock?: boolean;
+export type EquipmentCreateInput = {
+    nameAr: string;
+    nameEn: string;
+    descriptionAr: string;
+    descriptionEn: string;
+    categoryAr: string;
+    categoryEn: string;
+    price: number;
+    equipmentImg: File;
+    available?: boolean;
 };
 
-type EquipmentApiResponse = {
-    data: EquipmentApiItem[];
-    pagination: EquipmentPagination;
+export type EquipmentUpdateInput = Partial<Omit<EquipmentCreateInput, "equipmentImg">> & {
+    equipmentImg?: File;
+};
+
+type EquipmentApiItem = {
+    id: string | number;
+    nameAr: string;
+    nameEn: string;
+    descriptionAr: string;
+    descriptionEn: string;
+    categoryAr: string;
+    categoryEn: string;
+    price: number | string;
+    imgUrl?: string | null;
+    available: boolean;
+};
+
+type EquipmentResponse = {
+    success: boolean;
+    data: {
+        items: EquipmentApiItem[]; 
+        pagination: Pick<EquipmentPagination, "page" | "limit" | "total" | "pages">
+    };
 };
 
 const categoryIcons: Record<EquipmentCategoryId, EquipmentIconName> = {
@@ -114,20 +138,21 @@ const numberValue = (value: number | string | null | undefined) => {
     return Number.isFinite(number) ? number : 0;
 };
 
-/** Maps API field naming variations to the listing model used by the UI. */
+/** Maps the backend's bilingual equipment model to the Arabic UI model. */
 export const mapEquipment = (equipment: EquipmentApiItem): Equipment => ({
     id: String(equipment.id),
-    name: equipment.name,
-    description: equipment.description ?? "",
-    category: equipment.category ?? null,
-    pricePerDay: numberValue(equipment.pricePerDay ?? equipment.price_per_day ?? equipment.price),
-    imageUrl: equipment.imageUrl ?? equipment.image_url ?? equipment.image ?? undefined,
-    inStock: equipment.inStock ?? equipment.in_stock,
-});
-
-export const mapEquipmentResponse = (response: EquipmentApiResponse): EquipmentListResponse => ({
-    data: response.data.map(mapEquipment),
-    pagination: response.pagination,
+    name: equipment.nameAr,
+    nameAr: equipment.nameAr,
+    nameEn: equipment.nameEn,
+    description: equipment.descriptionAr,
+    descriptionAr: equipment.descriptionAr,
+    descriptionEn: equipment.descriptionEn,
+    category: equipment.categoryEn || equipment.categoryAr || null,
+    categoryAr: equipment.categoryAr,
+    categoryEn: equipment.categoryEn,
+    pricePerDay: numberValue(equipment.price),
+    imageUrl: equipment.imgUrl ?? undefined,
+    inStock: equipment.available,
 });
 
 export const buildEquipmentQuery = ({
@@ -149,28 +174,65 @@ export const buildEquipmentQuery = ({
 };
 
 /** Retrieves a filtered, paginated equipment listing from GET /api/equipment. */
-export async function fetchEquipments(filters: EquipmentFilters): Promise<EquipmentListResponse> {
+export async function fetchEquipments(filters: EquipmentFilters): Promise<{success: boolean;data: {items: Equipment[];pagination: EquipmentPagination;}}> {
     const query = buildEquipmentQuery(filters);
-    // const response = await apiRequest<EquipmentApiResponse>(`/equipment?${query}`);
-    const response = equipmentItems;
-    // return mapEquipmentResponse(response);
-    return mapEquipmentResponse({data:response, pagination: {page: 1,
-    limit: 10,
-    totalItems: 50,
-    totalPages: 5,
-    hasNextPage: true,
-    hasPreviousPage: false}});
+    const response = await apiRequest<EquipmentResponse>(`/equipment?${query}`);
+    const { page, pages, ...pagination } = response.data.pagination;
+
+    return {
+        ...response,
+        data: {
+            items: response.data.items.map(mapEquipment),
+            pagination: {
+                ...response.data.pagination,
+                page,
+                pages,
+                hasNextPage: page < pages,
+                hasPreviousPage: page > 1,
+                ...pagination,
+            },
+        },
+    };
 }
 
-/** Temporary listing data retained for local development until the rental endpoint is available. */
-export const equipmentItems: Equipment[] = [
-    { id: "wheelchair", name: "كرسي متحرك", description: "كرسي مريح وقابل للطي لتسهيل الحركة اليومية.", category: "Mobility & Rehabilitation", pricePerDay: 120, imageUrl: '/src/assets/ox.avif', inStock: true },
-    { id: "electric-hospital-bed", name: "سرير طبي كهربائي", description: "سرير قابل للتعديل لراحة المريض وسلامته في المنزل.", category: "Patient Beds & Supplies", pricePerDay: 250, imageUrl: "/src/assets/nebulizer.webp" },
-    { id: "oxygen-concentrator", name: "جهاز تركيز الأكسجين", description: "دعم أكسجين موثوق لتحسين التنفس براحة أكبر.", category: "Respiratory Equipment", pricePerDay: 300, imageUrl: "/src/assets/ox.avif", inStock: true },
-    { id: "nebulizer", name: "جهاز نيبولايزر", description: "جهاز عملي للمساعدة في جلسات العلاج التنفسي.", category: "Respiratory Equipment", pricePerDay: 90, imageUrl: "/src/assets/ox.avif" },
-    { id: "walker", name: "مشاية", description: "مشاية ثابتة تساعد على التوازن والحركة بأمان.", category: "Mobility & Rehabilitation", pricePerDay: 80, imageUrl: "/src/assets/ox.avif" },
-    { id: "patient-monitor", name: "جهاز مراقبة المرضى", description: "لمتابعة العلامات الحيوية مثل النبض والتنفس والأكسجين.", category: "Monitoring Devices", pricePerDay: 200, imageUrl: "/src/assets/ox.avif" },
-    { id: "commode-chair", name: "كرسي حمام طبي", description: "كرسي مريح يساعد في العناية اليومية بالمريض.", category: "Daily Care Supplies", pricePerDay: 100, imageUrl: "/src/assets/ox.avif" },
-    { id: "air-mattress", name: "مرتبة هوائية طبية", description: "تساعد على راحة المريض وتحسين وضعية النوم.", category: "Patient Beds & Supplies", pricePerDay: 150, imageUrl: "/src/assets/ox.avif" },
-    { id: "suction-machine", name: "جهاز شفط", description: "قوة شفط مناسبة للمساعدة في تنظيف مجرى التنفس.", category: "Home ICU & Critical Care", pricePerDay: 180, imageUrl: "/src/assets/ox.avif" },
-];
+/** Retrieves one equipment item from GET /api/equipment/:id. */
+export async function fetchEquipmentById(id: string): Promise<{success: boolean; data: Equipment}> {
+    const response = await apiRequest<{success: boolean; data: EquipmentApiItem}>(`/equipment/${id}`);
+    return { ...response, data: mapEquipment(response.data) };
+}
+
+const equipmentFormData = (equipment: EquipmentCreateInput | EquipmentUpdateInput) => {
+    const formData = new FormData();
+
+    Object.entries(equipment).forEach(([field, value]) => {
+        if (value !== undefined)
+            formData.append(field, value instanceof File ? value : String(value));
+    });
+
+    return formData;
+};
+
+/** Creates equipment for the authenticated admin panel. */
+export async function createEquipment(equipment: EquipmentCreateInput): Promise<Equipment> {
+    const response = await authenticatedRequest<{success: boolean; data: EquipmentApiItem}>("/equipment", {
+        method: "POST",
+        body: equipmentFormData(equipment),
+    });
+
+    return mapEquipment(response.data);
+}
+
+/** Updates equipment for the authenticated admin panel. */
+export async function updateEquipment(id: string, equipment: EquipmentUpdateInput): Promise<Equipment> {
+    const response = await authenticatedRequest<{success: boolean; data: EquipmentApiItem}>(`/equipment/${id}`, {
+        method: "PATCH",
+        body: equipmentFormData(equipment),
+    });
+
+    return mapEquipment(response.data);
+}
+
+/** Deletes equipment for the authenticated admin panel. */
+export function deleteEquipment(id: string) {
+    return authenticatedRequest<void>(`/equipment/${id}`, { method: "DELETE" });
+}

@@ -22,20 +22,20 @@ function NotFound() {
                     <path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z" />
                 </svg>
 
-                <h1 className="mt-4 text-2xl font-extrabold">المعدة غير موجودة</h1>
+                <h1 className="mt-4 text-2xl font-extrabold">الصفحة غير موجودة</h1>
                 <p className="mt-2 text-sm font-medium leading-relaxed text-body-text sm:text-base">
-                    ممكن تكون المعدات دي اتشالت أو الرابط غير صحيح.
+                    ممكن تكون الصفحة دي اتشالت أو الرابط غير صحيح.
                 </p>
 
                 <div className="mt-6">
                     <Link
-                        to={`/${routes.medicalEquipments}`}
+                        to={routes.home}
                         className="inline-flex items-center gap-2 rounded-xl border border-base-border bg-white px-4 py-2.5 text-sm font-bold text-primary transition hover:border-primary hover:bg-[#F7FBFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     >
                         <svg aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
                             <path d="m15 18-6-6 6-6" />
                         </svg>
-                        العودة إلى المعدات
+                        العودة إلى الصفحة الرئيسية
                     </Link>
                 </div>
             </section>

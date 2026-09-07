@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAppSelector } from "../app/hooks";
 
 import { Autoplay, Pagination } from "swiper/modules";
-import { services } from "../services/services.service";
-import { testimonials } from "../services/homeService";
-import { faqs } from "../services/homeService";
-import { contacts, inquiryMessage } from "../services/contactsService";
+import { whatsappUrl } from "../services/contactsService";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import heroImg from "../assets/hero-img.png";
@@ -24,6 +22,11 @@ import { routes } from "../router/routes";
 
 function HomePage() {
     const navigate = useNavigate();
+
+    const contacts = useAppSelector((state) => state.websiteGeneralData);
+    const services = useAppSelector((state) => state.services.services);
+    const testimonials = useAppSelector((state) => state.testimonials.data);
+    const faqs = useAppSelector((state) => state.faqs.data);
 
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -49,7 +52,7 @@ function HomePage() {
                 <BaseBtn className="bg-secondary text-white" onClick={() => window.location.href = `tel:${contacts.phoneNumber}`}>
                     اتصل الآن
                 </BaseBtn>
-                <BaseBtn className="bg-secondary text-white" onClick={() => window.open(contacts.whatsappUrl(contacts.whatsappNumber, inquiryMessage), "_blank")}>
+                <BaseBtn className="bg-secondary text-white" onClick={() => window.open(whatsappUrl(contacts.whatsappNumber, ''), "_blank")}>
                     واتساب
                 </BaseBtn>
                 <BaseBtn className="bg-white text-primary" onClick={() => navigate("/reservation")}>
@@ -131,10 +134,10 @@ function HomePage() {
                         <SwiperSlide key={service.id}>
                             <ServiceCard
                                 key={service.id}
-                                title={service.name}
-                                description={service.description}
+                                title={service.nameAr}
+                                description={service.descriptionAr}
                                 path={routes.services(service.id)}
-                                icon={service.img}
+                                icon={service.imgUrl}
                             />
                         </SwiperSlide>
                     ))}
@@ -149,7 +152,7 @@ function HomePage() {
             </h3>
 
             <div className="mx-auto w-full max-w-5xl">
-                <VideoContainer source="/src/assets/introduction.mp4" bubbles={true} />
+                <VideoContainer source={contacts.introVideoUrl} bubbles={true} />
             </div>
 
             <div className="pt-8 sm:pt-12 lg:pt-20 text-right">
@@ -360,9 +363,13 @@ function HomePage() {
                     modules={[Pagination, Autoplay]}
 
                 >
-                    {testimonials.map((testimonial, index) => (
-                        <SwiperSlide key={index}>
-                            <Testemonial name={testimonial.name} image={testimonial.image} text={testimonial.text} />
+                    {testimonials.map((testimonial) => (
+                        <SwiperSlide key={testimonial.id}>
+                            <Testemonial
+                                name={testimonial.nameAr}
+                                image={testimonial.gender.toLowerCase() === 'female' ? '/src/assets/female-testemonial.png' : '/src/assets/male-testemonial.png'}
+                                text={testimonial.commentAr}
+                            />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -385,7 +392,7 @@ function HomePage() {
 
                 <div className="mt-4">
                     {faqs.map((faq, index) => (
-                        <Faq key={index} question={faq.question} answer={faq.answer} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
+                        <Faq key={faq.id} question={faq.questionAr} answer={faq.answerAr} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
                     ))}
                 </div>
             </div>

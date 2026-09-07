@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 
 import { routes } from "../router/routes";
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { getServiceById, getServices } from '@/features/serviceSlice'
+import { getServiceById } from '@/features/serviceSlice'
 
 import BaseBtn from "../components/BaseBtn";
 import PhoneIcon from "../assets/icons/PhoneIcon";
@@ -15,21 +15,18 @@ import ServiceInfo from "../components/ServiceInfo";
 
 function ServicePage() {
     const { serviceId } = useParams();
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { service, services, isLoading } = useAppSelector(state => state.services);
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const { service } = useAppSelector(state => state.services);
         
     useEffect(() => {
-        if(services.length == 0)
-            dispatch(getServices());
-
         dispatch(getServiceById(serviceId));
 
         // to redirect to not found page if the service is no longer
         if(!service)
             navigate(routes.notFound);
-    }, [dispatch, serviceId, services]);
+    }, [dispatch, serviceId, service]);
 
     return (
         <main className="px-4 py-2 text-primary sm:px-8 sm:py-8 lg:px-12 lg:py-10">
@@ -40,16 +37,16 @@ function ServicePage() {
                     <div className="mx-auto grid max-w-5xl items-center gap-2 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-8 text-right">
                         <div className="relative z-10 py-2 md:py-8">
                             <h2 className="max-w-md text-3xl font-extrabold leading-tight text-primary sm:text-4xl lg:text-5xl">
-                                {service?.name}
+                                {service?.nameAr}
                             </h2>
 
                             <p className="mt-2 max-w-md text-base font-semibold leading-relaxed text-heading-text/85 sm:text-lg lg:text-xl">
-                                {service?.description}
+                                {service?.descriptionAr}
                             </p>
                         </div>
 
                         <img
-                            src={service?.img}
+                            src={service?.imgUrl}
                             alt="Illustration of a home nurse"
                             className="mx-auto w-full max-w-120 mix-blend-multiply md:translate-y-4"
                         />
@@ -93,7 +90,7 @@ function ServicePage() {
                         </span>
 
                         <div className="min-w-0">
-                            <p className="text-xl font-extrabold leading-tight">{service?.perks.rate} / 5</p>
+                            <p className="text-xl font-extrabold leading-tight">{service?.rate} / 5</p>
                             <p className="mt-1 text-sm font-semibold text-heading-text/75">Customer Rating</p>
                         </div>
                     </div>
@@ -104,7 +101,7 @@ function ServicePage() {
                         </span>
 
                         <div className="min-w-0">
-                            <p className="text-xl font-extrabold leading-tight">{service?.perks.customersCount}+</p>
+                            <p className="text-xl font-extrabold leading-tight">{service?.customersCount}+</p>
                             <p className="mt-1 text-sm font-semibold text-heading-text/75">Satisfied Customers</p>
                         </div>
                     </div>
@@ -118,7 +115,7 @@ function ServicePage() {
                         </span>
 
                         <div className="min-w-0">
-                            <p className="text-xl font-extrabold leading-tight">{service?.perks.responseTime} mins</p>
+                            <p className="text-xl font-extrabold leading-tight">{service?.responseTime} mins</p>
                             <p className="mt-1 text-sm font-semibold text-heading-text/75">Average Response</p>
                         </div>
                     </div>
@@ -126,26 +123,28 @@ function ServicePage() {
             </section>
 
             {/* who is it for section */}
-            <section aria-labelledby="who-is-service-for">
-                <div className="mx-auto w-full max-w-5xl">
-                    <h2 className="text-center sm:text-left text-xl font-bold uppercase tracking-normal text-primary">
-                        لمين الخدمة دي؟
-                    </h2>
+            {service?.targeted && (
+                <section aria-labelledby="who-is-service-for">
+                    <div className="mx-auto w-full max-w-5xl">
+                        <h2 className="text-center sm:text-left text-xl font-bold uppercase tracking-normal text-primary">
+                            لمين الخدمة دي؟
+                        </h2>
 
-                    <ServiceInfo details={service?.targetedCustomers} />
+                    <ServiceInfo details={service?.targeted} />
                 </div>
-            </section>
+            </section>)}
 
             {/* what is included section */}
-            <section aria-labelledby="what-is-included" className="my-16 sm:my-20 lg:my-24">
-                <div className="mx-auto w-full max-w-5xl">
-                    <h2 className="text-center sm:text-left text-xl font-bold uppercase tracking-normal text-primary">
-                        ايه اللي هتستفاد بيه؟
-                    </h2>
+            {service?.included && (
+                <section aria-labelledby="what-is-included" className="my-16 sm:my-20 lg:my-24">
+                    <div className="mx-auto w-full max-w-5xl">
+                        <h2 className="text-center sm:text-left text-xl font-bold uppercase tracking-normal text-primary">
+                            ايه اللي هتستفاد بيه؟
+                        </h2>
 
-                    <ServiceInfo details={service?.includedServices} />
+                    <ServiceInfo details={service?.included} />
                 </div>
-            </section>
+            </section>)}
 
             {/* faq section */}
             <section className="mb-6 text-primary sm:mb-8 lg:mb-10" aria-labelledby="faq-section">
@@ -157,8 +156,8 @@ function ServicePage() {
                     </div>
 
                     <div className="mt-4">
-                        {service?.faq.map((faq, index) => (
-                            <Faq key={index} question={faq.question} answer={faq.answer} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
+                        {service?.faqs.map((faq, index) => (
+                            <Faq key={index} question={faq.questionAr} answer={faq.answerAr} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
                         ))}
                     </div>
                 </div>

@@ -8,5 +8,7 @@ export const routes = {
     medicalEquipments: '/medical-equipments',
     medicalEquipmentDetailsPattern: '/medical-equipments/:equipmentId',
     medicalEquipmentDetails: (equipmentId: string) => `/medical-equipments/${equipmentId}`,
+    adminLogin: '/admin/login',
+    admin: '/admin',
     notFound: '*'
 }
