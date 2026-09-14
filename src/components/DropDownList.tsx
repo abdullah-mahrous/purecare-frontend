@@ -1,5 +1,5 @@
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
-import ChevronIcon from "../assets/icons/ChevronIcon";
+import ChevronIcon from "./icons/ChevronIcon";
 
 type DropDownValue = string | number;
 

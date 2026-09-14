@@ -5,7 +5,7 @@ interface VideoContainerProps {
 }
 
 function VideoContainer({
-  source = "/src/assets/introduction.mp4",
+  source = "/assets/introduction.mp4",
   bubbles = true,
   poster
 }: VideoContainerProps) {

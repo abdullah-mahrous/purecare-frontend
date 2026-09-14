@@ -9,13 +9,13 @@ import { whatsappUrl } from "../../services/contactsService";
 
 import Logo from "../Logo";
 import LangToggler from "./LangToggler";
-import EmergencyIcon from "../../assets/icons/EmergencyIcon";
-import ChevronIcon from "../../assets/icons/ChevronIcon";
-import PhoneIcon from "../../assets/icons/PhoneIcon";
-import FacebookIcon from "../../assets/icons/FacebookIcon";
-import TiktookIcon from "../../assets/icons/TiktookIcon";
-import WhatsappIcon from "../../assets/icons/WhatsappIcon";
-import InstagramIcon from "../../assets/icons/InstagramIcon";
+import EmergencyIcon from "../icons/EmergencyIcon";
+import ChevronIcon from "../icons/ChevronIcon";
+import PhoneIcon from "../icons/PhoneIcon";
+import FacebookIcon from "../icons/FacebookIcon";
+import TiktookIcon from "../icons/TiktookIcon";
+import WhatsappIcon from "../icons/WhatsappIcon";
+import InstagramIcon from "../icons/InstagramIcon";
 import { useTranslation } from "react-i18next";
 import { localized } from "../../i18n";
 
@@ -39,10 +39,10 @@ const MobileDrawer = () => {
     ];
 
     const navLinks = [
-        { label: t("nav.about"), to: `${routes.home}#about`, icon: '/src/assets/icons/people.svg' },
-        { label: t("nav.book"), to: routes.reservation, icon: '/src/assets/icons/calender.svg' },
-        { label: t("nav.equipment"), to: routes.medicalEquipments, icon: '/src/assets/icons/shopping.svg' },
-        { label: t("nav.careers"), to: routes.careers, icon: '/src/assets/icons/briefcase.svg' },
+        { label: t("nav.about"), to: `${routes.home}#about`, icon: '/assets/icons/people.svg' },
+        { label: t("nav.book"), to: routes.reservation, icon: '/assets/icons/calender.svg' },
+        { label: t("nav.equipment"), to: routes.medicalEquipments, icon: '/assets/icons/shopping.svg' },
+        { label: t("nav.careers"), to: routes.careers, icon: '/assets/icons/briefcase.svg' },
     ];
 
     const closeSidebar = () => {
@@ -144,7 +144,7 @@ const MobileDrawer = () => {
                             className="flex items-center gap-4 border-b border-gray-200 py-4 text-primary transition-colors duration-200 hover:text-secondary"
                             onClick={closeSidebar}
                         >
-                            <img src="/src/assets/icons/home.svg" alt="Home" className="size-6" />
+                            <img src="/assets/icons/home.svg" alt="Home" className="size-6" />
                             <span className="font-semibold">{t("nav.home")}</span>
                         </Link>
 
@@ -157,7 +157,7 @@ const MobileDrawer = () => {
                             onClick={() => setIsServicesOpen((isOpen) => !isOpen)}
                         >
                             <span className="flex items-center gap-4">
-                                <img src="/src/assets/icons/services.svg" alt="Services" className="size-6" />
+                                <img src="/assets/icons/services.svg" alt="Services" className="size-6" />
                                 <span className="font-semibold">{t("nav.services")}</span>
                             </span>
 

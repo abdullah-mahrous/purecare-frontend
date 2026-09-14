@@ -5,8 +5,8 @@ import { routes } from "@/router/routes";
 import { useAppSelector } from "@/app/hooks";
 import { whatsappUrl } from "@/services/contactsService";
 
-import WhatsappIcon from "@/assets/icons/WhatsappIcon";
-import PhoneIcon from "@/assets/icons/PhoneIcon";
+import WhatsappIcon from "@/components/icons/WhatsappIcon";
+import PhoneIcon from "@/components/icons/PhoneIcon";
 import { localized } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { useGsapPageAnimations } from "@/hooks/useGsapPageAnimations";
@@ -82,7 +82,7 @@ function MedicalEquipmentDetailsPage() {
                 <section data-gsap-reveal className="mt-8 sm:mt-10" aria-labelledby="equipment-description-title">
                     <div className="flex items-center gap-3">
                         <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-secondary/10">
-                            <img src="/src/assets/icons/text-file.svg" alt="desct=ription icon" className="size-8" />
+                            <img src="/assets/icons/text-file.svg" alt="desct=ription icon" className="size-8" />
                         </span>
 
                         <h2 id="equipment-description-title" className="text-2xl font-extrabold text-primary sm:text-3xl">
@@ -116,7 +116,7 @@ function MedicalEquipmentDetailsPage() {
 
                 <section data-gsap-reveal data-gsap-variant="slide" className="flex gap-4 mt-8 rounded-[1.8rem] bg-[#F1F8F8] px-4 py-6 sm:mt-10 sm:px-9 sm:py-9 items-center" aria-labelledby="safety-title">
                     <div className="flex shrink-0 p-2 items-center justify-center rounded-full border-8 border-white bg-primary/10 text-primary">
-                        <img src="/src/assets/icons/shield-check.svg" className="size-20" alt="shield icon" />
+                        <img src="/assets/icons/shield-check.svg" className="size-20" alt="shield icon" />
                     </div>
 
                     <div className="max-w-sm text-start">

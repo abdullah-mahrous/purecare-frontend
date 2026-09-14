@@ -1,4 +1,4 @@
-import ChevronIcon from "../assets/icons/ChevronIcon";
+import ChevronIcon from "./icons/ChevronIcon";
 import { useTranslation } from "react-i18next";
 
 const Faq = ({ question, answer, isOpen, onToggle }: { question: string; answer: string; isOpen: boolean; onToggle: () => void }) => {

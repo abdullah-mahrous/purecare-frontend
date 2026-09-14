@@ -5,10 +5,8 @@ import { routes } from "../router/routes";
 import { useAppSelector } from '@/app/hooks'
 
 import BaseBtn from "../components/BaseBtn";
-import PhoneIcon from "../assets/icons/PhoneIcon";
-import WhatsappIcon from "../assets/icons/WhatsappIcon";
-import peopleCommunityIcon from "../assets/icons/people-community.svg";
-import starIcon from "../assets/icons/star.svg";
+import PhoneIcon from "../components/icons/PhoneIcon";
+import WhatsappIcon from "../components/icons/WhatsappIcon";
 import Faq from "../components/Faq";
 import ServiceInfo from "../components/ServiceInfo";
 import { localized, useCurrentLanguage } from "../i18n";
@@ -65,7 +63,7 @@ function ServicePage() {
                     <BaseBtn data-gsap-item onClick={() => navigate(`/${routes.reservation}`)}
                         className="rounded-lg! mt-3 w-full gap-2 border-2 border-primary bg-white px-6 text-base text-primary sm:text-lg"
                     >
-                        <img src="/src/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-6" />
+                        <img src="/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-6" />
 
                         {t("home.book")}
                     </BaseBtn>
@@ -79,7 +77,7 @@ function ServicePage() {
 
                     <div data-gsap-item className="service-perk shadow-[0_10px_28px_rgba(11, 74, 133, 0.10)]">
                         <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
-                            <img src={starIcon} alt="rating icon" aria-hidden="true" className="size-10" />
+                            <img src="/assets/icons/star.svg" alt="rating icon" aria-hidden="true" className="size-10" />
                         </span>
 
                         <div className="min-w-0">
@@ -90,7 +88,7 @@ function ServicePage() {
 
                     <div data-gsap-item className="service-perk shadow-[0_10px_28px_rgba(11, 74, 133, 0.10)]">
                         <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
-                            <img src={peopleCommunityIcon} alt="customers icon" aria-hidden="true" className="size-10" />
+                            <img src="/assets/icons/people-community.svg" alt="customers icon" aria-hidden="true" className="size-10" />
                         </span>
 
                         <div className="min-w-0">

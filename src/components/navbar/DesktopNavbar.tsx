@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 import { useAppSelector } from "../../app/hooks";
 import { routes } from "../../router/routes";
-import ChevronIcon from "../../assets/icons/ChevronIcon";
+import ChevronIcon from "../icons/ChevronIcon";
 import LangToggler from "./LangToggler";
 import { useTranslation } from "react-i18next";
 import { localized } from "../../i18n";

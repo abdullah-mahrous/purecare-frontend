@@ -7,7 +7,6 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { whatsappUrl } from "../services/contactsService";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import heroImg from "../assets/hero-img.png";
 import BaseBtn from "../components/BaseBtn";
 import EmergancyCTA from "../components/home/EmergancyCTA";
 import ServiceCard from "../components/home/ServiceCard";
@@ -42,7 +41,7 @@ function HomePage() {
             {/* header */}
             <section
                 className="relative isolate flex min-h-[calc(100svh-5rem)] overflow-hidden rounded-b-[4rem] bg-cover bg-[position:68%_center] px-5 pb-8 pt-64 text-white sm:min-h-[36rem] sm:rounded-b-[4rem] sm:bg-center sm:px-8 sm:pt-72 lg:min-h-[42rem] lg:px-12 lg:pt-80 xl:min-h-[46rem]"
-                style={{ backgroundImage: `url(${heroImg})` }}
+                style={{ backgroundImage: "url('/assets/hero-img.png')" }}
             >
                 <div className="absolute inset-x-0 bottom-0 -z-10 h-[80%] bg-gradient-to-t from-[#010f1b] via-[#010f1b]/95 to-transparent" />
 
@@ -76,14 +75,14 @@ function HomePage() {
                 <div data-gsap-stagger data-gsap-variant="rise" className="mx-auto grid w-full max-w-6xl grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-4 lg:gap-6">
 
                     <TrustCard>
-                        <img src="/src/assets/icons/nurse.svg" alt="medical team icon" className="size-10 shrink-0" />
+                        <img src="/assets/icons/nurse.svg" alt="medical team icon" className="size-10 shrink-0" />
                         <span className="font-bold leading-tight">
                             {t("home.trustNurses")}
                         </span>
                     </TrustCard>
 
                     <TrustCard>
-                        <img src="/src/assets/icons/clock.svg" alt="clock icon" className="size-10" />
+                        <img src="/assets/icons/clock.svg" alt="clock icon" className="size-10" />
                         <span className="font-bold leading-tight">
                             {t("home.trustHours")}
                         </span>
@@ -101,7 +100,7 @@ function HomePage() {
                     </TrustCard>
 
                     <TrustCard>
-                        <img src="/src/assets/icons/shield.svg" alt="shield icon" className="size-10" />
+                        <img src="/assets/icons/shield.svg" alt="shield icon" className="size-10" />
                         <span className="font-bold leading-tight">
                             {t("home.trustQuality")}
                         </span>
@@ -200,7 +199,7 @@ function HomePage() {
                     <div data-gsap-stagger data-gsap-variant="rise" className="grid gap-4 p-4 text-primary sm:grid-cols-6 grid-cols-3">
 
                         <WhyUsPoint label={t("home.whyPoints.team")} >
-                            <img src="/src/assets/icons/people.svg" alt="medical team icon" className="size-10 shrink-0" />
+                            <img src="/assets/icons/people.svg" alt="medical team icon" className="size-10 shrink-0" />
                         </WhyUsPoint>
 
                         <WhyUsPoint label={t("home.whyPoints.availability")} >
@@ -216,19 +215,19 @@ function HomePage() {
                         </WhyUsPoint>
 
                         <WhyUsPoint label={t("home.whyPoints.privacy")} >
-                            <img src="/src/assets/icons/shield-check.svg" alt="shield icon" className="size-10 shrink-0" />
+                            <img src="/assets/icons/shield-check.svg" alt="shield icon" className="size-10 shrink-0" />
                         </WhyUsPoint>
 
                         <WhyUsPoint label={t("home.whyPoints.emergency")} >
-                            <img src="/src/assets/icons/message-text-outline.svg" alt="chat icon" className="size-10 shrink-0" />
+                            <img src="/assets/icons/message-text-outline.svg" alt="chat icon" className="size-10 shrink-0" />
                         </WhyUsPoint>
 
                         <WhyUsPoint label={t("home.whyPoints.booking")} >
-                            <img src="/src/assets/icons/calendar-check-outline.svg" alt="calendar icon" className="size-10 shrink-0" />
+                            <img src="/assets/icons/calendar-check-outline.svg" alt="calendar icon" className="size-10 shrink-0" />
                         </WhyUsPoint>
 
                         <WhyUsPoint label={t("home.whyPoints.response")} >
-                            <img src="/src/assets/icons/phone-outline.svg" alt="phone icon" className="size-10 shrink-0" />
+                            <img src="/assets/icons/phone-outline.svg" alt="phone icon" className="size-10 shrink-0" />
                         </WhyUsPoint>
 
                     </div>
@@ -333,7 +332,7 @@ function HomePage() {
 
                         <div data-gsap-item className="flex flex-col items-center justify-center w-1/3">
                             <div className="relative rounded-full shadow p-5">
-                                <img src="/src/assets/icons/nurse.svg" alt="healthcare icon" className="size-10 shrink-0" />
+                                <img src="/assets/icons/nurse.svg" alt="healthcare icon" className="size-10 shrink-0" />
 
                                 <span className="size-5 flex items-center justify-center absolute -bottom-3.5 left-7.5 rounded-full bg-primary p-2 text-center text-white text-sm">
                                     3
@@ -385,7 +384,7 @@ function HomePage() {
                             <SwiperSlide key={testimonial.id} className="!h-auto">
                                 <Testemonial
                                     name={localized(testimonial, "name", i18n.resolvedLanguage)}
-                                    image={testimonial.gender.toLowerCase() === 'female' ? '/src/assets/female-testemonial.png' : '/src/assets/male-testemonial.png'}
+                                    image={testimonial.gender.toLowerCase() === 'female' ? '/assets/female-testemonial.png' : '/assets/male-testemonial.png'}
                                     text={localized(testimonial, "comment", i18n.resolvedLanguage)}
                                 />
                             </SwiperSlide>

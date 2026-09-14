@@ -5,11 +5,11 @@ import { useAppSelector } from "../app/hooks";
 
 import Logo from "./Logo";
 
-import FacebookIcon from "../assets/icons/FacebookIcon";
-import InstagramIcon from "../assets/icons/InstagramIcon";
-import TiktookIcon from "../assets/icons/TiktookIcon";
-import WhatsappIcon from "../assets/icons/WhatsappIcon";
-import PhoneIcon from "../assets/icons/PhoneIcon";
+import FacebookIcon from "./icons/FacebookIcon";
+import InstagramIcon from "./icons/InstagramIcon";
+import TiktookIcon from "./icons/TiktookIcon";
+import WhatsappIcon from "./icons/WhatsappIcon";
+import PhoneIcon from "./icons/PhoneIcon";
 import { useTranslation } from "react-i18next";
 import { localized, useCurrentLanguage } from "../i18n";
 

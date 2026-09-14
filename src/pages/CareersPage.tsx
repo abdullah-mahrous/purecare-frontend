@@ -51,15 +51,15 @@ function CareersPage() {
     return (
         <main ref={pageRef} dir={language === 'en' ? 'ltr' : 'rtl'} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
-            <PageHero header={t('forms.careersTitle')} slogan={t('forms.careersSlogan')} heroImg="/src/assets/medical-staff.png">
+            <PageHero header={t('forms.careersTitle')} slogan={t('forms.careersSlogan')} heroImg="/assets/medical-staff.png">
                 <HeroPerk title={i18n.language === 'en' ? 'Great work environment' : 'بيئة عمل مناسبة'} description={i18n.language === 'en' ? 'Work in a healthy environment that supports your growth' : 'اشتغل في بيئة عمل صحية تساعدك على التطور'}>
-                    <img src="/src/assets/icons/briefcase-check-outline.svg" alt="briefcase check icon" className="size-8" />
+                    <img src="/assets/icons/briefcase-check-outline.svg" alt="briefcase check icon" className="size-8" />
                 </HeroPerk>
                 <HeroPerk title={i18n.language === 'en' ? 'Competitive salaries' : 'رواتب مجزية'} description={i18n.language === 'en' ? 'Enjoy competitive and rewarding pay' : 'تمتع برواتب تنافسية و مجزية'}>
-                    <img src="/src/assets/icons/wallet.svg" alt="wallet icon" className="size-8" />
+                    <img src="/assets/icons/wallet.svg" alt="wallet icon" className="size-8" />
                 </HeroPerk>
                 <HeroPerk title={i18n.language === 'en' ? 'Flexible hours' : 'ساعات عمل مرنة'} description={i18n.language === 'en' ? 'Work at convenient times with a flexible schedule' : 'إشتغل في الاوقات المناسبة معاك من خلال جدول سهل ومرن'}>
-                    <img src="/src/assets/icons/schedule.svg" alt="timed schedule" className="size-8" />
+                    <img src="/assets/icons/schedule.svg" alt="timed schedule" className="size-8" />
                 </HeroPerk>
             </PageHero>
 
@@ -72,7 +72,7 @@ function CareersPage() {
                         required={true}
                         error={errors.fullName?.message}
                         input={<BaseInput id="full-name" type="text" placeholder={t("forms.namePlaceholder")} {...register("fullName")} required />}
-                        icon={<img src="/src/assets/icons/person.svg" alt="person icon" className="size-8" />}
+                        icon={<img src="/assets/icons/person.svg" alt="person icon" className="size-8" />}
                     />
 
                     <FormField
@@ -91,7 +91,7 @@ function CareersPage() {
                                     required
                                 />
                             )} />}
-                        icon={<img src="/src/assets/icons/phone-outline.svg" alt="phone icon" className="size-8" />}
+                        icon={<img src="/assets/icons/phone-outline.svg" alt="phone icon" className="size-8" />}
                     />
 
                     <div className="grid gap-5 sm:grid-cols-2 sm:gap-4">
@@ -100,7 +100,7 @@ function CareersPage() {
                             label={t('forms.age')}
                             error={errors.age?.message}
                             input={<BaseInput id="age" type="number" min="0" placeholder={t("forms.agePlaceholder")} {...register("age")} />}
-                            icon={<img src="/src/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-8" />}
+                            icon={<img src="/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-8" />}
                         />
 
                         <FormField
@@ -108,7 +108,7 @@ function CareersPage() {
                             label={t('forms.experience')}
                             error={errors.yoe?.message}
                             input={<BaseInput id="yoe" type="number" min="0" placeholder={t("forms.experiencePlaceholder")} {...register("yoe")} />}
-                            icon={<img src="/src/assets/icons/work-history-outline.svg" alt="calender icon" className="size-8" />}
+                            icon={<img src="/assets/icons/work-history-outline.svg" alt="calender icon" className="size-8" />}
                         />
                     </div>
 
@@ -118,7 +118,7 @@ function CareersPage() {
                         required={true}
                         error={errors.address?.message}
                         input={<BaseInput id="address" type="address" placeholder={t("forms.addressPlaceholder")} {...register("address")} required />}
-                        icon={<img src="/src/assets/icons/map-marker-outline.svg" alt="Map Marker icon" className="size-8" />}
+                        icon={<img src="/assets/icons/map-marker-outline.svg" alt="Map Marker icon" className="size-8" />}
                     />
 
                     <FormField
@@ -131,7 +131,7 @@ function CareersPage() {
                                 <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder={t("forms.positionPlaceholder")} items={positions} selectedValues={field.value ? [field.value] : []} onChange={(values) => field.onChange(values[0] ?? '')} />
                             )} />
                         }
-                        icon={<img src="/src/assets/icons/services.svg" alt="Services icon" className="size-8" />}
+                        icon={<img src="/assets/icons/services.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
@@ -140,7 +140,7 @@ function CareersPage() {
                         required={true}
                         error={errors.nationalId?.message}
                         input={<BaseInput id="id-files" type="file" className="py-4" placeholder="" accept="image/*,.pdf,.doc,.docx" multiple {...register("nationalId")} />}
-                        icon={<img src="/src/assets/icons/id-card.svg" alt="Services icon" className="size-8" />}
+                        icon={<img src="/assets/icons/id-card.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
@@ -148,7 +148,7 @@ function CareersPage() {
                         label={t('forms.license')}
                         error={errors.professionalLicenseCard?.message}
                         input={<BaseInput id="work-id" type="file" className="py-4" placeholder="" accept="image/*,.pdf,.doc,.docx" {...register("professionalLicenseCard")} />}
-                        icon={<img src="/src/assets/icons/auth-card.svg" alt="Services icon" className="size-8" />}
+                        icon={<img src="/assets/icons/auth-card.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
@@ -156,7 +156,7 @@ function CareersPage() {
                         label={t('forms.certificate')}
                         error={errors.graduationCertificate?.message}
                         input={<BaseInput id="graduation-certificate" type="file" className="py-4" placeholder="chose" accept="image/*,.pdf,.doc,.docx" {...register("graduationCertificate")} />}
-                        icon={<img src="/src/assets/icons/certificate-outline.svg" alt="Services icon" className="size-8" />}
+                        icon={<img src="/assets/icons/certificate-outline.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
@@ -164,7 +164,7 @@ function CareersPage() {
                         label={t('forms.workPlaces')}
                         error={errors.workPlaces?.message}
                         input={<textarea id="work-places" placeholder={t("forms.workPlacesPlaceholder")} className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("workPlaces")} />}
-                        icon={<img src="/src/assets/icons/home-work-outline.svg" alt="work places icon" className="size-8" />}
+                        icon={<img src="/assets/icons/home-work-outline.svg" alt="work places icon" className="size-8" />}
                     />
 
                 </div>

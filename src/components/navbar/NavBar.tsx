@@ -4,7 +4,7 @@ import Logo from "../Logo";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileMenuBtn from "./MobileMenuBtn";
 import MobileDrawer from "./MobileDrawer";
-import PhoneIcon from "../../assets/icons/PhoneIcon";
+import PhoneIcon from "../icons/PhoneIcon";
 
 const NavBar = () => {
     const phoneNumber = useAppSelector((state) => state.websiteGeneralData.phoneNumber);

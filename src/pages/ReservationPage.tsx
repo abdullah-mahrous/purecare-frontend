@@ -67,9 +67,9 @@ function ReservationPage() {
     return (
         <main ref={pageRef} dir={i18n.language === "en" ? "ltr" : "rtl"} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
-            <PageHero header={t("forms.reservationTitle")} slogan={t("forms.reservationSlogan")} heroImg='/src/assets/medical-care.png'>
+            <PageHero header={t("forms.reservationTitle")} slogan={t("forms.reservationSlogan")} heroImg="/assets/medical-care.png">
                 <HeroPerk title={i18n.language === "en" ? "Complete safety and trust" : "أمان و ثقة كاملة"} description={i18n.language === "en" ? "Your data and health are completely safe with us" : "بياناتك و صحتك آمنة تماما معانا"}>
-                    <img src="/src/assets/icons/shield-check.svg" alt="perk icon" className="size-8" />
+                    <img src="/assets/icons/shield-check.svg" alt="perk icon" className="size-8" />
                 </HeroPerk>
 
                 <HeroPerk title={i18n.language === "en" ? "Available anytime" : "متاحين في كل وقت"} description={i18n.language === "en" ? "We are here whenever you need us" : "إحنا هنا لما تحتاجنا في أي وقت"}>
@@ -93,7 +93,7 @@ function ReservationPage() {
                         required={true}
                         error={errors.fullName?.message}
                         input={<BaseInput id="full-name" type="text" placeholder={i18n.language === "en" ? "Enter your full name" : "اكتب اسمك الكامل"} {...register("fullName")} required />}
-                        icon={<img src="/src/assets/icons/person.svg" alt="person icon" className="size-8" />}
+                        icon={<img src="/assets/icons/person.svg" alt="person icon" className="size-8" />}
                     />
 
                     <FormField
@@ -115,7 +115,7 @@ function ReservationPage() {
                                 )} />
                             </div>
                         }
-                        icon={<img src="/src/assets/icons/phone-outline.svg" alt="phone icon" className="size-8" />}
+                        icon={<img src="/assets/icons/phone-outline.svg" alt="phone icon" className="size-8" />}
                     />
 
                     <div className="grid gap-5 sm:grid-cols-2 sm:gap-4">
@@ -124,7 +124,7 @@ function ReservationPage() {
                             label={t("forms.age")}
                             error={errors.age?.message}
                             input={<BaseInput id="age" type="number" min="0" placeholder={i18n.language === "en" ? "Enter age" : "السن"} {...register("age")} />}
-                            icon={<img src="/src/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-8" />}
+                            icon={<img src="/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-8" />}
                         />
 
                         <FormField
@@ -133,7 +133,7 @@ function ReservationPage() {
                             required={true}
                             error={errors.desiredDate?.message}
                             input={<BaseInput id="desired-date" min={new Date().toISOString().slice(0, 16)} type="datetime-local" placeholder={i18n.language === "en" ? "Select date" : "اختار الموعد"} {...register("desiredDate")} required />}
-                            icon={<img src="/src/assets/icons/calendar-check-outline.svg" alt="calender icon" className="size-8" />}
+                            icon={<img src="/assets/icons/calendar-check-outline.svg" alt="calender icon" className="size-8" />}
                         />
                     </div>
 
@@ -143,7 +143,7 @@ function ReservationPage() {
                         required={true}
                         error={errors.address?.message}
                         input={<BaseInput id="address" type="address" placeholder={i18n.language === "en" ? "Enter your full address" : "اكتب عنوانك بالكامل"} {...register("address")} required />}
-                        icon={<img src="/src/assets/icons/map-marker-outline.svg" alt="Map Marker icon" className="size-8" />}
+                        icon={<img src="/assets/icons/map-marker-outline.svg" alt="Map Marker icon" className="size-8" />}
                     />
 
                     <FormField
@@ -155,7 +155,7 @@ function ReservationPage() {
                                 <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder={i18n.language === "en" ? "Choose a service" : "اختار الخدمة"} items={listedServices} selectedValues={field.value ?? []} onChange={field.onChange} multiple={true} />
                             )} />
                         }
-                        icon={<img src="/src/assets/icons/services.svg" alt="Services icon" className="size-8" />}
+                        icon={<img src="/assets/icons/services.svg" alt="Services icon" className="size-8" />}
                     />
 
                     <FormField
@@ -163,7 +163,7 @@ function ReservationPage() {
                         label={t("forms.healthIssue")}
                         error={errors.healthIssue?.message}
                         input={<textarea id="health-problem" placeholder={i18n.language === "en" ? "Describe the health problem or condition" : "اوصف المشكلة الصحية أو الحالة"} className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("healthIssue")} />}
-                        icon={<img src="/src/assets/icons/heart-pulse.svg" alt="health problem icon" className="size-8" />}
+                        icon={<img src="/assets/icons/heart-pulse.svg" alt="health problem icon" className="size-8" />}
                     />
 
                     <FormField
@@ -171,7 +171,7 @@ function ReservationPage() {
                         label={t("forms.notes")}
                         error={errors.notes?.message}
                         input={<textarea id="notes" placeholder={i18n.language === "en" ? "Any additional notes or special requests" : "أي ملاحظات إضافية أو طلبات خاصة"} className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("notes")} />}
-                        icon={<img src="/src/assets/icons/message-text-outline.svg" alt="notes icon" className="size-8" />}
+                        icon={<img src="/assets/icons/message-text-outline.svg" alt="notes icon" className="size-8" />}
                     />
                 </div>
 
@@ -202,7 +202,7 @@ function ReservationPage() {
                 <div className="mt-8 rounded-2xl border border-secondary/20 bg-secondary/5 p-3 sm:mt-9 sm:p-4">
                     <div className="flex items-center gap-3">
                         <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#E6F8EE] sm:size-14">
-                            <img src="/src/assets/icons/headset.svg" alt="Shield Check icon" className="size-8" />
+                            <img src="/assets/icons/headset.svg" alt="Shield Check icon" className="size-8" />
                         </span>
 
                         <p className="text-sm font-semibold leading-relaxed text-heading-text sm:text-base">

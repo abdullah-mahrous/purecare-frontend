@@ -2,7 +2,6 @@ import { useAppSelector } from "../../app/hooks";
 import { whatsappUrl } from "../../services/contactsService";
 
 import BaseBtn from "../BaseBtn";
-import ambulanceImg from "../../assets/ambulance-vector.png";
 import { useTranslation } from "react-i18next";
 
 const EmergancyCTA = () => {
@@ -46,7 +45,7 @@ const EmergancyCTA = () => {
                     </div>
 
                     <img
-                        src={ambulanceImg}
+                        src="/assets/ambulance-vector.png"
                         alt="ambulance img"
                         className="w-40 shrink-0 xs:w-50 sm:w-60 lg:w-90 ltr:rotate-y-180"
                     />
