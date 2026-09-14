@@ -62,9 +62,6 @@ function DesktopNavbar() {
                         )}
                     </li>
                     <li>
-                        <Link className="transition-colors hover:text-secondary" to={`${routes.home}#about`}>{t("nav.about")}</Link>
-                    </li>
-                    <li>
                         <Link className="transition-colors hover:text-secondary" to={routes.medicalEquipments}>{t("nav.equipment")}</Link>
                     </li>
                     <li>

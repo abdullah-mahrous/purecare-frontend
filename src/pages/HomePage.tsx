@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAppSelector } from "../app/hooks";
+import { useGsapPageAnimations } from "../hooks/useGsapPageAnimations";
 
 import { Autoplay, Pagination } from "swiper/modules";
 import { whatsappUrl } from "../services/contactsService";
@@ -32,11 +33,12 @@ function HomePage() {
     const { t, i18n } = useTranslation();
     const language = useCurrentLanguage();
     const direction = language === "en" ? "ltr" : "rtl";
+    const pageRef = useGsapPageAnimations();
 
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     return (
-        <main>
+        <main ref={pageRef}>
             {/* header */}
             <section
                 className="relative isolate flex min-h-[calc(100svh-5rem)] overflow-hidden rounded-b-[4rem] bg-cover bg-[position:68%_center] px-5 pb-8 pt-64 text-white sm:min-h-[36rem] sm:rounded-b-[4rem] sm:bg-center sm:px-8 sm:pt-72 lg:min-h-[42rem] lg:px-12 lg:pt-80 xl:min-h-[46rem]"
@@ -45,11 +47,11 @@ function HomePage() {
                 <div className="absolute inset-x-0 bottom-0 -z-10 h-[80%] bg-gradient-to-t from-[#010f1b] via-[#010f1b]/95 to-transparent" />
 
                 <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-end text-center">
-                    <h1 className="max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+                    <h1 data-gsap-entrance data-gsap-variant="slide" className="max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
                         {t("home.heroTitle")}
                     </h1>
 
-                    <p className="mt-3 max-w-xl text-sm font-medium leading-relaxed text-white/90 sm:text-base">
+                    <p data-gsap-entrance data-gsap-variant="drift" className="mt-3 max-w-xl text-sm font-medium leading-relaxed text-white/90 sm:text-base">
                         {t("home.heroText")}
                     </p>
 
@@ -70,8 +72,8 @@ function HomePage() {
             </section>
 
             {/* qualities */}
-            <section className="px-5 py-12 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-24">
-                <div className="mx-auto grid w-full max-w-6xl grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-4 lg:gap-6">
+            <section data-gsap-reveal data-gsap-variant="scale" className="px-5 py-12 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-24">
+                <div data-gsap-stagger data-gsap-variant="rise" className="mx-auto grid w-full max-w-6xl grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-4 lg:gap-6">
 
                     <TrustCard>
                         <img src="/src/assets/icons/nurse.svg" alt="medical team icon" className="size-10 shrink-0" />
@@ -108,10 +110,10 @@ function HomePage() {
             </section>
 
             {/* emergency section */}
-            <EmergancyCTA />
+            <div data-gsap-reveal data-gsap-variant="slide"><EmergancyCTA /></div>
 
             {/* services section */}
-            <section className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
+            <section data-gsap-reveal className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
                 <div className="mx-auto w-full max-w-6xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold uppercase tracking-normal text-primary">
@@ -123,6 +125,7 @@ function HomePage() {
                         </p>
                     </div>
                     <Swiper
+                        data-gsap-stagger
                         key={`services-${i18n.language}`}
                         dir={direction}
                         slidesPerView={1.25}
@@ -145,7 +148,7 @@ function HomePage() {
 
                     >
                         {services.map(service => (
-                            <SwiperSlide key={service.id} className="!h-auto">
+                            <SwiperSlide key={service.id} data-gsap-item className="!h-auto">
                                 <ServiceCard
                                     key={service.id}
                                     title={localized(service, "name")}
@@ -160,7 +163,7 @@ function HomePage() {
             </section>
 
             {/* about section */}
-            <section className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
+            <section data-gsap-reveal className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24" id="about">
                 <h3 className="text-3xl font-bold uppercase text-center tracking-normal text-primary">
                     {t("home.aboutTitle")}
                 </h3>
@@ -181,7 +184,7 @@ function HomePage() {
             </section>
 
             {/* why choose us section */}
-            <section className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
+            <section data-gsap-reveal className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
 
                 <div className="mx-auto w-full max-w-6xl">
                     <div className="text-center">
@@ -194,7 +197,7 @@ function HomePage() {
                         </p>
                     </div>
 
-                    <div className="grid gap-4 p-4 text-primary sm:grid-cols-6 grid-cols-3">
+                    <div data-gsap-stagger data-gsap-variant="rise" className="grid gap-4 p-4 text-primary sm:grid-cols-6 grid-cols-3">
 
                         <WhyUsPoint label={t("home.whyPoints.team")} >
                             <img src="/src/assets/icons/people.svg" alt="medical team icon" className="size-10 shrink-0" />
@@ -235,7 +238,7 @@ function HomePage() {
             </section>
 
             {/* how it works section */}
-            <section className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
+            <section data-gsap-reveal className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
                 <div className="mx-auto w-full max-w-6xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold uppercase tracking-normal text-primary">
@@ -247,8 +250,8 @@ function HomePage() {
                         </p>
                     </div>
 
-                    <div className="mt-8 flex items-start justify-between">
-                        <div className="flex flex-col items-center justify-center w-1/3">
+                    <div data-gsap-stagger data-gsap-variant="rise" className="mt-8 flex items-start justify-between rtl:flex-row-reverse">
+                        <div data-gsap-item className="flex flex-col items-center justify-center w-1/3">
 
                             <div className="relative rounded-full shadow p-5">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="size-10 shrink-0" viewBox="0 0 48 48">
@@ -285,7 +288,7 @@ function HomePage() {
                         </svg>
 
 
-                        <div className="flex flex-col items-center justify-center w-1/3">
+                        <div data-gsap-item className="flex flex-col items-center justify-center w-1/3">
                             <div className="relative rounded-full shadow p-5">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="size-10" viewBox="0 0 80 80">
                                     <path d="M0 0h80v80H0z" fill="none" />
@@ -328,7 +331,7 @@ function HomePage() {
                         </svg>
 
 
-                        <div className="flex flex-col items-center justify-center w-1/3">
+                        <div data-gsap-item className="flex flex-col items-center justify-center w-1/3">
                             <div className="relative rounded-full shadow p-5">
                                 <img src="/src/assets/icons/nurse.svg" alt="healthcare icon" className="size-10 shrink-0" />
 
@@ -350,7 +353,7 @@ function HomePage() {
             </section>
 
             {/* testimonials section */}
-            <section className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
+            <section data-gsap-reveal className="px-5 py-12 text-primary sm:px-8 sm:py-16 lg:px-12 lg:py-24">
                 <div className="mx-auto w-full max-w-6xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold uppercase tracking-normal text-primary">
@@ -405,9 +408,11 @@ function HomePage() {
                         </p>
                     </div>
 
-                    <div className="mt-4">
+                    <div data-gsap-stagger data-gsap-variant="rise" className="mt-4">
                         {faqs.map((faq, index) => (
-                            <Faq key={`${faq.id}-${i18n.language}`} question={localized(faq, "question")} answer={localized(faq, "answer")} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
+                            <div data-gsap-item key={`${faq.id}-${i18n.language}`}>
+                                <Faq question={localized(faq, "question")} answer={localized(faq, "answer")} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
+                            </div>
                         ))}
                     </div>
                 </div>

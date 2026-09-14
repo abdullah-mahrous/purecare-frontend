@@ -13,15 +13,16 @@ export const minimumDelay = (ms: number) =>
 });
 
 export async function loadWebsiteEssentials() {
-    await Promise.all([
-        store.dispatch(getWebsiteGeneralData()),
-        
-        store.getState().services.services.length === 0
-            ? store.dispatch(getServices())
-            : Promise.resolve(),
+    if(store.getState().services.services.length === 0 || store.getState().websiteGeneralData.currentRequestId)
+        await Promise.all([
+            store.dispatch(getWebsiteGeneralData()),
+            
+            store.getState().services.services.length === 0
+                ? store.dispatch(getServices())
+                : Promise.resolve(),
 
-        minimumDelay(2000),
-    ]);
+            minimumDelay(2000),
+        ]);
 }
 
 export async function homeLoader() {

@@ -9,7 +9,7 @@ type Props = {
 
 function FormField({ id, label, required = false, error, input, icon }: Props) {
     return (
-        <div className="form-field-container flex-col">
+        <div data-gsap-item className="form-field-container flex-col">
             <label htmlFor={id} className="mr-16 block text-base font-bold">
                 { label } 
                 {required && (<span className="text-red-500">*</span>)}

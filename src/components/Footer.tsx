@@ -34,11 +34,11 @@ const Footer = () => {
                     <div>
                         <Logo />
 
-                        <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                        <p className="mt-4 text-sm leading-relaxed text-slate-600">
                             {t("home.heroText")}
                         </p>
 
-                        <div className="flex items-center justify-between mt-6 space-x-3">
+                        <div className="flex items-center justify-between mt-6 gap-2 flex-wrap">
                             {contactLinks.map((contact) => (
                                 <a
                                     key={contact.label}
@@ -55,7 +55,7 @@ const Footer = () => {
 
                     <div>
                         <h4 className="font-semibold mb-3">{t("nav.services")}</h4>
-                        <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <ul className="space-y-2 text-sm text-slate-600">
                             {
                                 services.map(service => (
                                     <li key={routes.services(service.id)}>
@@ -69,10 +69,7 @@ const Footer = () => {
                     <div>
                         <h4 className="font-semibold mb-3">{t("footer.brand")}</h4>
 
-                        <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                            <li><Link to={`${routes.home}#about`} className="hover:underline">{t("nav.about")}</Link></li>
-                            <li><Link to={`${routes.home}#testimonials`} className="hover:underline">{t("home.testimonialsTitle")}</Link></li>
-                            <li><Link to={`${routes.home}#faq`} className="hover:underline">{t("home.faqTitle")}</Link></li>
+                        <ul className="space-y-2 text-sm text-slate-600">
                             <li><Link to={routes.reservation} className="hover:underline">{t("nav.book")}</Link></li>
                             <li><Link to={routes.careers} className="hover:underline">{t("nav.careers")}</Link></li>
                             <li><Link to={routes.medicalEquipments} className="hover:underline">{t("nav.equipment")}</Link></li>
@@ -82,24 +79,24 @@ const Footer = () => {
                     <div>
                         <h4 className="font-semibold mb-3">{t("nav.contact")}</h4>
 
-                        <div className="flex text-sm text-slate-400">
-                            <PhoneIcon className="w-5 h-5 mr-3 shrink-0" />
-                            <a href="tel:+201234567890" className="block font-medium text-slate-800 dark:text-slate-100">
+                        <div className="flex gap-2 text-sm text-slate-400">
+                            <PhoneIcon className="w-5 h-5 shrink-0" />
+                            <a href="tel:+201234567890" className="block font-medium text-slate-600">
                                 {contacts.phoneNumber}
                             </a>
                         </div>
 
-                        <div className="flex text-sm text-slate-400 mt-2">
-                            <WhatsappIcon className="w-5 h-5 mr-3 shrink-0" />
-                            <a href="tel:+201234567890" className="block font-medium text-slate-800 dark:text-slate-100">
+                        <div className="flex gap-2 text-sm text-slate-400 mt-2">
+                            <WhatsappIcon className="w-5 h-5 shrink-0" />
+                            <a href="tel:+201234567890" className="block font-medium text-slate-600">
                                 {contacts.whatsappNumber}
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t border-slate-100 dark:border-slate-800 mt-6 pt-6 text-sm flex flex-col md:flex-row items-center justify-between">
-                    <p className="text-slate-600 dark:text-slate-400 text-center">
+                <div className="border-t border-slate-100 mt-6 pt-6 text-sm flex flex-col md:flex-row items-center justify-between">
+                    <p className="text-slate-600 text-center w-full">
                         {t("common.rights")} &copy; {new Date().getFullYear()}
                         &nbsp;
 
@@ -107,7 +104,7 @@ const Footer = () => {
                             |
                         </span>
 
-                        <span className="inline-block xs:block mt-2 xs:mt-0">
+                        <span className="inline-block mt-2 xs:mt-0">
                             &nbsp; {t("common.developedBy")} <a href="https://abdullah-mahrous.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:underline">
                                 {t("common.developerName")}
                             </a>

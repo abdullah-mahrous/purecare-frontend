@@ -19,6 +19,7 @@ type WebsiteGeneralDataApi = Omit<WebsiteGeneralData, 'facebook' | 'instagram' |
 };
 
 type ApiResponse = { data: WebsiteGeneralDataApi; success: boolean };
+type UploadResponse = { data: { url: string }; success: boolean };
 
 const fromApi = (data: WebsiteGeneralDataApi): WebsiteGeneralData => ({
     ...data,
@@ -45,4 +46,15 @@ export async function updateWebsiteGeneralData(data: Partial<WebsiteGeneralData>
         body: toApi(data),
     });
     return { ...response, data: fromApi(response.data) };
+}
+
+export async function uploadIntroVideo(file: File, mediaUrl?: string) {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (mediaUrl) formData.append('mediaUrl', mediaUrl);
+
+    return authenticatedRequest<UploadResponse>('/uploads', {
+        method: 'POST',
+        body: formData,
+    });
 }

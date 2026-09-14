@@ -56,6 +56,7 @@ const websiteGeneralDataSlice = createSlice({
             .addCase(patchWebsiteGeneralData.fulfilled, (state, action) => {
                 Object.assign(state, action.payload.data);
                 state.isLoading = false;
+                state.currentRequestId = action.meta.requestId;
             })
             .addCase(patchWebsiteGeneralData.rejected, (state, action) => {
                 state.error = typeof action.payload === 'string' ? action.payload : 'Unable to update website general data.';

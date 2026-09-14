@@ -25,6 +25,10 @@
     --breakpoint-xs: 30rem;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Cairo', system-ui, sans-serif;
 }

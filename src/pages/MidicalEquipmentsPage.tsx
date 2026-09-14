@@ -10,6 +10,7 @@ import EquipmentCard from "@/components/equipment/EquipmentCard";
 import EquipmentIcon from "@/components/equipment/EquipmentIcon";
 import EquipmentFilters from "@/components/equipment/EquipmentsFilters";
 import { useTranslation } from "react-i18next";
+import { useGsapPageAnimations } from "@/hooks/useGsapPageAnimations";
 
 function EquipmentState() {
     const { data, error, isLoading } = useAppSelector((state) => state.equipment);
@@ -51,6 +52,7 @@ function MedicalEquipmentPage() {
     const { t, i18n } = useTranslation();
     const direction = i18n.language === "en" ? "ltr" : "rtl";
     const isFirstRender = useRef(true);
+    const pageRef = useGsapPageAnimations();
 
     useEffect(() => {
         if (debouncedSearch !== filters.search)
@@ -67,10 +69,10 @@ function MedicalEquipmentPage() {
     }, [dispatch, filters.category, filters.limit, filters.maxPrice, filters.minPrice, filters.page, filters.search]);
 
     return (
-        <main dir={direction} className="overflow-x-hidden py-4 text-primary sm:py-6 lg:py-8">
+        <main ref={pageRef} dir={direction} className="overflow-x-hidden py-4 text-primary sm:py-6 lg:py-8">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 
-                <section className="relative overflow-hidden rounded-3xl border border-[#E4EEF9] bg-[linear-gradient(135deg,#F8FBFF_0%,#EAF4FF_100%)]" aria-labelledby="equipment-page-title">
+                <section data-gsap-entrance className="relative overflow-hidden rounded-3xl border border-[#E4EEF9] bg-[linear-gradient(135deg,#F8FBFF_0%,#EAF4FF_100%)]" aria-labelledby="equipment-page-title">
                     <div className="relative flex flex-col items-center gap-2 px-5 pb-4 pt-7 sm:px-8 sm:pt-9 md:flex-row md:gap-8 md:px-10 md:py-8">
 
                         <div className="min-w-0 flex-1 text-start">
@@ -88,7 +90,7 @@ function MedicalEquipmentPage() {
                     </div>
                 </section>
 
-                <div role="search" aria-label={t("equipment.search")} className="relative">
+                <div data-gsap-reveal data-gsap-variant="rise" role="search" aria-label={t("equipment.search")} className="relative">
                     <svg aria-hidden="true" className={`absolute top-1/2 ${direction === "rtl" ? "right-2" : "left-2"} size-6 shrink-0 text-body-text`} fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="6.5" />
                         <path d="m16 16 4 4" />
@@ -99,7 +101,7 @@ function MedicalEquipmentPage() {
 
                 <div className="mt-6 lg:hidden"><EquipmentFilters compact /></div>
 
-                <section className="mt-7 grid gap-6 lg:grid-cols-[14.5rem_minmax(0,1fr)] lg:items-start lg:gap-8" aria-labelledby="equipment-list-title">
+                <section data-gsap-reveal className="mt-7 grid gap-6 lg:grid-cols-[14.5rem_minmax(0,1fr)] lg:items-start lg:gap-8" aria-labelledby="equipment-list-title">
                     <aside className="hidden lg:block"><EquipmentFilters /></aside>
 
                     <div className="min-w-0">
@@ -121,7 +123,7 @@ function MedicalEquipmentPage() {
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
                             </div>
-                        ) : <EquipmentState />}
+                        ) : <div data-gsap-stagger><EquipmentState /></div>}
                     </div>
                 </section>
 

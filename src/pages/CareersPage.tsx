@@ -19,6 +19,7 @@ import HeroPerk from '../components/forms/HeroPerk';
 import FormField from '../components/forms/FormField';
 import { useTranslation } from 'react-i18next';
 import { useCurrentLanguage } from '../i18n';
+import { useGsapPageAnimations } from '../hooks/useGsapPageAnimations';
 
 type formFields = z.output<typeof careerSchema>
 type formInput = z.input<typeof careerSchema>
@@ -28,6 +29,7 @@ function CareersPage() {
     const [submitError, setSubmitError] = useState(false);
     const { t, i18n } = useTranslation();
     const language = useCurrentLanguage();
+    const pageRef = useGsapPageAnimations();
 
     const positions = language === 'en'
         ? [{ text: 'Nursing', value: 'تمريض' }, { text: 'Doctor', value: 'دكتور' }, { text: 'Physical therapy', value: 'علاج طبيعي' }, { text: 'Home care', value: 'رعاية منزلية' }]
@@ -47,7 +49,7 @@ function CareersPage() {
     }
 
     return (
-        <main dir={language === 'en' ? 'ltr' : 'rtl'} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
+        <main ref={pageRef} dir={language === 'en' ? 'ltr' : 'rtl'} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
             <PageHero header={t('forms.careersTitle')} slogan={t('forms.careersSlogan')} heroImg="/src/assets/medical-staff.png">
                 <HeroPerk title={i18n.language === 'en' ? 'Great work environment' : 'بيئة عمل مناسبة'} description={i18n.language === 'en' ? 'Work in a healthy environment that supports your growth' : 'اشتغل في بيئة عمل صحية تساعدك على التطور'}>

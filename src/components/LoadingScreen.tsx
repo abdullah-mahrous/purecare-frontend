@@ -1,6 +1,14 @@
-const LoadingScreen = () => {
+type LoadingScreenProps = {
+    isExiting?: boolean;
+};
+
+const LoadingScreen = ({ isExiting = false }: LoadingScreenProps) => {
     return (
-        <div className="h-screen w-screen fixed top-0 bg-white z-100">
+        <div
+            aria-label="Loading"
+            aria-live="polite"
+            className={`fixed top-0 z-100 h-screen w-screen bg-white transition-opacity duration-[400ms] ease-out ${isExiting ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        >
             <div className="flex items-center justify-center w-full h-full">
                 {/* loading animation */}
                 <section>

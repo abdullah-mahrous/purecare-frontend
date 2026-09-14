@@ -9,6 +9,7 @@ import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import PhoneIcon from "@/assets/icons/PhoneIcon";
 import { localized } from "@/i18n";
 import { useTranslation } from "react-i18next";
+import { useGsapPageAnimations } from "@/hooks/useGsapPageAnimations";
 
 function MedicalEquipmentDetailsPage() {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ function MedicalEquipmentDetailsPage() {
     const { equipment, isLoading, error } = useAppSelector(state => state.equipment);
     const { t, i18n } = useTranslation();
     const direction = i18n.resolvedLanguage === "en" ? "ltr" : "rtl";
+    const pageRef = useGsapPageAnimations();
 
     useEffect(() => {
         if (!isLoading && (error || !equipment))
@@ -30,19 +32,19 @@ function MedicalEquipmentDetailsPage() {
 
 
     return (
-        <main dir={direction} className="px-4 pb-8 pt-6 text-primary sm:px-6 sm:pb-12 sm:pt-8">
+        <main ref={pageRef} dir={direction} className="px-4 pb-8 pt-6 text-primary sm:px-6 sm:pb-12 sm:pt-8">
             <div className="mx-auto w-full max-w-4xl">
 
-                <section className="mx-auto mt-2 flex aspect-[1.25] w-full max-w-3xl max-h-[34rem] items-center justify-center overflow-hidden rounded-3xl bg-[#F7FBFF] p-4 sm:mt-4 sm:p-8">
+                <section data-gsap-entrance data-gsap-variant="scale" className="mx-auto mt-2 flex aspect-[1.25] w-full max-w-3xl max-h-[34rem] items-center justify-center overflow-hidden rounded-3xl bg-[#F7FBFF] p-4 sm:mt-4 sm:p-8">
                     <img src={equipment.imageUrl} alt={localized(equipment, "name", i18n.resolvedLanguage)} className="h-full w-full object-contain" />
                 </section>
 
-                <h1 className="mx-auto mt-8 max-w-3xl text-center text-3xl font-extrabold leading-tight text-primary sm:mt-9 sm:text-4xl">
+                <h1 data-gsap-entrance data-gsap-variant="rise" className="mx-auto mt-8 max-w-3xl text-center text-3xl font-extrabold leading-tight text-primary sm:mt-9 sm:text-4xl">
                     {localized(equipment, "name", i18n.resolvedLanguage)}
                 </h1>
 
                 {/* Availability and daily rental price */}
-                <section className="mt-8 grid grid-cols-2 divide-x divide-[#BFE5DE] rounded-[1.7rem] bg-[#F3F9F8] px-4 py-6 sm:mt-9 sm:px-8" aria-label={t("equipment.availabilityAndPrice")}>
+                <section data-gsap-reveal data-gsap-variant="slide" className="mt-8 grid grid-cols-2 divide-x divide-[#BFE5DE] rounded-[1.7rem] bg-[#F3F9F8] px-4 py-6 sm:mt-9 sm:px-8" aria-label={t("equipment.availabilityAndPrice")}>
                     {equipment.inStock ? (
                         <div className="flex items-center justify-center gap-3 px-2 text-start">
                             <span className="size-10 rounded-full bg-secondary text-white flex shrink-0 items-center justify-center">
@@ -77,7 +79,7 @@ function MedicalEquipmentDetailsPage() {
                     </div>
                 </section>
 
-                <section className="mt-8 sm:mt-10" aria-labelledby="equipment-description-title">
+                <section data-gsap-reveal className="mt-8 sm:mt-10" aria-labelledby="equipment-description-title">
                     <div className="flex items-center gap-3">
                         <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-secondary/10">
                             <img src="/src/assets/icons/text-file.svg" alt="desct=ription icon" className="size-8" />
@@ -94,7 +96,7 @@ function MedicalEquipmentDetailsPage() {
                 </section>
 
                 {equipment.inStock && (
-                    <section className="mt-8 space-y-3 sm:mt-10" aria-label={t("equipment.contactOptions")}>
+                    <section data-gsap-reveal data-gsap-variant="scale" className="mt-8 space-y-3 sm:mt-10" aria-label={t("equipment.contactOptions")}>
                         <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href = whatsappUrl(contacts.whatsappNumber, t("equipment.whatsappMessage", { equipment: localized(equipment, "name", i18n.resolvedLanguage) }))}>
                             <WhatsappIcon className="size-7" />
 
@@ -112,7 +114,7 @@ function MedicalEquipmentDetailsPage() {
                         </button>
                     </section>)}
 
-                <section className="flex gap-4 mt-8 rounded-[1.8rem] bg-[#F1F8F8] px-4 py-6 sm:mt-10 sm:px-9 sm:py-9 items-center" aria-labelledby="safety-title">
+                <section data-gsap-reveal data-gsap-variant="slide" className="flex gap-4 mt-8 rounded-[1.8rem] bg-[#F1F8F8] px-4 py-6 sm:mt-10 sm:px-9 sm:py-9 items-center" aria-labelledby="safety-title">
                     <div className="flex shrink-0 p-2 items-center justify-center rounded-full border-8 border-white bg-primary/10 text-primary">
                         <img src="/src/assets/icons/shield-check.svg" className="size-20" alt="shield icon" />
                     </div>

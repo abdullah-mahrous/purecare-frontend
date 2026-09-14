@@ -30,7 +30,7 @@ function PageHero({ children, header, slogan, heroImg }: Props) {
                         </p>
                     </div>
 
-                    <div className="mt-6 grid gap-3 md:mt-7">
+                    <div data-gsap-entrance-stagger className="mt-6 grid gap-3 md:mt-7">
                         {children}
                     </div>
                 </div>

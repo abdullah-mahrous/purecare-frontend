@@ -20,6 +20,7 @@ import FormField from '../components/forms/FormField';
 import { useAppSelector } from '../app/hooks';
 import { localized } from '../i18n';
 import { useTranslation } from 'react-i18next';
+import { useGsapPageAnimations } from '../hooks/useGsapPageAnimations';
 
 type formFields = z.output<typeof reservationSchema>
 type formInput = z.input<typeof reservationSchema>
@@ -30,6 +31,7 @@ function ReservationPage() {
     const services = useAppSelector((state) => state.services.services);
     const { t, i18n } = useTranslation();
     const [submitError, setSubmitError] = useState(false);
+    const pageRef = useGsapPageAnimations();
     const listedServices = services.map(service => {
         return {
             text: localized(service, "name"),
@@ -63,7 +65,7 @@ function ReservationPage() {
     }
 
     return (
-        <main dir={i18n.language === "en" ? "ltr" : "rtl"} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
+        <main ref={pageRef} dir={i18n.language === "en" ? "ltr" : "rtl"} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
             <PageHero header={t("forms.reservationTitle")} slogan={t("forms.reservationSlogan")} heroImg='/src/assets/medical-care.png'>
                 <HeroPerk title={i18n.language === "en" ? "Complete safety and trust" : "أمان و ثقة كاملة"} description={i18n.language === "en" ? "Your data and health are completely safe with us" : "بياناتك و صحتك آمنة تماما معانا"}>

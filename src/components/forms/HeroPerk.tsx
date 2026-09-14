@@ -6,7 +6,7 @@ type Props = {
 
 function HeroPerk({ title, description, children }: Props) {
     return (
-        <div className="flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-[0_6px_18px_rgba(11,74,133,0.05)]">
+        <div data-gsap-item className="flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-[0_6px_18px_rgba(11,74,133,0.05)]">
 
             <span className="icon-buble">
                 { children }

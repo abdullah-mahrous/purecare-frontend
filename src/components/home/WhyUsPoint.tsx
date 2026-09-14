@@ -5,7 +5,7 @@ type WhyUsPointProps = {
 
 function WhyUsPoint({ children, label }: WhyUsPointProps) {
   return (
-    <div className="flex flex-col items-center gap-3 text-center mb-4">
+    <div data-gsap-item className="flex flex-col items-center gap-3 text-center mb-4">
         <div className="shadow rounded-full p-3 flex items-center justify-center">
             {children}
         </div>
