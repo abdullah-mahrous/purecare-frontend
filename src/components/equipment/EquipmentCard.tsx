@@ -21,11 +21,11 @@ function EquipmentCard({ equipment }: { equipment: Equipment }) {
             </div>
 
             <div className="mt-3 min-w-0 text-start">
-                <h2 className="text-sm font-extrabold leading-snug text-primary sm:text-base">
+                <h2 className="font-extrabold leading-snug text-primary sm:text-base">
                     {name}
                 </h2>
 
-                <p className="mt-1.5 text-xs font-medium leading-relaxed text-body-text line-clamp-2 sm:text-sm">
+                <p className="mt-1.5 text-sm font-medium leading-relaxed text-body-text line-clamp-4">
                     {description}
                 </p>
             </div>

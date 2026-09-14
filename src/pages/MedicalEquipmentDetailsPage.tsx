@@ -97,7 +97,7 @@ function MedicalEquipmentDetailsPage() {
 
                 {equipment.inStock && (
                     <section data-gsap-reveal data-gsap-variant="scale" className="mt-8 space-y-3 sm:mt-10" aria-label={t("equipment.contactOptions")}>
-                        <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href = whatsappUrl(contacts.whatsappNumber, t("equipment.whatsappMessage", { equipment: localized(equipment, "name", i18n.resolvedLanguage) }))}>
+                        <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href = whatsappUrl(contacts.whatsappNumber, `أهلاً، ممكن أعرف تفاصيل تأجير جهاز ${equipment.nameAr}، والسعر، والمدة المتاحة للتأجير، وإزاي أقدر أطلبه؟`)}>
                             <WhatsappIcon className="size-7" />
 
                             <span className="text-start">

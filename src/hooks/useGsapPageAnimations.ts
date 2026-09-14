@@ -87,7 +87,7 @@ export function useGsapPageAnimations() {
                     clearProps: "transform",
                     scrollTrigger: {
                         trigger: group,
-                        start: "top 78%",
+                        start: "top 86%",
                         once: true,
                     },
                 });

@@ -3,20 +3,22 @@ import { useNavigate } from "react-router";
 
 import { routes } from "../router/routes";
 import { useAppSelector } from '@/app/hooks'
+import { localized, useCurrentLanguage } from "../i18n";
+import { useTranslation } from "react-i18next";
+import { useGsapPageAnimations } from "@/hooks/useGsapPageAnimations";
+import { whatsappUrl } from "../services/contactsService";
 
 import BaseBtn from "../components/BaseBtn";
 import PhoneIcon from "../components/icons/PhoneIcon";
 import WhatsappIcon from "../components/icons/WhatsappIcon";
 import Faq from "../components/Faq";
 import ServiceInfo from "../components/ServiceInfo";
-import { localized, useCurrentLanguage } from "../i18n";
-import { useTranslation } from "react-i18next";
-import { useGsapPageAnimations } from "@/hooks/useGsapPageAnimations";
 
 function ServicePage() {
     const navigate = useNavigate();
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const { service } = useAppSelector(state => state.services);
+    const contacts = useAppSelector((state) => state.websiteGeneralData);
     const { t, i18n } = useTranslation();
     const language = useCurrentLanguage();
     const pageRef = useGsapPageAnimations();
@@ -54,7 +56,7 @@ function ServicePage() {
                             {t("home.call")}
                         </BaseBtn>
 
-                        <BaseBtn data-gsap-item className="rounded-lg! w-1/2 bg-secondary text-base text-white sm:text-lg">
+                        <BaseBtn data-gsap-item className="rounded-lg! w-1/2 bg-secondary text-base text-white sm:text-lg" onClick={() => window.open(whatsappUrl(contacts.whatsappNumber, `أهلاً، ممكن أعرف تفاصيل أكتر عن خدمة ${service?.nameAr}، وتكلفتها، وإزاي أقدر أحجزها؟`))}>
                             <WhatsappIcon className="size-6  mr-1" />
                             {t("home.whatsapp")}
                         </BaseBtn>

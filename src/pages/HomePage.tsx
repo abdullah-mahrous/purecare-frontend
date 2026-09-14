@@ -58,7 +58,7 @@ function HomePage() {
                         <BaseBtn className="bg-secondary text-white" onClick={() => window.location.href = `tel:${contacts.phoneNumber}`}>
                             {t("home.call")}
                         </BaseBtn>
-                        <BaseBtn className="bg-secondary text-white" onClick={() => window.open(whatsappUrl(contacts.whatsappNumber, ''), "_blank")}>
+                        <BaseBtn className="bg-secondary text-white" onClick={() => window.open(whatsappUrl(contacts.whatsappNumber, 'أهلاً، ممكن أعرف تفاصيل أكتر عن خدمات PureCare للرعاية الصحية المنزلية والخدمات المتاحة؟ وإزاي أقدر أطلب الخدمة؟'), "_blank")}>
                             {t("home.whatsapp")}
                         </BaseBtn>
                         <BaseBtn className="bg-white text-primary" onClick={() => navigate("/reservation")}>

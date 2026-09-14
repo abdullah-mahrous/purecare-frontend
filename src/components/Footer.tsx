@@ -2,16 +2,16 @@ import { Link } from "react-router";
 
 import { routes } from "../router/routes";
 import { useAppSelector } from "../app/hooks";
+import { useTranslation } from "react-i18next";
+import { localized, useCurrentLanguage } from "../i18n";
+import { whatsappUrl } from "@/services/contactsService";
 
 import Logo from "./Logo";
-
 import FacebookIcon from "./icons/FacebookIcon";
 import InstagramIcon from "./icons/InstagramIcon";
 import TiktookIcon from "./icons/TiktookIcon";
 import WhatsappIcon from "./icons/WhatsappIcon";
 import PhoneIcon from "./icons/PhoneIcon";
-import { useTranslation } from "react-i18next";
-import { localized, useCurrentLanguage } from "../i18n";
 
 const Footer = () => {
     const contacts = useAppSelector((state) => state.websiteGeneralData);
@@ -23,7 +23,7 @@ const Footer = () => {
         { label: "Facebook", href: contacts.facebook, icon: <FacebookIcon className="size-6" /> },
         { label: "Instagram", href: contacts.instagram, icon: <InstagramIcon className="size-6" /> },
         { label: "TikTok", href: contacts.tiktook, icon: <TiktookIcon className="size-6" /> },
-        { label: "WhatsApp", href: `https://wa.me/${contacts.whatsappNumber}`, icon: <WhatsappIcon className="size-6" /> },
+        { label: "WhatsApp", href: whatsappUrl(contacts.whatsappNumber, 'أهلاً، ممكن أعرف تفاصيل أكتر عن خدمات PureCare للرعاية الصحية المنزلية والخدمات المتاحة؟ وإزاي أقدر أطلب الخدمة؟'), icon: <WhatsappIcon className="size-6" /> },
         { label: "Phone", href: `tel:${contacts.phoneNumber}`, icon: <PhoneIcon className="size-6" /> },
     ];
 
@@ -81,14 +81,14 @@ const Footer = () => {
 
                         <div className="flex gap-2 text-sm text-slate-400">
                             <PhoneIcon className="w-5 h-5 shrink-0" />
-                            <a href="tel:+201234567890" className="block font-medium text-slate-600">
+                            <a href={`tel:${contacts.phoneNumber}`} className="block font-medium text-slate-600">
                                 {contacts.phoneNumber}
                             </a>
                         </div>
 
                         <div className="flex gap-2 text-sm text-slate-400 mt-2">
                             <WhatsappIcon className="w-5 h-5 shrink-0" />
-                            <a href="tel:+201234567890" className="block font-medium text-slate-600">
+                            <a href={whatsappUrl(contacts.whatsappNumber, 'أهلاً، ممكن أعرف تفاصيل أكتر عن خدمات PureCare للرعاية الصحية المنزلية والخدمات المتاحة؟ وإزاي أقدر أطلب الخدمة؟')} className="block font-medium text-slate-600">
                                 {contacts.whatsappNumber}
                             </a>
                         </div>

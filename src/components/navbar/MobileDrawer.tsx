@@ -34,7 +34,7 @@ const MobileDrawer = () => {
         { label: "Facebook", href: contacts.facebook, icon: <FacebookIcon className="size-6" /> },
         { label: "Instagram", href: contacts.instagram, icon: <InstagramIcon className="size-6" /> },
         { label: "TikTok", href: contacts.tiktook, icon: <TiktookIcon className="size-6" /> },
-        { label: "WhatsApp", href: whatsappUrl(contacts.whatsappNumber, ''), icon: <WhatsappIcon className="size-6" /> },
+        { label: "WhatsApp", href: whatsappUrl(contacts.whatsappNumber, 'أهلاً، ممكن أعرف تفاصيل أكتر عن خدمات PureCare للرعاية الصحية المنزلية والخدمات المتاحة؟ وإزاي أقدر أطلب الخدمة؟'), icon: <WhatsappIcon className="size-6" /> },
         { label: "Phone", href: `tel:${contacts.phoneNumber}`, icon: <PhoneIcon className="size-6" /> },
     ];
 
