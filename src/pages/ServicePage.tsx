@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
 import { routes } from "../router/routes";
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { getServiceById } from '@/features/serviceSlice'
+import { useAppSelector } from '@/app/hooks'
 
 import BaseBtn from "../components/BaseBtn";
 import PhoneIcon from "../assets/icons/PhoneIcon";
@@ -12,69 +11,60 @@ import peopleCommunityIcon from "../assets/icons/people-community.svg";
 import starIcon from "../assets/icons/star.svg";
 import Faq from "../components/Faq";
 import ServiceInfo from "../components/ServiceInfo";
+import { localized, useCurrentLanguage } from "../i18n";
+import { useTranslation } from "react-i18next";
 
 function ServicePage() {
-    const { serviceId } = useParams();
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const { service } = useAppSelector(state => state.services);
-        
-    useEffect(() => {
-        dispatch(getServiceById(serviceId));
-
-        // to redirect to not found page if the service is no longer
-        if(!service)
-            navigate(routes.notFound);
-    }, [dispatch, serviceId, service]);
+    const { t, i18n } = useTranslation();
+    const language = useCurrentLanguage();
 
     return (
-        <main className="px-4 py-2 text-primary sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+        <main dir={language === "en" ? "ltr" : "rtl"} className="mx-auto w-full max-w-7xl px-4 py-2 text-primary sm:px-8 sm:py-8 lg:px-12 lg:py-10">
             {/* Service Hero Section */}
             <section aria-labelledby="service-page-title">
 
                 <div>
-                    <div className="mx-auto grid max-w-5xl items-center gap-2 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-8 text-right">
+                    <div className="mx-auto grid max-w-6xl items-center gap-2 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12 lg:gap-20">
                         <div className="relative z-10 py-2 md:py-8">
                             <h2 className="max-w-md text-3xl font-extrabold leading-tight text-primary sm:text-4xl lg:text-5xl">
-                                {service?.nameAr}
+                                {service ? localized(service, "name", language) : ""}
                             </h2>
 
                             <p className="mt-2 max-w-md text-base font-semibold leading-relaxed text-heading-text/85 sm:text-lg lg:text-xl">
-                                {service?.descriptionAr}
+                                {service ? localized(service, "description", language) : ""}
                             </p>
                         </div>
 
                         <img
                             src={service?.imgUrl}
                             alt="Illustration of a home nurse"
-                            className="mx-auto w-full max-w-120 mix-blend-multiply md:translate-y-4"
+                            className="mx-auto object-contain w-full max-w-120 mix-blend-multiply md:translate-y-4 max-h-[30rem]"
                         />
                     </div>
                 </div>
 
                 <div className="mt-4">
-                    <div className="grid gap-3 grid-cols-2">
-                        <BaseBtn className="rounded-lg! bg-primary px-6 text-base text-white sm:text-lg">
+                    <div className="flex gap-3">
+                        <BaseBtn className="rounded-lg! w-1/2 bg-primary text-base text-white sm:text-lg">
                             <PhoneIcon className="size-5 mr-1" />
-                            إتصل بينا
+                            {t("home.call")}
                         </BaseBtn>
 
-                        <BaseBtn className="rounded-lg! bg-secondary px-6 text-base text-white sm:text-lg">
+                        <BaseBtn className="rounded-lg! w-1/2 bg-secondary text-base text-white sm:text-lg">
                             <WhatsappIcon className="size-6  mr-1" />
-                            واتساب
+                            {t("home.whatsapp")}
                         </BaseBtn>
                     </div>
 
                     <BaseBtn onClick={() => navigate(`/${routes.reservation}`)}
-                        className="rounded-lg! mt-3 w-full gap-2 border-2 border-primary bg-white px-6 text-base text-primary sm:text-lg hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary active:text-white"
+                        className="rounded-lg! mt-3 w-full gap-2 border-2 border-primary bg-white px-6 text-base text-primary sm:text-lg"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="size-6" viewBox="0 0 1024 1024">
-                            <path d="M0 0h1024v1024H0z" fill="none" />
-                            <path fill="currentColor" d="m960 95.888l-256.224.001V32.113c0-17.68-14.32-32-32-32s-32 14.32-32 32v63.76h-256v-63.76c0-17.68-14.32-32-32-32s-32 14.32-32 32v63.76H64c-35.344 0-64 28.656-64 64v800c0 35.343 28.656 64 64 64h896c35.344 0 64-28.657 64-64v-800c0-35.329-28.656-63.985-64-63.985m0 863.985H64v-800h255.776v32.24c0 17.679 14.32 32 32 32s32-14.321 32-32v-32.224h256v32.24c0 17.68 14.32 32 32 32s32-14.32 32-32v-32.24H960zM736 511.888h64c17.664 0 32-14.336 32-32v-64c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32m0 255.984h64c17.664 0 32-14.32 32-32v-64c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32v64c0 17.696 14.336 32 32 32m-192-128h-64c-17.664 0-32 14.336-32 32v64c0 17.68 14.336 32 32 32h64c17.664 0 32-14.32 32-32v-64c0-17.648-14.336-32-32-32m0-255.984h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32h64c17.664 0 32-14.336 32-32v-64c0-17.68-14.336-32-32-32m-256 0h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32h64c17.664 0 32-14.336 32-32v-64c0-17.68-14.336-32-32-32m0 255.984h-64c-17.664 0-32 14.336-32 32v64c0 17.68 14.336 32 32 32h64c17.664 0 32-14.32 32-32v-64c0-17.648-14.336-32-32-32" />
-                        </svg>
+                        <img src="/src/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-6" />
 
-                        إحجز معاد
+                        {t("home.book")}
                     </BaseBtn>
                 </div>
             </section>
@@ -82,7 +72,7 @@ function ServicePage() {
             {/* Service Perks */}
             <section aria-labelledby="service-perks" className="my-16 sm:my-20 lg:my-24">
 
-                <div className="grid gap-4 w-full text-primary sm:grid-cols-3 sm:px-6">
+                <div className="grid gap-4 w-full text-primary sm:grid-cols-3">
 
                     <div className="service-perk shadow-[0_10px_28px_rgba(11, 74, 133, 0.10)]">
                         <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
@@ -91,7 +81,7 @@ function ServicePage() {
 
                         <div className="min-w-0">
                             <p className="text-xl font-extrabold leading-tight">{service?.rate} / 5</p>
-                            <p className="mt-1 text-sm font-semibold text-heading-text/75">Customer Rating</p>
+                            <p className="mt-1 text-sm font-semibold text-heading-text/75">{t("service.customerRating")}</p>
                         </div>
                     </div>
 
@@ -102,7 +92,7 @@ function ServicePage() {
 
                         <div className="min-w-0">
                             <p className="text-xl font-extrabold leading-tight">{service?.customersCount}+</p>
-                            <p className="mt-1 text-sm font-semibold text-heading-text/75">Satisfied Customers</p>
+                            <p className="mt-1 text-sm font-semibold text-heading-text/75">{t("service.satisfiedCustomers")}</p>
                         </div>
                     </div>
 
@@ -115,53 +105,54 @@ function ServicePage() {
                         </span>
 
                         <div className="min-w-0">
-                            <p className="text-xl font-extrabold leading-tight">{service?.responseTime} mins</p>
-                            <p className="mt-1 text-sm font-semibold text-heading-text/75">Average Response</p>
+                            <p className="text-xl font-extrabold leading-tight">{service?.responseTime} {t("service.minutes")}</p>
+                            <p className="mt-1 text-sm font-semibold text-heading-text/75">{t("service.averageResponse")}</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* who is it for section */}
-            {service?.targeted && (
+            {service?.targeted && service?.targeted.length > 0 && (
                 <section aria-labelledby="who-is-service-for">
-                    <div className="mx-auto w-full max-w-5xl">
-                        <h2 className="text-center sm:text-left text-xl font-bold uppercase tracking-normal text-primary">
-                            لمين الخدمة دي؟
+                    <div className="mx-auto w-full max-w-6xl">
+                        <h2 className="text-center sm:text-start text-xl font-bold uppercase tracking-normal text-primary">
+                            {i18n.language === "en" ? "Who is this service for?" : "لمين الخدمة دي؟"}
                         </h2>
 
-                    <ServiceInfo details={service?.targeted} />
-                </div>
-            </section>)}
+                        <ServiceInfo details={service?.targeted} language={language} />
+                    </div>
+                </section>)}
 
             {/* what is included section */}
-            {service?.included && (
+            {service?.included && service?.included.length > 0 && (
                 <section aria-labelledby="what-is-included" className="my-16 sm:my-20 lg:my-24">
-                    <div className="mx-auto w-full max-w-5xl">
-                        <h2 className="text-center sm:text-left text-xl font-bold uppercase tracking-normal text-primary">
-                            ايه اللي هتستفاد بيه؟
+                    <div className="mx-auto w-full max-w-6xl">
+                        <h2 className="text-center sm:text-start text-xl font-bold uppercase tracking-normal text-primary">
+                            {i18n.language === "en" ? "What is included?" : "ايه اللي هتستفاد بيه؟"}
                         </h2>
 
-                    <ServiceInfo details={service?.included} />
-                </div>
-            </section>)}
+                        <ServiceInfo details={service?.included} language={language} />
+                    </div>
+                </section>)}
 
             {/* faq section */}
-            <section className="mb-6 text-primary sm:mb-8 lg:mb-10" aria-labelledby="faq-section">
-                <div className="mx-auto w-full max-w-5xl">
-                    <div className="text-center sm:text-left">
-                        <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
-                            أسئلة شائعة
-                        </h2>
-                    </div>
+            {service?.faqs && service?.faqs.length > 0 && (
+                <section className="mb-6 text-primary sm:mb-8 lg:mb-10" aria-labelledby="faq-section">
+                    <div className="mx-auto w-full max-w-6xl">
+                        <div className="text-center sm:text-start">
+                            <h2 className="text-xl font-bold uppercase tracking-normal text-primary">
+                                أسئلة شائعة
+                            </h2>
+                        </div>
 
-                    <div className="mt-4">
-                        {service?.faqs.map((faq, index) => (
-                            <Faq key={index} question={faq.questionAr} answer={faq.answerAr} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
-                        ))}
+                        <div className="mt-4">
+                            {service?.faqs.map((faq, index) => (
+                                <Faq key={`${index}-${i18n.language}`} question={localized(faq, "question")} answer={localized(faq, "answer")} isOpen={openIndex === index} onToggle={() => setOpenIndex(openIndex === index ? null : index)} />
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>)}
         </main>
     );
 }

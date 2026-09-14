@@ -9,21 +9,19 @@ import BaseInput from "@/components/BaseInput";
 import EquipmentCard from "@/components/equipment/EquipmentCard";
 import EquipmentIcon from "@/components/equipment/EquipmentIcon";
 import EquipmentFilters from "@/components/equipment/EquipmentsFilters";
-
-const getPageDirection = () => document.documentElement.dir === "ltr" ? "ltr" : "rtl";
+import { useTranslation } from "react-i18next";
 
 function EquipmentState() {
     const { data, error, isLoading } = useAppSelector((state) => state.equipment);
     const dispatch = useAppDispatch();
-
-    console.log("EquipmentState render");
+    const { t } = useTranslation();
 
     if (error) {
         return (
             <div className="rounded-2xl border border-primary/20 bg-primary/10 p-6 text-center text-primary">
-                <p className="font-bold">تعذر تحميل المعدات.</p>
+                <p className="font-bold">{t("equipment.error")}</p>
                 <button type="button" onClick={() => dispatch(getEquipments())} className="mt-3 rounded-xl bg-secondary px-4 py-2 text-sm font-bold text-white">
-                    إعادة المحاولة
+                    {t("equipment.retry")}
                 </button>
             </div>
         );
@@ -33,7 +31,7 @@ function EquipmentState() {
         return (
             <div className="rounded-2xl border border-[#E4EEF9] bg-[#F7FBFF] p-8 text-center">
                 <EquipmentIcon name="grid" className="mx-auto size-12 text-primary" />
-                <p className="mt-3 font-bold text-primary">لا توجد معدات تطابق اختياراتك.</p>
+                <p className="mt-3 font-bold text-primary">{t("equipment.empty")}</p>
             </div>
         );
     }
@@ -50,11 +48,12 @@ function MedicalEquipmentPage() {
     const { filters, pagination, isLoading, data } = useAppSelector((state) => state.equipment);
     const [searchValue, setSearchValue] = useState(filters.search);
     const debouncedSearch = useDebouncedValue(searchValue);
-    const direction = getPageDirection();
+    const { t, i18n } = useTranslation();
+    const direction = i18n.language === "en" ? "ltr" : "rtl";
     const isFirstRender = useRef(true);
 
     useEffect(() => {
-        if (debouncedSearch !== filters.search) 
+        if (debouncedSearch !== filters.search)
             dispatch(setSearch(debouncedSearch));
     }, [debouncedSearch, dispatch, filters.search]);
 
@@ -64,7 +63,7 @@ function MedicalEquipmentPage() {
             return;
         }
 
-        dispatch(getEquipments());
+        void dispatch(getEquipments());
     }, [dispatch, filters.category, filters.limit, filters.maxPrice, filters.minPrice, filters.page, filters.search]);
 
     return (
@@ -76,25 +75,26 @@ function MedicalEquipmentPage() {
 
                         <div className="min-w-0 flex-1 text-start">
                             <h1 id="equipment-page-title" className="mt-2 max-w-lg text-3xl font-extrabold leading-tight text-primary sm:text-4xl lg:text-5xl">
-                                وجهتك الموثوقة لتأجير المعدات <span className="text-secondary">الطبية</span>
+                                {t("equipment.hero").trim().split(/\s+/).slice(0, -1).join(" ")} {" "}
+                                <span className="text-secondary">{t("equipment.hero").trim().split(/\s+/).at(-1)}</span>
                             </h1>
 
                             <p className="mt-3 max-w-xl text-sm font-medium leading-relaxed text-primary sm:text-base lg:text-lg">
-                                كل أنواع المعدات الطبية اللي هتساعدك تهتم براحتك ورعاية اللي بتحبهم من البيت.
+                                {t("equipment.heroText")}
                             </p>
                         </div>
 
-                        <img src="/src/assets/Thermometer-amico.png" alt="معدات طبية" className="w-full max-w-64 shrink-0 object-contain sm:max-w-76 md:max-w-90" />
+                        <img src="/src/assets/Thermometer-amico.png" alt="معدات طبية" className="w-full max-w-64 shrink-0 object-contain sm:max-w-76 md:max-w-90 lg:max-w-105" />
                     </div>
                 </section>
 
-                <div role="search" aria-label="البحث في المعدات" className="relative">
-                    <svg aria-hidden="true" className="absolute top-1/2 right-2 size-6 shrink-0 text-body-text" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" viewBox="0 0 24 24">
+                <div role="search" aria-label={t("equipment.search")} className="relative">
+                    <svg aria-hidden="true" className={`absolute top-1/2 ${direction === "rtl" ? "right-2" : "left-2"} size-6 shrink-0 text-body-text`} fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="6.5" />
                         <path d="m16 16 4 4" />
                     </svg>
 
-                    <BaseInput type="search" value={searchValue} onChange={(event) => setSearchValue(event.target.value)} placeholder="ابحث عن أي معدات..." className="mt-6 pr-10" />
+                    <BaseInput type="search" value={searchValue} onChange={(event) => setSearchValue(event.target.value)} placeholder={t("equipment.search")} className={`mt-6 ${direction === "rtl" ? "pr-10" : "pl-10"}`} />
                 </div>
 
                 <div className="mt-6 lg:hidden"><EquipmentFilters compact /></div>
@@ -105,17 +105,17 @@ function MedicalEquipmentPage() {
                     <div className="min-w-0">
                         <div className="mb-4 text-start">
                             <h2 id="equipment-list-title" className="text-lg font-extrabold text-primary sm:text-xl">
-                                معدات للإيجار
+                                {t("equipment.list")}
                             </h2>
 
                             <p className="mt-1 text-sm font-medium text-body-text">
-                                عرض <bdi>{data.length + (pagination.page - 1) * pagination.limit}</bdi> معدات من أصل <bdi>{pagination.total}</bdi>
+                                {t("equipment.showing")} <bdi>{data.length + (pagination.page - 1) * pagination.limit}</bdi> {t("equipment.of")} <bdi>{pagination.total}</bdi>
                             </p>
                         </div>
 
                         {isLoading ? (
                             <div className="rounded-2xl bg-primary/10 p-8 text-center font-bold text-primary border border-primary/20 flex justify-center items-center gap-2">
-                                جارِ تحميل المعدات
+                                {t("equipment.loading")}
                                 <svg className="animate-spin size-4 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -130,7 +130,10 @@ function MedicalEquipmentPage() {
                     totalPages={pagination.pages}
                     hasNextPage={pagination.hasNextPage}
                     hasPreviousPage={pagination.hasPreviousPage}
-                    onPageChange={(page) => dispatch(setPage(page))}
+                    onPageChange={(page) => {
+                        if (page !== filters.page)
+                            dispatch(setPage(page));
+                    }}
                 />
             </div>
         </main>

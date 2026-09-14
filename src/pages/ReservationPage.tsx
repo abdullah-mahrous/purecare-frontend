@@ -18,6 +18,8 @@ import DropDownList from "../components/DropDownList";
 import HeroPerk from '../components/forms/HeroPerk';
 import FormField from '../components/forms/FormField';
 import { useAppSelector } from '../app/hooks';
+import { localized } from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 type formFields = z.output<typeof reservationSchema>
 type formInput = z.input<typeof reservationSchema>
@@ -26,31 +28,34 @@ function ReservationPage() {
     const navigate = useNavigate();
     const phoneNumber = useAppSelector((state) => state.websiteGeneralData.phoneNumber);
     const services = useAppSelector((state) => state.services.services);
+    const { t, i18n } = useTranslation();
     const [submitError, setSubmitError] = useState(false);
     const listedServices = services.map(service => {
         return {
-            text: service.nameAr,
+            text: localized(service, "name"),
             value: service.id
         }
     });
 
-    const { register, handleSubmit, control, formState: { errors, isSubmitting} } = useForm<formInput, unknown, formFields>({ resolver: zodResolver(reservationSchema), defaultValues: {
-        fullName: '',
-        phoneNumber: '',
-        age: undefined,
-        desiredDate: '',
-        address: '',
-        serviceIds: [],
-        healthIssue: undefined,
-        notes: undefined
-    }});
+    const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm<formInput, unknown, formFields>({
+        resolver: zodResolver(reservationSchema), defaultValues: {
+            fullName: '',
+            phoneNumber: '',
+            age: undefined,
+            desiredDate: '',
+            address: '',
+            serviceIds: [],
+            healthIssue: undefined,
+            notes: undefined
+        }
+    });
 
     const reservationSubmitHandler: SubmitHandler<formFields> = async (data) => {
         setSubmitError(false);
 
         try {
             await submitReservationForm(data);
-            navigate(routes.sentSuccessfully, {state: { header: 'تم إرسال طلبك بنجاح', slogan: 'شكرًا لك، هنتواصل معاك قريبًا لتأكيد تفاصيل الحجز' }});
+            navigate(routes.sentSuccessfully, { state: { header: 'تم إرسال طلبك بنجاح', slogan: 'شكرًا لك، هنتواصل معاك قريبًا لتأكيد تفاصيل الحجز' } });
         } catch (error) {
             console.error('Failed to submit reservation:', error);
             setSubmitError(true);
@@ -58,14 +63,14 @@ function ReservationPage() {
     }
 
     return (
-        <main dir="rtl" className="px-3 py-2 text-primary sm:px-6 sm:py-8">
+        <main dir={i18n.language === "en" ? "ltr" : "rtl"} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
-            <PageHero header='إحجز الآن' slogan='إملى البيانات المطلوبة و إحنا هنعمل الباقي' heroImg='/src/assets/medical-care.png'>
-                <HeroPerk title='أمان و ثقة كاملة' description='بياناتك و صحتك آمنة تماما معانا'>
+            <PageHero header={t("forms.reservationTitle")} slogan={t("forms.reservationSlogan")} heroImg='/src/assets/medical-care.png'>
+                <HeroPerk title={i18n.language === "en" ? "Complete safety and trust" : "أمان و ثقة كاملة"} description={i18n.language === "en" ? "Your data and health are completely safe with us" : "بياناتك و صحتك آمنة تماما معانا"}>
                     <img src="/src/assets/icons/shield-check.svg" alt="perk icon" className="size-8" />
                 </HeroPerk>
 
-                <HeroPerk title='متاحين في كل وقت' description='إحنا هنا لما تحتاجنا في أي وقت'>
+                <HeroPerk title={i18n.language === "en" ? "Available anytime" : "متاحين في كل وقت"} description={i18n.language === "en" ? "We are here whenever you need us" : "إحنا هنا لما تحتاجنا في أي وقت"}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" className="size-8">
                         <path d="M0 0h14v14H0z" fill="none" />
                         <g fill="none">
@@ -78,22 +83,22 @@ function ReservationPage() {
                 </HeroPerk>
             </ PageHero>
 
-            <form className="my-8" onSubmit={handleSubmit(reservationSubmitHandler)}>
+            <form className="mx-auto my-8 w-full max-w-6xl" onSubmit={handleSubmit(reservationSubmitHandler)}>
                 <div className="space-y-5 sm:space-y-6">
-                    <FormField 
-                    id="full-name"
-                    label='الاسم الكامل' 
-                    required={true} 
-                    error={errors.fullName?.message} 
-                    input={<BaseInput id="full-name" type="text" placeholder="اكتب اسمك الكامل" {...register("fullName")} required/>} 
-                    icon={<img src="/src/assets/icons/person.svg" alt="person icon" className="size-8" />}
+                    <FormField
+                        id="full-name"
+                        label={t("forms.name")}
+                        required={true}
+                        error={errors.fullName?.message}
+                        input={<BaseInput id="full-name" type="text" placeholder={i18n.language === "en" ? "Enter your full name" : "اكتب اسمك الكامل"} {...register("fullName")} required />}
+                        icon={<img src="/src/assets/icons/person.svg" alt="person icon" className="size-8" />}
                     />
 
-                    <FormField 
+                    <FormField
                         id="phone-number"
-                        label='رقم التليفون' 
-                        required={true} 
-                        error={errors.phoneNumber?.message} 
+                        label={t("forms.phone")}
+                        required={true}
+                        error={errors.phoneNumber?.message}
                         input={
                             <div className="flex gap-2 w-full">
                                 <Controller name='phoneNumber' control={control} render={({ field }) => (
@@ -102,50 +107,50 @@ function ReservationPage() {
                                         defaultCountry="EG"
                                         value={field.value}
                                         onChange={field.onChange}
-                                        placeholder="رقم الهاتف"
+                                        placeholder={i18n.language === "en" ? "Phone number" : "رقم الهاتف"}
                                         required
                                     />
                                 )} />
                             </div>
-                        } 
-                        icon={<img src="/src/assets/icons/phone-outline.svg" alt="phone icon" className="size-8" />} 
+                        }
+                        icon={<img src="/src/assets/icons/phone-outline.svg" alt="phone icon" className="size-8" />}
                     />
 
                     <div className="grid gap-5 sm:grid-cols-2 sm:gap-4">
                         <FormField
                             id="age"
-                            label='السن' 
-                            error={errors.age?.message} 
-                            input={<BaseInput id="age" type="number" min="0" placeholder="Enter age" {...register("age")}/>} 
+                            label={t("forms.age")}
+                            error={errors.age?.message}
+                            input={<BaseInput id="age" type="number" min="0" placeholder={i18n.language === "en" ? "Enter age" : "السن"} {...register("age")} />}
                             icon={<img src="/src/assets/icons/calendar-month-outline.svg" alt="calender icon" className="size-8" />}
                         />
 
                         <FormField
                             id="desired-date"
-                            label='معاد الزيارة المطلوبة'
+                            label={t("forms.date")}
                             required={true}
                             error={errors.desiredDate?.message}
-                            input={<BaseInput id="desired-date" min={new Date().toISOString().slice(0, 16)} type="datetime-local" placeholder="Select date" {...register("desiredDate")} required/>}
+                            input={<BaseInput id="desired-date" min={new Date().toISOString().slice(0, 16)} type="datetime-local" placeholder={i18n.language === "en" ? "Select date" : "اختار الموعد"} {...register("desiredDate")} required />}
                             icon={<img src="/src/assets/icons/calendar-check-outline.svg" alt="calender icon" className="size-8" />}
                         />
                     </div>
 
                     <FormField
                         id="address"
-                        label="العنوان"
+                        label={t("forms.address")}
                         required={true}
                         error={errors.address?.message}
-                        input={<BaseInput id="address" type="address" placeholder="Enter your full address" {...register("address")} required/>}
+                        input={<BaseInput id="address" type="address" placeholder={i18n.language === "en" ? "Enter your full address" : "اكتب عنوانك بالكامل"} {...register("address")} required />}
                         icon={<img src="/src/assets/icons/map-marker-outline.svg" alt="Map Marker icon" className="size-8" />}
                     />
 
                     <FormField
                         id="service"
-                        label="الخدمة المطلوبة"
+                        label={t("forms.service")}
                         error={errors.serviceIds?.message}
                         input={
                             <Controller name="serviceIds" control={control} render={({ field }) => (
-                                <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder="اختار الخدمة" items={listedServices} selectedValues={field.value ?? []} onChange={field.onChange} multiple={true}/>
+                                <DropDownList className="min-w-0 max-w-full w-full flex relative h-14 rounded-xl border border-[#DCE5F0] px-3 text-sm font-bold text-primary sm:px-4 sm:text-base" placeholder={i18n.language === "en" ? "Choose a service" : "اختار الخدمة"} items={listedServices} selectedValues={field.value ?? []} onChange={field.onChange} multiple={true} />
                             )} />
                         }
                         icon={<img src="/src/assets/icons/services.svg" alt="Services icon" className="size-8" />}
@@ -153,42 +158,42 @@ function ReservationPage() {
 
                     <FormField
                         id="health-problem"
-                        label="المشكلة الصحية"
+                        label={t("forms.healthIssue")}
                         error={errors.healthIssue?.message}
-                        input={<textarea id="health-problem" placeholder="Describe the health problem or condition" className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("healthIssue")} />}
+                        input={<textarea id="health-problem" placeholder={i18n.language === "en" ? "Describe the health problem or condition" : "اوصف المشكلة الصحية أو الحالة"} className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("healthIssue")} />}
                         icon={<img src="/src/assets/icons/heart-pulse.svg" alt="health problem icon" className="size-8" />}
                     />
 
                     <FormField
                         id="notes"
-                        label="أي ملاحظات إضافية أو طلبات خاصة"
+                        label={t("forms.notes")}
                         error={errors.notes?.message}
-                        input={<textarea id="notes" placeholder="Any additional notes or special requests" className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("notes")} />}
+                        input={<textarea id="notes" placeholder={i18n.language === "en" ? "Any additional notes or special requests" : "أي ملاحظات إضافية أو طلبات خاصة"} className="h-30 w-full resize-none rounded-xl border border-[#DCE5F0] bg-white px-4 py-3 text-base font-medium text-heading-text outline-none placeholder:text-[#8391AA]" {...register("notes")} />}
                         icon={<img src="/src/assets/icons/message-text-outline.svg" alt="notes icon" className="size-8" />}
                     />
                 </div>
 
                 <BaseBtn className="mt-6 w-full justify-center gap-2 bg-secondary text-white font-bold text-xl p-4 rounded-xl sm:mt-8 sm:h-14 sm:text-lg disabled:cursor-not-allowed disabled:opacity-80" type="submit" disabled={isSubmitting}>
-                    { isSubmitting ? 
+                    {isSubmitting ?
                         (<>
-                            جار الحجز...
+                            {t('forms.booking')}
                             <svg className="animate-spin size-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                         </>) : (<>
 
-                            احجز
-                            <svg className="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.11 0 2-.89 2-2V5a2 2 0 0 0-2-2m0 16H5V9h14zM5 7V5h14v2zm5.56 10.46l5.94-5.93l-1.07-1.06l-4.87 4.87l-2.11-2.11l-1.06 1.06z"/></svg>
+                            {t("forms.submit")}
+                            <svg className="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.11 0 2-.89 2-2V5a2 2 0 0 0-2-2m0 16H5V9h14zM5 7V5h14v2zm5.56 10.46l5.94-5.93l-1.07-1.06l-4.87 4.87l-2.11-2.11l-1.06 1.06z" /></svg>
                         </>)
                     }
-                    
-                    
+
+
                 </BaseBtn>
 
                 {submitError && (
                     <p role="alert" className="mt-3 text-center text-sm font-bold text-red-600">
-                        حدث خطأ أثناء إرسال طلبك، من فضلك حاول مرة أخرى.
+                        {t('forms.submitError')}
                     </p>
                 )}
 
@@ -197,12 +202,12 @@ function ReservationPage() {
                         <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#E6F8EE] sm:size-14">
                             <img src="/src/assets/icons/headset.svg" alt="Shield Check icon" className="size-8" />
                         </span>
-                        
+
                         <p className="text-sm font-semibold leading-relaxed text-heading-text sm:text-base">
                             <span className="block font-bold text-primary">
-                                محتاج مساعدة؟
+                                {t('forms.help')}
                             </span>
-                                اتصل في اي وقت:  
+                            {t('forms.callAnytime')}
                             <a href={`tel:${phoneNumber}`} className="font-bold text-secondary">
                                 {phoneNumber}
                             </a>

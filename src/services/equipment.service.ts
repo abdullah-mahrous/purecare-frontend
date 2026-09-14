@@ -138,7 +138,7 @@ export const equipmentCategories: readonly EquipmentCategory[] = [
     })),
 ];
 
-const arabicCategoryLabels: Record<EquipmentCategoryId, string> = {
+export const arabicCategoryLabels: Record<EquipmentCategoryId, string> = {
     "Mobility & Rehabilitation": "التنقل وإعادة التأهيل",
     "Respiratory Equipment": "معدات الجهاز التنفسي",
     "Patient Beds & Supplies": "أسرة ومستلزمات المرضى",

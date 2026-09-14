@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/app/hooks';
 import { deleteTestimonialById, patchTestimonial, postTestimonial } from '@/features/testimonialSlice';
 import type { Testimonial } from '@/services/testimonial.service';
 import { ActionButton, Panel, TextArea, TextField } from './AdminPrimitives';
+import DropDownList from '@/components/DropDownList';
 
 const emptyTestimonial = () => ({
     nameAr: '',
@@ -13,6 +14,11 @@ const emptyTestimonial = () => ({
     commentAr: '',
     commentEn: '',
 });
+
+const genderOptions = [
+    { text: 'Male', value: 'male' },
+    { text: 'Female', value: 'female' },
+] as const;
 
 // Keeps testimonial editing isolated from the page-level tab state.
 export default function TestimonialsPanel({ testimonials, onDone }: { testimonials: Testimonial[]; onDone: () => void }) {
@@ -93,7 +99,16 @@ export default function TestimonialsPanel({ testimonials, onDone }: { testimonia
             <form className="mt-6 grid gap-4 border-t border-base-border pt-5 md:grid-cols-2" onSubmit={(event) => void save(event)}>
                 <TextField label="Arabic name" name="nameAr" value={form.nameAr} onChange={change('nameAr')} />
                 <TextField label="English name" name="nameEn" value={form.nameEn} onChange={change('nameEn')} />
-                <TextField label="Gender" name="gender" value={form.gender} onChange={change('gender')} />
+                <label className="block text-sm font-bold text-heading-text">
+                    Gender
+                    <DropDownList
+                        items={genderOptions}
+                        selectedValues={form.gender ? [form.gender] : []}
+                        onChange={(values) => change('gender')(values[0] ?? '')}
+                        placeholder="Select gender"
+                        className="relative mt-1.5 min-h-11 rounded-xl border border-base-border bg-white px-3 py-3"
+                    />
+                </label>
                 <div />
                 <TextArea label="Arabic comment" name="commentAr" value={form.commentAr} onChange={change('commentAr')} />
                 <TextArea label="English comment" name="commentEn" value={form.commentEn} onChange={change('commentEn')} />

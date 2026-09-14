@@ -7,15 +7,15 @@ import { whatsappUrl } from "@/services/contactsService";
 
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import PhoneIcon from "@/assets/icons/PhoneIcon";
-
-const getPageDirection = () => document.documentElement.dir === "ltr" ? "ltr" : "rtl";
+import { localized } from "@/i18n";
+import { useTranslation } from "react-i18next";
 
 function MedicalEquipmentDetailsPage() {
     const navigate = useNavigate();
     const contacts = useAppSelector((state) => state.websiteGeneralData);
     const { equipment, isLoading, error } = useAppSelector(state => state.equipment);
-
-    const direction = getPageDirection();
+    const { t, i18n } = useTranslation();
+    const direction = i18n.resolvedLanguage === "en" ? "ltr" : "rtl";
 
     useEffect(() => {
         if (!isLoading && (error || !equipment))
@@ -23,7 +23,7 @@ function MedicalEquipmentDetailsPage() {
     }, [equipment, error, isLoading, navigate]);
 
     if (isLoading)
-        return <main dir={direction} className="px-4 py-12 text-center font-bold text-primary">جارِ تحميل بيانات الجهاز</main>;
+        return <main dir={direction} className="px-4 py-12 text-center font-bold text-primary">{t("equipment.loading")}</main>;
 
     if (error || !equipment)
         return null;
@@ -31,18 +31,18 @@ function MedicalEquipmentDetailsPage() {
 
     return (
         <main dir={direction} className="px-4 pb-8 pt-6 text-primary sm:px-6 sm:pb-12 sm:pt-8">
-            <div className="mx-auto w-full max-w-2xl">
+            <div className="mx-auto w-full max-w-4xl">
 
-                <section className="mt-2 sm:mt-4">
-                    <img src={equipment.imageUrl} alt={equipment.name} className="aspect-[1.25] w-full object-contain" />
+                <section className="mx-auto mt-2 flex aspect-[1.25] w-full max-w-3xl max-h-[34rem] items-center justify-center overflow-hidden rounded-3xl bg-[#F7FBFF] p-4 sm:mt-4 sm:p-8">
+                    <img src={equipment.imageUrl} alt={localized(equipment, "name", i18n.resolvedLanguage)} className="h-full w-full object-contain" />
                 </section>
 
-                <h1 className="mt-8 text-center text-3xl font-extrabold leading-tight text-primary sm:mt-9 sm:text-4xl">
-                    {equipment.name}
+                <h1 className="mx-auto mt-8 max-w-3xl text-center text-3xl font-extrabold leading-tight text-primary sm:mt-9 sm:text-4xl">
+                    {localized(equipment, "name", i18n.resolvedLanguage)}
                 </h1>
 
                 {/* Availability and daily rental price */}
-                <section className="mt-8 grid grid-cols-2 divide-x divide-[#BFE5DE] rounded-[1.7rem] bg-[#F3F9F8] px-4 py-6 sm:mt-9 sm:px-8" aria-label="حالة وسعر الجهاز">
+                <section className="mt-8 grid grid-cols-2 divide-x divide-[#BFE5DE] rounded-[1.7rem] bg-[#F3F9F8] px-4 py-6 sm:mt-9 sm:px-8" aria-label={t("equipment.availabilityAndPrice")}>
                     {equipment.inStock ? (
                         <div className="flex items-center justify-center gap-3 px-2 text-start">
                             <span className="size-10 rounded-full bg-secondary text-white flex shrink-0 items-center justify-center">
@@ -52,7 +52,7 @@ function MedicalEquipmentDetailsPage() {
                                 </svg>
                             </span>
 
-                            <p className="text-xl font-bold leading-none text-primary sm:text-2xl">متوفر</p>
+                            <p className="text-xl font-bold leading-none text-primary sm:text-2xl">{t("equipment.available")}</p>
                         </div>
                     ) : (
                         <div className="flex items-center justify-center gap-3 px-2 text-start">
@@ -65,14 +65,14 @@ function MedicalEquipmentDetailsPage() {
 
                             </span>
 
-                            <p className="text-xl font-bold leading-none text-primary sm:text-2xl">غير متوفر</p>
+                            <p className="text-xl font-bold leading-none text-primary sm:text-2xl">{t("equipment.unavailable")}</p>
                         </div>
                     )}
 
                     <div className="px-2 text-center">
-                        <p className="text-sm font-semibold text-primary sm:text-lg">سعر الإيجار اليومي</p>
+                        <p className="text-sm font-semibold text-primary sm:text-lg">{t("equipment.price")}</p>
                         <p className="mt-1 text-4xl font-extrabold leading-none text-secondary sm:text-5xl">
-                            <bdi>{equipment.pricePerDay}</bdi> <span className="text-xl sm:text-2xl">جنيه</span>
+                            <bdi>{equipment.pricePerDay}</bdi> <span className="text-xl sm:text-2xl">{t("equipment.currency")}</span>
                         </p>
                     </div>
                 </section>
@@ -84,47 +84,47 @@ function MedicalEquipmentDetailsPage() {
                         </span>
 
                         <h2 id="equipment-description-title" className="text-2xl font-extrabold text-primary sm:text-3xl">
-                            وصف الجهاز
+                            {t("equipment.descriptionTitle")}
                         </h2>
                     </div>
 
                     <p className="mt-4 text-base font-medium leading-8 text-body-text sm:text-lg sm:leading-9">
-                        {equipment.description}
+                        {localized(equipment, "description", i18n.resolvedLanguage)}
                     </p>
                 </section>
 
                 {equipment.inStock && (
-                <section className="mt-8 space-y-3 sm:mt-10" aria-label="طرق التواصل">
-                    <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href=whatsappUrl(contacts.whatsappNumber, `عايز أحجز جهاز ${equipment.name}`)}>
-                        <WhatsappIcon className="size-7"/>
+                    <section className="mt-8 space-y-3 sm:mt-10" aria-label={t("equipment.contactOptions")}>
+                        <button type="button" className="renting-btns shadow-[0_10px_24px_rgba(11,74,133,0.12)] bg-secondary text-white" onClick={() => window.location.href = whatsappUrl(contacts.whatsappNumber, t("equipment.whatsappMessage", { equipment: localized(equipment, "name", i18n.resolvedLanguage) }))}>
+                            <WhatsappIcon className="size-7" />
 
-                        <span className="text-start">
-                            <span className="block text-xl font-extrabold sm:text-2xl">اطلب عبر واتساب</span>
-                        </span>
-                    </button>
+                            <span className="text-start">
+                                <span className="block text-xl font-extrabold sm:text-2xl">{t("equipment.orderViaWhatsapp")}</span>
+                            </span>
+                        </button>
 
-                    <button type="button" className="renting-btns border border-[#DCE5F0] bg-white text-primary" onClick={() => window.location.href=`tel:${contacts.phoneNumber}`}>
-                        <PhoneIcon className="size-7 fill-current" />
+                        <button type="button" className="renting-btns border border-[#DCE5F0] bg-white text-primary" onClick={() => window.location.href = `tel:${contacts.phoneNumber}`}>
+                            <PhoneIcon className="size-7 fill-current" />
 
-                        <span className="text-start">
-                            <span className="block text-xl font-extrabold sm:text-2xl">اتصل الآن</span>
-                        </span>
-                    </button>
-                </section>)}
+                            <span className="text-start">
+                                <span className="block text-xl font-extrabold sm:text-2xl">{t("equipment.callNow")}</span>
+                            </span>
+                        </button>
+                    </section>)}
 
                 <section className="flex gap-4 mt-8 rounded-[1.8rem] bg-[#F1F8F8] px-4 py-6 sm:mt-10 sm:px-9 sm:py-9 items-center" aria-labelledby="safety-title">
                     <div className="flex shrink-0 p-2 items-center justify-center rounded-full border-8 border-white bg-primary/10 text-primary">
-                        <img src="/src/assets/icons/shield-check.svg" className="size-20" alt="shield icon"/>
+                        <img src="/src/assets/icons/shield-check.svg" className="size-20" alt="shield icon" />
                     </div>
 
                     <div className="max-w-sm text-start">
                         <h2 id="safety-title" className="text-xl font-extrabold text-primary sm:text-2xl">
-                            نظافة وأمان مضمون
+                            {t("equipment.safetyTitle")}
                         </h2>
 
                         <p className="mt-3 text-sm font-medium leading-7 text-body-text sm:text-base sm:leading-8">
-                            جميع أجهزتنا يتم تعقيمها وتطهيرها بعد كل استخدام وفقًا لأعلى معايير الجودة والسلامة.
-                        </p>                        
+                            {t("equipment.safetyText")}
+                        </p>
                     </div>
                 </section>
             </div>

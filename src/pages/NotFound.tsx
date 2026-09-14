@@ -7,7 +7,7 @@ function NotFound() {
     const direction = getPageDirection();
 
     return (
-        <main dir={direction} className="px-4 py-10 text-primary sm:px-6 sm:py-14 lg:px-8">
+        <main dir={direction} className="flex min-h-[55vh] items-center px-4 py-10 text-primary sm:px-6 sm:py-14 lg:px-8">
             <section className="mx-auto max-w-xl rounded-3xl border border-[#E4EEF9] bg-[#F7FBFF] p-8 text-center shadow-[0_12px_30px_rgba(11,74,133,0.07)] sm:p-10">
 
                 <svg

@@ -32,7 +32,7 @@ function AdminLoginPage() {
     };
 
     return (
-        <main className="grid min-h-screen place-items-center bg-[#F4F9FE] px-4 py-10">
+        <main className="grid min-h-screen place-items-center bg-[#F4F9FE] px-4 py-10" dir="ltr">
             <section className="w-full max-w-md rounded-3xl border border-base-border bg-white p-7 shadow-[0_18px_45px_rgba(11,74,133,0.12)] sm:p-9">
                 <div className="flex justify-center"><Logo /></div>
                 <div className="mt-8 text-center">

@@ -1,33 +1,36 @@
 import { useAppSelector } from "../../app/hooks";
 
 import Logo from "../Logo";
+import DesktopNavbar from "./DesktopNavbar";
 import MobileMenuBtn from "./MobileMenuBtn";
 import MobileDrawer from "./MobileDrawer";
 import PhoneIcon from "../../assets/icons/PhoneIcon";
 
 const NavBar = () => {
     const phoneNumber = useAppSelector((state) => state.websiteGeneralData.phoneNumber);
-    
+
     return (
         <>
-        <nav className="py-3 px-4 navbar block bg-white">
-            <ul className="flex justify-between items-center list-none w-full">
-                <li>
-                    <Logo />
-                </li>
-
-                {/* Mobile nav Button */}
-                <li className="flex items-center sm:hidden">
-                    <div className="flex justify-center items-center bg-[#dfeeff] border border-base-border rounded-full size-10 mr-3" onClick={() => window.location.href=`tel:${phoneNumber}`}>
-                        <PhoneIcon className="size-6 text-primary"/>
+            <nav className="navbar block bg-white">
+                <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+                    <div>
+                        <Logo />
                     </div>
-                    
-                    <MobileMenuBtn />
-                </li>
-            </ul>
-        </nav>
 
-        <MobileDrawer />
+                    <DesktopNavbar />
+
+                    {/* Mobile nav buttons */}
+                    <div className="flex items-center md:hidden gap-3">
+                        <div className="flex justify-center items-center bg-[#dfeeff] border border-base-border rounded-full size-10" onClick={() => window.location.href = `tel:${phoneNumber}`}>
+                            <PhoneIcon className="size-6 text-primary" />
+                        </div>
+
+                        <MobileMenuBtn />
+                    </div>
+                </div>
+            </nav>
+
+            <MobileDrawer />
         </>
     )
 }

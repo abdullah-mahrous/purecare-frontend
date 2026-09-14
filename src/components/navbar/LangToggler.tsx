@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const LangToggler = () => {
-    const [selectedLang, setSelectedLang] = useState<"en" | "ar">("ar");
+    const { i18n, t } = useTranslation();
+    const selectedLang = i18n.language === "en" ? "en" : "ar";
 
     return (
         <div
@@ -10,26 +11,24 @@ const LangToggler = () => {
         >
             <button
                 type="button"
-                className={`rounded-lg px-4 py-3 text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    selectedLang === "en"
-                        ? "bg-primary text-white shadow-[0_8px_18px_rgba(11,74,133,0.24)]"
-                        : "bg-white text-primary"
-                }`}
-                onClick={() => setSelectedLang("en")}
+                className={`cursor-pointer rounded-lg px-3 py-2.5 text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${selectedLang === "en"
+                    ? "bg-primary text-white shadow-[0_8px_18px_rgba(11,74,133,0.24)]"
+                    : "bg-white text-primary"
+                    }`}
+                onClick={() => void i18n.changeLanguage("en")}
             >
-                English
+                {t("language", { lng: "en" })}
             </button>
 
             <button
                 type="button"
-                className={`rounded-lg px-4 py-3 text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    selectedLang === "ar"
-                        ? "bg-primary text-white shadow-[0_8px_18px_rgba(11,74,133,0.24)]"
-                        : "bg-white text-primary"
-                }`}
-                onClick={() => setSelectedLang("ar")}
+                className={`cursor-pointer rounded-lg px-3 py-2.5 text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${selectedLang === "ar"
+                    ? "bg-primary text-white shadow-[0_8px_18px_rgba(11,74,133,0.24)]"
+                    : "bg-white text-primary"
+                    }`}
+                onClick={() => void i18n.changeLanguage("ar")}
             >
-                العربية
+                {t("language", { lng: "ar" })}
             </button>
         </div>
     );

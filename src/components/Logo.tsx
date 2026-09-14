@@ -1,8 +1,10 @@
 import { Link } from "react-router"
 
-import { routes } from "../router/routes"    
+import { routes } from "../router/routes"
+import { useTranslation } from "react-i18next";
 
-const Logo = ({color = "text-primary"}) => {
+const Logo = ({ color = "text-primary" }) => {
+    const { t } = useTranslation();
     return (
         <Link to={routes.home} className="flex items-center gap-2">
             <div className="flex items-center">
@@ -22,7 +24,7 @@ const Logo = ({color = "text-primary"}) => {
 
                 <div>
                     <p className={`${color} text-2xl font-bold`}>Pure<span className="text-secondary">Care</span></p>
-                    <p className="text-primary text-sm">رعاية طبية في بيتك</p>
+                    <p className="text-primary text-sm">{t("logo.slogan")}</p>
                 </div>
             </div>
         </Link>

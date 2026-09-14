@@ -186,7 +186,7 @@ function AdminPanelPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#F4F9FE] text-body-text">
+        <main className="min-h-screen bg-[#F4F9FE] text-body-text" dir="ltr">
             <header className="border-b border-base-border bg-white">
                 <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
                     <Logo />

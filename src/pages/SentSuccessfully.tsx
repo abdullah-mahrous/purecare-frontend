@@ -4,9 +4,9 @@ import { useLocation } from 'react-router';
 import { routes } from '../router/routes';
 
 function SentSuccessfully() {
-    const Location = useLocation();
+	const Location = useLocation();
 
-    const { header, slogan } = Location.state;
+	const { header, slogan } = Location.state;
 
 	return (
 		<main dir="rtl" className="flex min-h-[65vh] items-center justify-center px-4 py-12 text-center text-primary">

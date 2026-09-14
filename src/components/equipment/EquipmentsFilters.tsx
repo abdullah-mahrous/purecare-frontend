@@ -7,21 +7,25 @@ import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 
 import { Slider } from "@/components/ui/slider";
 import EquipmentIcon from "@/components/equipment/EquipmentIcon";
+import { useTranslation } from "react-i18next";
+import { categories, arabicCategoryLabels } from "@/services/equipment.service";
 
 function EquipmentFilters({ compact = false }: { compact?: boolean }) {
     const dispatch = useAppDispatch();
     const { category, minPrice, maxPrice } = useAppSelector((state) => state.equipment.filters);
     const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
     const debouncedPrice = useDebouncedValue(price, 500);
+    const { t, i18n } = useTranslation();
+    const categoryLabels = i18n.language === "en" ? Object.fromEntries(categories.map((category) => [category, category])) : arabicCategoryLabels;
 
     useEffect(() => {
         if (debouncedPrice[0] !== minPrice || debouncedPrice[1] !== maxPrice)
             dispatch(setPriceRange(debouncedPrice));
-    }, [debouncedPrice, dispatch, maxPrice, minPrice]);
+    }, [debouncedPrice]);
 
     return (
         <section className={compact ? "" : "rounded-2xl border border-[#E4EEF9] bg-white p-4 shadow-[0_8px_22px_rgba(11,74,133,0.05)]"}>
-            <h2 className="text-base font-extrabold text-primary">التصنيفات</h2>
+            <h2 className="text-base font-extrabold text-primary">{t("equipment.categories")}</h2>
 
             <div className={compact ? "mt-3 flex gap-3 overflow-x-auto pb-2" : "mt-3 space-y-1"}>
                 {equipmentCategories.map((item) => {
@@ -37,14 +41,14 @@ function EquipmentFilters({ compact = false }: { compact?: boolean }) {
                             aria-pressed={isSelected}
                         >
                             <EquipmentIcon name={item.icon} className="size-6 shrink-0" />
-                            <span className={compact ? "leading-snug" : "text-start"}>{item.label}</span>
+                            <span className={compact ? "leading-snug" : "text-start"}>{item.id === "all" ? t("equipment.all") : categoryLabels[item.id]}</span>
                         </button>
                     );
                 })}
             </div>
 
             <div className="mt-4 w-full max-w-md">
-                <h2 className="mb-4 text-base font-extrabold text-primary">سعر الإيجار في اليوم</h2>
+                <h2 className="mb-4 text-base font-extrabold text-primary">{t("equipment.price")}</h2>
                 <Slider
                     value={price}
                     onValueChange={(values) => setPrice([values[0], values[1]])}
