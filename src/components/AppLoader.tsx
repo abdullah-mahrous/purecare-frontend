@@ -10,20 +10,26 @@ const AppLoader = () => {
 
     useEffect(() => {
         if (navigation.state === "loading") {
-            setIsVisible(true);
-            setIsExiting(false);
-            return;
+            const resetLoader = window.setTimeout(() => {
+                setIsVisible(true);
+                setIsExiting(false);
+            }, 0);
+
+            return () => window.clearTimeout(resetLoader);
         }
 
         if (!isVisible) return;
 
-        setIsExiting(true);
+        const exitStart = window.setTimeout(() => setIsExiting(true), 0);
         const timeout = window.setTimeout(() => {
             setIsVisible(false);
             setIsExiting(false);
         }, 400);
 
-        return () => window.clearTimeout(timeout);
+        return () => {
+            window.clearTimeout(exitStart);
+            window.clearTimeout(timeout);
+        };
     }, [isVisible, navigation.state]);
 
     if (!isVisible) return null;

@@ -4,32 +4,22 @@ import { routes } from './routes.ts'
 import { homeLoader, loadWebsiteEssentials, equipmentsLoader, equipmentDetailsLoader, serviceLoader } from '../router/loaders.ts'
 
 import RootLayout from '../layouts/RootLayout.tsx'
-import HomePage from '../pages/HomePage.tsx'
-import ServicePage from '../pages/ServicePage.tsx'
-import MedicalEquipmentPage from '../pages/MidicalEquipmentsPage.tsx'
-import MedicalEquipmentDetailsPage from '../pages/MedicalEquipmentDetailsPage.tsx'
-import Careers from '../pages/CareersPage.tsx'
-import ReservationPage from '../pages/ReservationPage.tsx'
-import SentSuccessfully from '../pages/SentSuccessfully.tsx'
-import NotFound from '../pages/NotFound.tsx'
-import AdminLoginPage from '../pages/AdminLoginPage.tsx'
-import AdminPanelPage from '../pages/AdminPanelPage.tsx'
 import LoadingScreen from '@/components/LoadingScreen.tsx'
 
 export const router = createBrowserRouter([
   {
     path: routes.adminLogin,
-    element: <AdminLoginPage />,
+    lazy: async () => ({ Component: (await import('../pages/AdminLoginPage.tsx')).default }),
     HydrateFallback: LoadingScreen,
   },
   {
     path: routes.admin,
-    element: <AdminPanelPage />,
+    lazy: async () => ({ Component: (await import('../pages/AdminPanelPage.tsx')).default }),
     HydrateFallback: LoadingScreen,
   },
   {
     path: routes.adminPanel,
-    element: <AdminPanelPage />,
+    lazy: async () => ({ Component: (await import('../pages/AdminPanelPage.tsx')).default }),
     HydrateFallback: LoadingScreen,
   },
   {
@@ -40,39 +30,47 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
-        loader: homeLoader,
+        lazy: async () => ({
+          Component: (await import('../pages/HomePage.tsx')).default,
+          loader: homeLoader,
+        }),
       },
       {
         path: routes.servicesPattern,
-        element: <ServicePage />,
-        loader: serviceLoader,
+        lazy: async () => ({
+          Component: (await import('../pages/ServicePage.tsx')).default,
+          loader: serviceLoader,
+        }),
       },
       {
         path: routes.reservation,
-        element: <ReservationPage />,
+        lazy: async () => ({ Component: (await import('../pages/ReservationPage.tsx')).default }),
       },
       {
         path: routes.sentSuccessfully,
-        element: <SentSuccessfully />,
+        lazy: async () => ({ Component: (await import('../pages/SentSuccessfully.tsx')).default }),
       },
       {
         path: routes.careers,
-        element: <Careers />,
+        lazy: async () => ({ Component: (await import('../pages/CareersPage.tsx')).default }),
       },
       {
         path: routes.medicalEquipments,
-        element: <MedicalEquipmentPage />,
-        loader: equipmentsLoader,
+        lazy: async () => ({
+          Component: (await import('../pages/MidicalEquipmentsPage.tsx')).default,
+          loader: equipmentsLoader,
+        }),
       },
       {
         path: routes.medicalEquipmentDetailsPattern,
-        element: <MedicalEquipmentDetailsPage />,
-        loader: equipmentDetailsLoader,
+        lazy: async () => ({
+          Component: (await import('../pages/MedicalEquipmentDetailsPage.tsx')).default,
+          loader: equipmentDetailsLoader,
+        }),
       },
       {
         path: routes.notFound,
-        element: <NotFound />,
+        lazy: async () => ({ Component: (await import('../pages/NotFound.tsx')).default }),
       },
     ],
   },
