@@ -63,8 +63,8 @@ export type EquipmentFilters = {
     limit: number;
     category: EquipmentCategoryId | null;
     search: string;
-    minPrice: number;
-    maxPrice: number;
+    minPrice: number | null;
+    maxPrice: number | null;
 };
 
 export type EquipmentPagination = {
@@ -188,10 +188,16 @@ export const buildEquipmentQuery = ({
 }: EquipmentFilters) => {
     const query = new URLSearchParams({ page: String(page), limit: String(limit) });
 
-    if (category) query.set("category", category);
-    if (search.trim()) query.set("search", search.trim());
-    query.set("minPrice", String(minPrice));
-    query.set("maxPrice", String(maxPrice));
+    if (category) 
+        query.set("category", category);
+
+    if (search.trim()) 
+        query.set("search", search.trim());
+
+    if(maxPrice || minPrice) {
+        query.set("minPrice", String(minPrice));
+        query.set("maxPrice", String(maxPrice));
+    }
 
     return query.toString();
 };

@@ -12,14 +12,14 @@ import { categories, arabicCategoryLabels } from "@/services/equipment.service";
 
 function EquipmentFilters({ compact = false }: { compact?: boolean }) {
     const dispatch = useAppDispatch();
-    const { category, minPrice, maxPrice } = useAppSelector((state) => state.equipment.filters);
-    const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
+    const { category } = useAppSelector((state) => state.equipment.filters);
+    const [price, setPrice] = useState<[number, number]>([0, 20000]);
     const debouncedPrice = useDebouncedValue(price, 500);
     const { t, i18n } = useTranslation();
     const categoryLabels = i18n.language === "en" ? Object.fromEntries(categories.map((category) => [category, category])) : arabicCategoryLabels;
 
     useEffect(() => {
-        if (debouncedPrice[0] !== minPrice || debouncedPrice[1] !== maxPrice)
+        if (debouncedPrice[0] !== 0 || debouncedPrice[1] !== 20000)
             dispatch(setPriceRange(debouncedPrice));
     }, [debouncedPrice]);
 
@@ -53,9 +53,9 @@ function EquipmentFilters({ compact = false }: { compact?: boolean }) {
                     value={price}
                     onValueChange={(values) => setPrice([values[0], values[1]])}
                     min={0}
-                    max={1000}
-                    step={5}
-                    aria-label="نطاق سعر الإيجار اليومي"
+                    max={20000}
+                    step={50}
+                    aria-label="نطاق سعر الإيجار الأسبوعي"
                 />
                 <div className="mt-2 flex justify-between">
                     <span><bdi>{price[1]}</bdi> EGP</span>

@@ -13,11 +13,13 @@ export const minimumDelay = (ms: number) =>
 });
 
 export async function loadWebsiteEssentials() {
-    if(store.getState().services.services.length === 0 || store.getState().websiteGeneralData.currentRequestId)
+    if(!store.getState().services.hasLoaded || !store.getState().websiteGeneralData.hasLoaded)
         await Promise.all([
-            store.dispatch(getWebsiteGeneralData()),
+            !store.getState().websiteGeneralData.hasLoaded
+                ? store.dispatch(getWebsiteGeneralData())
+                : Promise.resolve(),
             
-            store.getState().services.services.length === 0
+            !store.getState().services.hasLoaded
                 ? store.dispatch(getServices())
                 : Promise.resolve(),
 
@@ -26,13 +28,13 @@ export async function loadWebsiteEssentials() {
 }
 
 export async function homeLoader() {
-    if(store.getState().faqs.data.length === 0 || store.getState().testimonials.data.length === 0)
+    if(!store.getState().faqs.hasLoaded || !store.getState().testimonials.hasLoaded)
         await Promise.all([
-            store.getState().faqs.data.length === 0
+            !store.getState().faqs.hasLoaded
                 ? store.dispatch(getFaqs())
                 : Promise.resolve(),
 
-            store.getState().testimonials.data.length === 0
+            !store.getState().testimonials.hasLoaded
                 ? store.dispatch(getTestimonials())
                 : Promise.resolve(),
 
@@ -46,7 +48,7 @@ export async function serviceLoader({ params }: LoaderFunctionArgs) {
     if (!serviceId)
         return null;
 
-    if(store.getState().services.services.length === 0)
+    if(!store.getState().services.hasLoaded)
         await Promise.all([
             store.dispatch(getServices()),
             minimumDelay(2000),
@@ -60,12 +62,9 @@ export async function serviceLoader({ params }: LoaderFunctionArgs) {
 }
 
 export async function equipmentsLoader() {
-    if(store.getState().equipment.data.length === 0)
+    if(!store.getState().equipment.hasLoaded)
         await Promise.all([
-            store.getState().equipment.data.length === 0
-                ? store.dispatch(getEquipments())
-                : Promise.resolve(),
-
+            store.dispatch(getEquipments()),
             minimumDelay(2000),
         ]);
 }

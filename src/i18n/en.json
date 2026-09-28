@@ -54,7 +54,7 @@
     "equipment": {
         "all": "All categories",
         "categories": "Categories",
-        "price": "Daily rental price",
+        "price": "Weekly rental price",
         "search": "Search for equipment...",
         "hero": "Your trusted destination for medical equipment rental",
         "heroText": "All the medical equipment you need to care for yourself and your loved ones at home.",
@@ -67,7 +67,7 @@
         "empty": "No equipment matches your filters.",
         "available": "Available",
         "unavailable": "Unavailable",
-        "perDay": "EGP / day",
+        "perDay": "EGP / week",
         "descriptionTitle": "Equipment description",
         "availabilityAndPrice": "Equipment availability and price",
         "currency": "EGP",

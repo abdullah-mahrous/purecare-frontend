@@ -29,7 +29,7 @@ type EquipmentState = {
 const initialState: EquipmentState = {
     data: [],
     equipment: undefined,
-    filters: { page: 1, limit: 12, category: null, search: "", minPrice: 0, maxPrice: 1000 },
+    filters: { page: 1, limit: 12, category: null, search: "", minPrice: null, maxPrice: null },
     pagination: { page: 1, limit: 12, total: 0, pages: 0, hasNextPage: false, hasPreviousPage: false },
     isLoading: false,
     hasLoaded: false,
