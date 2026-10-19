@@ -51,7 +51,7 @@ function CareersPage() {
     return (
         <main ref={pageRef} dir={language === 'en' ? 'ltr' : 'rtl'} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
-            <PageHero header={t('forms.careersTitle')} slogan={t('forms.careersSlogan')} heroImg="/assets/medical-staff.png">
+            <PageHero header={t('forms.careersTitle')} slogan={t('forms.careersSlogan')} heroImg="/assets/medical-staff.webp">
                 <HeroPerk title={i18n.language === 'en' ? 'Great work environment' : 'بيئة عمل مناسبة'} description={i18n.language === 'en' ? 'Work in a healthy environment that supports your growth' : 'اشتغل في بيئة عمل صحية تساعدك على التطور'}>
                     <img src="/assets/icons/briefcase-check-outline.svg" alt="briefcase check icon" className="size-8" />
                 </HeroPerk>

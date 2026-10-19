@@ -67,7 +67,7 @@ function ReservationPage() {
     return (
         <main ref={pageRef} dir={i18n.language === "en" ? "ltr" : "rtl"} className="mx-auto w-full max-w-6xl px-3 py-2 text-primary sm:px-6 sm:py-8">
 
-            <PageHero header={t("forms.reservationTitle")} slogan={t("forms.reservationSlogan")} heroImg="/assets/medical-care.png">
+            <PageHero header={t("forms.reservationTitle")} slogan={t("forms.reservationSlogan")} heroImg="/assets/medical-care.webp">
                 <HeroPerk title={i18n.language === "en" ? "Complete safety and trust" : "أمان و ثقة كاملة"} description={i18n.language === "en" ? "Your data and health are completely safe with us" : "بياناتك و صحتك آمنة تماما معانا"}>
                     <img src="/assets/icons/shield-check.svg" alt="perk icon" className="size-8" />
                 </HeroPerk>

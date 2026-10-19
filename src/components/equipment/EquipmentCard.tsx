@@ -17,7 +17,7 @@ function EquipmentCard({ equipment }: { equipment: Equipment }) {
             className="group flex h-[24rem] min-w-0 flex-col rounded-2xl border border-[#E4EEF9] bg-white p-3 text-primary shadow-[0_8px_22px_rgba(11,74,133,0.07)] transition duration-200 hover:-translate-y-1 hover:border-secondary/35 hover:shadow-[0_14px_30px_rgba(11,74,133,0.13)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-[26rem] sm:p-4"
         >
             <div className="flex h-44 w-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#F7FBFF] sm:h-52">
-                <img src={equipment.imageUrl} alt={name} className="h-full w-full object-contain p-2" />
+                <img src={equipment.imageUrl} alt={name} className="h-full w-full object-contain p-2" loading="lazy" />
             </div>
 
             <div className="mt-3 min-w-0 text-start">

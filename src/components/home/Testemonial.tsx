@@ -8,7 +8,7 @@ const Testemonial = ({ name, image, text }: { name: string; image: string; text:
             </p>
 
             <div className="flex w-1/3 flex-col items-center justify-start lg:w-1/5">
-                <img src={image} alt="customer image" className="size-full rounded-full object-cover sm:size-35 lg:size-40" />
+                <img src={image} alt="customer image" className="size-full rounded-full object-cover sm:size-35 lg:size-40" loading="lazy" />
 
                 <p className="text-sm font-bold text-primary xs:text-base">
                     {name}

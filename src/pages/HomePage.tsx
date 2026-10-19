@@ -41,7 +41,7 @@ function HomePage() {
             {/* header */}
             <section
                 className="relative isolate flex min-h-[calc(100svh-5rem)] overflow-hidden rounded-b-[4rem] bg-cover bg-[position:68%_center] px-5 pb-8 pt-64 text-white sm:min-h-[36rem] sm:rounded-b-[4rem] sm:bg-center sm:px-8 sm:pt-72 lg:min-h-[42rem] lg:px-12 lg:pt-80 xl:min-h-[46rem]"
-                style={{ backgroundImage: "url('/assets/hero-img.png')" }}
+                style={{ backgroundImage: "url('/assets/hero-img.jpg')" }}
             >
                 <div className="absolute inset-x-0 bottom-0 -z-10 h-[80%] bg-gradient-to-t from-[#010f1b] via-[#010f1b]/95 to-transparent" />
 
@@ -384,7 +384,7 @@ function HomePage() {
                             <SwiperSlide key={testimonial.id} className="!h-auto">
                                 <Testemonial
                                     name={localized(testimonial, "name", i18n.resolvedLanguage)}
-                                    image={testimonial.gender.toLowerCase() === 'female' ? '/assets/female-testemonial.png' : '/assets/male-testemonial.png'}
+                                    image={testimonial.gender.toLowerCase() === 'female' ? '/assets/female-testemonial.jpg' : '/assets/male-testemonial.jpg'}
                                     text={localized(testimonial, "comment", i18n.resolvedLanguage)}
                                 />
                             </SwiperSlide>

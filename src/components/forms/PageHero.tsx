@@ -40,6 +40,7 @@ function PageHero({ children, header, slogan, heroImg }: Props) {
                         src={heroImg}
                         alt="hero img"
                         className="w-full max-w-[360px] object-contain sm:max-w-[420px] md:max-w-none"
+                        loading="lazy"
                     />
                 </div>
             </div>

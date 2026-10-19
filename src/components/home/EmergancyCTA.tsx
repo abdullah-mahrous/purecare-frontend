@@ -45,9 +45,10 @@ const EmergancyCTA = () => {
                     </div>
 
                     <img
-                        src="/assets/ambulance-vector.png"
+                        src="/assets/ambulance-vector.webp"
                         alt="ambulance img"
                         className="w-40 shrink-0 xs:w-50 sm:w-60 lg:w-90 ltr:rotate-y-180"
+                        loading="lazy"
                     />
                 </div>
 

@@ -36,7 +36,7 @@ function MedicalEquipmentDetailsPage() {
             <div className="mx-auto w-full max-w-4xl">
 
                 <section data-gsap-entrance data-gsap-variant="scale" className="mx-auto mt-2 flex aspect-[1.25] w-full max-w-3xl max-h-[34rem] items-center justify-center overflow-hidden rounded-3xl bg-[#F7FBFF] p-4 sm:mt-4 sm:p-8">
-                    <img src={equipment.imageUrl} alt={localized(equipment, "name", i18n.resolvedLanguage)} className="h-full w-full object-contain" />
+                    <img src={equipment.imageUrl} alt={localized(equipment, "name", i18n.resolvedLanguage)} className="h-full w-full object-contain" loading="lazy" />
                 </section>
 
                 <h1 data-gsap-entrance data-gsap-variant="rise" className="mx-auto mt-8 max-w-3xl text-center text-3xl font-extrabold leading-tight text-primary sm:mt-9 sm:text-4xl">

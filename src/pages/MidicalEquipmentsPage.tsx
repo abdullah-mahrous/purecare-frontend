@@ -86,7 +86,7 @@ function MedicalEquipmentPage() {
                             </p>
                         </div>
 
-                        <img src="/assets/Thermometer-amico.png" alt="معدات طبية" className="w-full max-w-64 shrink-0 object-contain sm:max-w-76 md:max-w-90 lg:max-w-105" />
+                        <img src="/assets/Thermometer-amico.webp" alt="معدات طبية" className="w-full max-w-64 shrink-0 object-contain sm:max-w-76 md:max-w-90 lg:max-w-105" loading="lazy" />
                     </div>
                 </section>
 

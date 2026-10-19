@@ -45,6 +45,7 @@ function ServicePage() {
                             src={service?.imgUrl}
                             alt="Illustration of a home nurse"
                             className="mx-auto object-contain w-full max-w-120 mix-blend-multiply md:translate-y-4 max-h-[30rem]"
+                            loading="lazy"
                         />
                     </div>
                 </div>
